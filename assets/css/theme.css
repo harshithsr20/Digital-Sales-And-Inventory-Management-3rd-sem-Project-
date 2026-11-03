@@ -1,56 +1,241 @@
 /* DukaanHub theme layer. Load AFTER animations.css. Light = white version; dark = your original. */
-html.light{--bg:#FFFFFF; --surface:#F4F5F7; --line:#E3E5E8; --line-hover:#C9CCD1; --line-hover2:#D0D3D8;
-  --ink:#0A0A0A; --muted:#5F6670; --accent-text:#587300; --logo-hover:#0A0A0A;
-  --bar:#E6E8EB; --bar-hover:#D5D8DC; --bar-last:#D5D8DC; --bar-last-hover:#C4C8CD;
-  --chip-bg:#0A0A0A; --chip-border:#0A0A0A; --chip-text:#C8FF00;
-  --glow:10,10,10; --glow-card:0.05; --glow-page:0.045; --progress:rgba(10,10,10,0.55); --header-bg:rgba(255,255,255,0.9);}
-html.light [class~="bg-[#0A0A0A]"]{background-color:var(--bg)!important}
-html.light [class~="bg-[#141414]"]{background-color:var(--surface)!important}
-html.light header.fixed{background-color:var(--header-bg)!important}
-html.light [class~="border-[#2A2A2A]"]{border-color:var(--line)!important}
-html.light [class~="bg-[#2A2A2A]"]{background-color:var(--line)!important}
-html.light main > section.border-b{border-bottom-color:transparent!important}
-html.light [class~="text-[#F5F5F5]"]{color:var(--ink)!important}
-html.light [class~="text-[#8A8A8A]"]{color:var(--muted)!important}
-html.light [class~="text-[#C8FF00]"]{color:var(--accent-text)!important}
+html.light {
+  --bg: #FFFFFF;
+  --surface: #F4F5F7;
+  --line: #E3E5E8;
+  --line-hover: #C9CCD1;
+  --line-hover2: #D0D3D8;
+  --ink: #0A0A0A;
+  --muted: #5F6670;
+  --accent-text: #587300;
+  --logo-hover: #0A0A0A;
+  --bar: #E6E8EB;
+  --bar-hover: #D5D8DC;
+  --bar-last: #D5D8DC;
+  --bar-last-hover: #C4C8CD;
+  --chip-bg: #0A0A0A;
+  --chip-border: #0A0A0A;
+  --chip-text: #C8FF00;
+  --glow: 10, 10, 10;
+  --glow-card: 0.05;
+  --glow-page: 0.045;
+  --progress: rgba(10, 10, 10, 0.55);
+  --header-bg: rgba(255, 255, 255, 0.9);
+}
+
+html.light [class~="bg-[#0A0A0A]"] {
+  background-color: var(--bg) !important
+}
+
+html.light [class~="bg-[#141414]"] {
+  background-color: var(--surface) !important
+}
+
+
+html.light header,
+html.light header.fixed {
+  background-color: var(--header-bg) !important;
+  border-color: var(--line) !important
+}
+
+html.light [class~="border-[#2A2A2A]"] {
+  border-color: var(--line) !important
+}
+
+html.light [class~="bg-[#2A2A2A]"] {
+  background-color: var(--line) !important
+}
+
+html.light main>section.border-b {
+  border-bottom-color: transparent !important
+}
+
+html.light [class~="text-[#F5F5F5]"] {
+  color: var(--ink) !important
+}
+
+html.light [class~="text-[#8A8A8A]"] {
+  color: var(--muted) !important
+}
+
+html.light [class~="text-[#C8FF00]"] {
+  color: var(--accent-text) !important
+}
+
 html.light [class~="text-[#C8FF00"][class~="bg-[#141414]"],
-html.light [class~="text-[#C8FF00]"][class~="bg-[#141414]"]{background-color:var(--chip-bg)!important;border-color:var(--chip-border)!important;color:var(--chip-text)!important}
-html.light .interactive-card:hover{border-color:var(--line-hover)!important}
-html.light [class~="hover:border-[#333333]"]:hover{border-color:var(--line-hover2)!important}
-html.light [class~="hover:border-[#383838]"]:hover{border-color:var(--line-hover)!important}
-html.light [class~="hover:text-[#F5F5F5]"]:hover{color:var(--ink)!important}
-html.light .group:hover [class~="group-hover:text-white"]{color:var(--logo-hover)!important}
-html.light [class~="bg-[#1E1E1E]"]{background-color:var(--bar)!important}
-html.light [class~="hover:bg-[#2e2e2e]"]:hover{background-color:var(--bar-hover)!important}
-html.light .h-16 > [class~="bg-[#2A2A2A]"]{background-color:var(--bar-last)!important}
-html.light .h-16 > [class~="hover:bg-[#383838]"]:hover{background-color:var(--bar-last-hover)!important}
-html.light #analytics svg line[stroke="#2A2A2A"]{stroke:var(--line)}
-html.light #analytics svg text[fill="#8A8A8A"]{fill:var(--muted)}
-html.light #analytics svg text[fill="#C8FF00"]{fill:var(--accent-text)}
-html.light #analytics svg polyline{stroke:var(--ink)}
-html.light #analytics svg circle[fill="#141414"]{fill:var(--surface)}
-html.light #analytics svg circle[stroke="#8A8A8A"]{stroke:var(--muted)}
-html.light #analytics svg circle[stroke="#0A0A0A"]{stroke:var(--bg)}
+html.light [class~="text-[#C8FF00]"][class~="bg-[#141414]"] {
+  background-color: var(--chip-bg) !important;
+  border-color: var(--chip-border) !important;
+  color: var(--chip-text) !important
+}
+
+html.light .interactive-card:hover {
+  border-color: var(--line-hover) !important
+}
+
+html.light [class~="hover:border-[#333333]"]:hover {
+  border-color: var(--line-hover2) !important
+}
+
+html.light [class~="hover:border-[#383838]"]:hover {
+  border-color: var(--line-hover) !important
+}
+
+html.light [class~="hover:text-[#F5F5F5]"]:hover {
+  color: var(--ink) !important
+}
+
+html.light .group:hover [class~="group-hover:text-white"] {
+  color: var(--logo-hover) !important
+}
+
+html.light [class~="bg-[#1E1E1E]"] {
+  background-color: var(--bar) !important
+}
+
+html.light [class~="hover:bg-[#2e2e2e]"]:hover {
+  background-color: var(--bar-hover) !important
+}
+
+html.light .h-16>[class~="bg-[#2A2A2A]"] {
+  background-color: var(--bar-last) !important
+}
+
+html.light .h-16>[class~="hover:bg-[#383838]"]:hover {
+  background-color: var(--bar-last-hover) !important
+}
+
+html.light #analytics svg line[stroke="#2A2A2A"] {
+  stroke: var(--line)
+}
+
+html.light #analytics svg text[fill="#8A8A8A"] {
+  fill: var(--muted)
+}
+
+html.light #analytics svg text[fill="#C8FF00"] {
+  fill: var(--accent-text)
+}
+
+html.light #analytics svg polyline {
+  stroke: var(--ink)
+}
+
+html.light #analytics svg circle[fill="#141414"] {
+  fill: var(--surface)
+}
+
+html.light #analytics svg circle[stroke="#8A8A8A"] {
+  stroke: var(--muted)
+}
+
+html.light #analytics svg circle[stroke="#0A0A0A"] {
+  stroke: var(--bg)
+}
+
 html.light .interactive-card,
 html.light #analytics [class~="space-y-6"],
-html.light #analytics [class~="p-5"]{background-image:radial-gradient(var(--fx-r) circle at var(--mx) var(--my), rgba(var(--glow), calc(var(--fx-o) * var(--glow-card))), transparent 80%);}
-html.light #fx-glow{background:radial-gradient(520px circle at var(--gx,50%) var(--gy,50%), rgba(var(--glow), var(--glow-page)), transparent 70%)}
-html.light #fx-progress{background:var(--progress)}
+html.light #analytics [class~="p-5"] {
+  background-image: radial-gradient(var(--fx-r) circle at var(--mx) var(--my), rgba(var(--glow), calc(var(--fx-o) * var(--glow-card))), transparent 80%);
+}
+
+html.light #fx-glow {
+  background: radial-gradient(520px circle at var(--gx, 50%) var(--gy, 50%), rgba(var(--glow), var(--glow-page)), transparent 70%)
+}
+
+html.light #fx-progress {
+  background: var(--progress)
+}
 
 /* ---- Light / dark toggle (header, right corner) ---- */
-.fx-theme{all:unset;box-sizing:border-box;position:relative;flex:none;width:52px;height:28px;border-radius:999px;cursor:pointer;
-  background:#141414;border:1px solid #2A2A2A;transition:background-color .35s ease,border-color .35s ease}
-.fx-theme:focus-visible{outline:2px solid #C8FF00;outline-offset:2px}
-.fx-theme .fx-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#C8FF00;color:#0A0A0A;
-  display:grid;place-items:center;translate:24px 0;transition:translate .45s cubic-bezier(0.34,1.56,0.64,1)}
-.fx-theme svg{grid-area:1/1;width:12px;height:12px;transition:opacity .3s ease,rotate .45s cubic-bezier(0.16,1,0.3,1),scale .45s cubic-bezier(0.16,1,0.3,1)}
-.fx-theme .fx-sun{opacity:0;rotate:-90deg;scale:.5}
-.fx-theme .fx-moon{opacity:1;rotate:0deg;scale:1}
-html.light .fx-theme{background:#F4F5F7;border-color:#E3E5E8}
-html.light .fx-theme .fx-knob{translate:0 0}
-html.light .fx-theme .fx-sun{opacity:1;rotate:0deg;scale:1}
-html.light .fx-theme .fx-moon{opacity:0;rotate:90deg;scale:.5}
+.fx-theme {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
+  cursor: pointer;
+  background: #141414;
+  border: 1px solid #2A2A2A;
+  transition: background-color .35s ease, border-color .35s ease
+}
+
+.fx-theme:focus-visible {
+  outline: 2px solid #C8FF00;
+  outline-offset: 2px
+}
+
+.fx-theme .fx-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #C8FF00;
+  color: #0A0A0A;
+  display: grid;
+  place-items: center;
+  translate: 24px 0;
+  transition: translate .45s cubic-bezier(0.34, 1.56, 0.64, 1)
+}
+
+.fx-theme svg {
+  grid-area: 1/1;
+  width: 12px;
+  height: 12px;
+  transition: opacity .3s ease, rotate .45s cubic-bezier(0.16, 1, 0.3, 1), scale .45s cubic-bezier(0.16, 1, 0.3, 1)
+}
+
+.fx-theme .fx-sun {
+  opacity: 0;
+  rotate: -90deg;
+  scale: .5
+}
+
+.fx-theme .fx-moon {
+  opacity: 1;
+  rotate: 0deg;
+  scale: 1
+}
+
+html.light .fx-theme {
+  background: #F4F5F7;
+  border-color: #E3E5E8
+}
+
+html.light .fx-theme .fx-knob {
+  translate: 0 0
+}
+
+html.light .fx-theme .fx-sun {
+  opacity: 1;
+  rotate: 0deg;
+  scale: 1
+}
+
+html.light .fx-theme .fx-moon {
+  opacity: 0;
+  rotate: 90deg;
+  scale: .5
+}
+
 /* brief colour cross-fade while switching */
-html.fx-theme-anim *,html.fx-theme-anim *::before,html.fx-theme-anim *::after{
-  transition:background-color .35s ease,color .35s ease,border-color .35s ease,fill .35s ease,stroke .35s ease !important}
-@media (prefers-reduced-motion: reduce){html.fx-theme-anim *{transition:none !important}.fx-theme .fx-knob,.fx-theme svg{transition:none}}
+html.fx-theme-anim *,
+html.fx-theme-anim *::before,
+html.fx-theme-anim *::after {
+  transition: background-color .35s ease, color .35s ease, border-color .35s ease, fill .35s ease, stroke .35s ease !important
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.fx-theme-anim * {
+    transition: none !important
+  }
+
+  .fx-theme .fx-knob,
+  .fx-theme svg {
+    transition: none
+  }
+}
