@@ -1,0 +1,94 @@
+/* DukaanHub animation layer — additive only. Linked from index.html. */
+html { scroll-behavior: smooth; }
+
+/* Header glides in on load */
+@keyframes fxHeaderDrop {
+  from { opacity: 0; translate: 0 -14px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+header.fixed { animation: fxHeaderDrop 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+
+/* Primary buttons: a slow, occasional light sweep (staggered per button) */
+@keyframes fxShine {
+  0%        { background-position: 160% 0; }
+  30%, 100% { background-position: -60% 0; }
+}
+.btn-primary-action {
+  background-image: linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.5) 50%, transparent 62%);
+  background-size: 250% 100%;
+  background-repeat: no-repeat;
+  background-position: 160% 0;
+  animation: fxShine 5.5s ease-in-out 2s infinite;
+}
+header .btn-primary-action { animation-delay: 3.4s; }
+#get-started .btn-primary-action { animation-delay: 4.6s; }
+.btn-primary-action:active { transform: scale(0.98); }
+
+/* Soft neutral spotlight — cards + panels keep their own glow (edges sit on their borders);
+   the page-wide glow is one fixed overlay, so there are no section seams. */
+@property --fx-o { syntax: '<number>'; inherits: false; initial-value: 0; }
+
+.interactive-card,
+#analytics [class~="space-y-6"],
+#analytics [class~="p-5"] {
+  --mx: 50%; --my: 50%; --fx-o: 0; --fx-r: 240px;
+  background-image: radial-gradient(var(--fx-r) circle at var(--mx) var(--my), rgba(255, 255, 255, calc(var(--fx-o) * 0.14)), transparent 80%);
+}
+.interactive-card.interactive-card {
+  transition: border-color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, --fx-o 0.35s ease;
+}
+#analytics [class~="space-y-6"], #analytics [class~="p-5"] { transition: border-color 0.2s ease, --fx-o 0.4s ease; }
+@media (hover: hover) {
+  .interactive-card:hover,
+  #analytics [class~="space-y-6"]:hover,
+  #analytics [class~="p-5"]:hover { --fx-o: 1; }
+}
+
+#fx-glow {
+  position: fixed; inset: 0; z-index: 55; pointer-events: none; opacity: 0;
+  background: radial-gradient(520px circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.09), transparent 70%);
+  transition: opacity 0.45s ease;
+}
+
+/* Nav + footer links: underline draws in on hover */
+header nav a.nav-label,
+footer a.nav-label {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: color 0.15s ease, background-size 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+header nav a.nav-label:hover,
+footer a.nav-label:hover { background-size: 100% 1px; }
+
+/* Transform origins used by the chart + bar animations */
+#analytics svg circle { transform-box: fill-box; transform-origin: 50% 50%; }
+#analytics svg line   { transform-box: fill-box; transform-origin: 0 50%; }
+#analytics .h-16 > div { transform-origin: 50% 100%; }
+
+/* Magnetic + ripple on primary buttons */
+.btn-primary-action { position: relative; overflow: hidden; }
+.btn-primary-action.btn-primary-action {
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, filter 0.2s ease,
+              translate 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes fxRipple { to { scale: 1; opacity: 0; } }
+.fx-ripple {
+  position: absolute; border-radius: 9999px; pointer-events: none;
+  background: rgba(10, 10, 10, 0.18); translate: -50% -50%; scale: 0;
+  animation: fxRipple 0.6s ease-out forwards;
+}
+
+/* Neutral scroll-progress hairline (no accent colour, per the design rules) */
+#fx-progress {
+  position: fixed; top: 0; left: 0; width: 100%; height: 2px; z-index: 60;
+  transform-origin: 0 50%; transform: scaleX(0); pointer-events: none;
+  background: rgba(245, 245, 245, 0.55);
+}
+
+/* Hide the grey divider line under each section (colour only, so layout doesn't shift) */
+main > section.border-b { border-bottom-color: transparent; }
+
+/* Hide the "Pricing" link in the header nav */
+header nav a[href="#pricing"] { display: none; }

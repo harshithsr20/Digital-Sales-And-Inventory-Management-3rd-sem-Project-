@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+  <script>try { if (localStorage.getItem("dukaanhub-theme") !== "dark") document.documentElement.classList.add("light") } catch (e) { document.documentElement.classList.add("light") }</script>
+</head>
+
+<body
+  class="bg-[#0A0A0A] font-sans text-[#F5F5F5] antialiased min-h-screen selection:bg-[#C8FF00] selection:text-[#0A0A0A]">
+  <style>
+    /* Variant 1: Technical Neo-Grotesque Typographic Direction */
+    h1,
+    h2,
+    h3,
+    .heading,
+    [class*="headline"] {
+      font-family: 'Space Grotesk', 'Geist', sans-serif !important;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      font-weight: 700;
+      letter-spacing: -0.035em;
+    }
+
+    h2 {
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+
+    h3 {
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+
+    /* Nav items and micro section headings */
+    nav a,
+    .nav-label {
+      font-family: 'Space Grotesk', 'Geist', sans-serif;
+      letter-spacing: -0.015em;
+    }
+
+    /* Preserve high-precision JetBrains Mono & Geist Mono for metrics, numbers, and tags */
+    .font-mono,
+    [class*="font-mono"] {
+      font-family: 'Geist Mono', 'JetBrains Mono', monospace !important;
+    }
+  </style><svg aria-hidden="true" class="inline-defs-container"
+    style="position:absolute;width:0;height:0;overflow:hidden"></svg>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_standard" name="shell-type">
+  <title>DukaanHub — Run Your Wholesale Business From One Clean Dashboard</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+    rel="stylesheet">
+  <style>
+    @layer base {
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        overscroll-behavior: none;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Precision subtle micro-animations */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes radarPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.45;
+        transform: scale(0.92);
+      }
+    }
+
+    @keyframes liveBeaconPing {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(200, 255, 0, 0.55);
+      }
+
+      70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 5px rgba(200, 255, 0, 0);
+      }
+
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(200, 255, 0, 0);
+      }
+    }
+
+    @keyframes subtleGlowPulse {
+
+      0%,
+      100% {
+        opacity: 0.9;
+        filter: drop-shadow(0 0 2px rgba(200, 255, 0, 0.4));
+      }
+
+      50% {
+        opacity: 1;
+        filter: drop-shadow(0 0 7px rgba(200, 255, 0, 0.85));
+      }
+    }
+
+    @keyframes peakBarBreathing {
+
+      0%,
+      100% {
+        filter: drop-shadow(0 0 3px rgba(200, 255, 0, 0.35));
+        opacity: 0.95;
+      }
+
+      50% {
+        filter: drop-shadow(0 0 9px rgba(200, 255, 0, 0.75));
+        opacity: 1;
+      }
+    }
+
+    .hero-animate-1 {
+      animation: fadeInUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero-animate-2 {
+      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+      opacity: 0;
+    }
+
+    .hero-animate-3 {
+      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero-animate-4 {
+      animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+      opacity: 0;
+    }
+
+    .hero-animate-5 {
+      animation: fadeInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+      opacity: 0;
+    }
+
+    .status-pulse-dot {
+      animation: liveBeaconPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    .radar-indicator {
+      animation: radarPulse 2.4s ease-in-out infinite;
+    }
+
+    .chart-peak-pulse {
+      animation: subtleGlowPulse 2.5s ease-in-out infinite;
+    }
+
+    .peak-bar-glow {
+      animation: peakBarBreathing 2.8s ease-in-out infinite;
+    }
+
+    /* Card Micro-interactions */
+    .interactive-card {
+      transition: border-color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+    }
+
+    .interactive-card:hover {
+      border-color: #383838;
+      transform: translateY(-2px);
+    }
+
+    /* Primary Button Glow & Scale */
+    .btn-primary-action {
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .btn-primary-action:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+      box-shadow: 0 0 20px rgba(200, 255, 0, 0.2);
+    }
+
+    .btn-secondary-action {
+      transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.18s ease;
+    }
+
+    .btn-secondary-action:hover {
+      border-color: #3f3f3f;
+      background-color: #1a1a1a;
+      transform: translateY(-1px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      ::before,
+      ::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: initial !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+      }
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#141414",
+            "background": "#0A0A0A",
+            "primary": "#F5F5F5",
+            "secondary": "#8A8A8A",
+            "accent": "#C8FF00",
+            "border-line": "#2A2A2A",
+            "card": "#141414",
+            "subcard": "#0A0A0A"
+          },
+          fontFamily: {
+            sans: ["Geist", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+            display: ["Space Grotesk", "Geist", "sans-serif"],
+            mono: ["Geist Mono", "JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    }
+  </script>
+  <!-- NAVIGATION BAR -->
+  <header
+    class="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0A]/90 backdrop-blur-md border-b border-[#2A2A2A] transition-colors">
+    <div class="w-full h-16 px-4 md:px-8 lg:px-12 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a class="flex items-center gap-2.5 group" href="#">
+          <span
+            class="font-bold text-base tracking-tight font-display text-[#F5F5F5] group-hover:text-white transition-colors">DukaanHub</span>
+        </a>
+        <div class="h-4 w-px bg-[#2A2A2A] hidden md:block"></div>
+        <nav class="hidden md:flex items-center gap-6 text-sm text-[#8A8A8A]">
+          <a class="nav-label hover:text-[#F5F5F5] transition-colors" href="#features">Features</a>
+          <a class="nav-label hover:text-[#F5F5F5] transition-colors" href="#how-it-works">How It Works</a>
+          <a class="nav-label hover:text-[#F5F5F5] transition-colors" href="#analytics">Analytics</a>
+          <a class="nav-label hover:text-[#F5F5F5] transition-colors" href="#pricing">Pricing</a>
+          <a class="nav-label hover:text-[#F5F5F5] transition-colors" href="#faq">FAQ</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-4">
+        <a class="text-xs font-mono text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors hidden sm:inline-block"
+          href="#get-started">Log In</a>
+        <a class="btn-primary-action inline-flex items-center justify-center bg-[#C8FF00] text-[#0A0A0A] font-semibold text-xs px-3.5 py-2 rounded-sm tracking-tight"
+          href="#get-started">
+          Get Started
+        </a>
+        <button aria-checked="false" aria-label="Switch to light mode" class="fx-theme" role="switch"
+          type="button"><span class="fx-knob"><svg class="fx-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.4" stroke-linecap="round">
+              <circle cx="12" cy="12" r="4" fill="currentColor" />
+              <path
+                d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" />
+            </svg><svg class="fx-moon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" />
+            </svg></span></button>
+      </div>
+    </div>
+  </header>
+  <main class="w-full pt-16">
+    <!-- 1. STREAMLINED HERO SECTION -->
+    <section class="w-full border-b border-[#2A2A2A] px-4 md:px-8 lg:px-12 py-20 md:py-28">
+      <div class="w-full flex flex-col items-center text-center">
+        <!-- Tag Badge -->
+        <!-- Hero Headline Featuring DukaanHub explicitly with Neo-Grotesque Precision -->
+        <div class="max-w-4xl mx-auto flex flex-col items-center">
+          <h1
+            class="hero-animate-2 text-3xl sm:text-5xl md:text-6xl font-bold text-[#F5F5F5] tracking-tight leading-[1.08]">
+            <span class="font-semibold tracking-tight text-[#F5F5F5]">DukaanHub</span>
+            <div class="font-bold tracking-tight mt-1 text-[#F5F5F5]">Run Your Wholesale Business From One Clean
+              Dashboard.</div>
+          </h1>
+          <!-- Crisp Subheadline -->
+          <p class="hero-animate-3 text-base md:text-lg text-[#8A8A8A] mt-6 max-w-2xl leading-relaxed">
+            Smart POS billing, real-time inventory ledger, GST invoices, and decision-grade analytics. Zero clutter,
+            zero notebook chaos.
+          </p>
+          <!-- CTA Buttons -->
+          <div class="hero-animate-4 mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
+            <a class="btn-primary-action w-full sm:w-auto inline-flex items-center justify-center bg-[#C8FF00] text-[#0A0A0A] font-semibold text-sm px-6 py-3 rounded-sm tracking-tight"
+              href="#get-started">
+              Get Started Free
+            </a>
+          </div>
+        </div>
+        <!-- Clean, Decluttered Workspace Mockup -->
+        <div
+          class="hero-animate-5 w-full mt-14 border border-[#2A2A2A] bg-[#141414] rounded-sm text-left overflow-hidden transition-all duration-300 hover:border-[#333333]">
+          <!-- Concise Metrics Strip -->
+          <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-4 border-b border-[#2A2A2A]">
+            <div class="interactive-card p-4 bg-[#0A0A0A] border border-[#2A2A2A]">
+              <div class="text-[11px] font-mono text-[#8A8A8A] uppercase tracking-wide">Active Ledger Units</div>
+              <div class="text-xl md:text-2xl font-mono font-medium text-[#F5F5F5] mt-1">14,820 <span
+                  class="text-xs text-[#8A8A8A]">SKUs</span></div>
+              <div class="text-[11px] text-[#C8FF00] font-mono mt-1 flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#C8FF00] radar-indicator"></span>
+                <span class="">100% stock verified</span>
+              </div>
+            </div>
+            <div class="interactive-card p-4 bg-[#0A0A0A] border border-[#2A2A2A]">
+              <div class="text-[11px] font-mono text-[#8A8A8A] uppercase tracking-wide">Today's GST Turnover</div>
+              <div class="text-xl md:text-2xl font-mono font-medium text-[#F5F5F5] mt-1">₹2,48,900</div>
+              <div class="text-[11px] text-[#8A8A8A] font-mono mt-1">84 invoices reconciled</div>
+            </div>
+            <div class="interactive-card p-4 bg-[#0A0A0A] border border-[#2A2A2A]">
+              <div class="text-[11px] font-mono text-[#8A8A8A] uppercase tracking-wide">Velocity Status</div>
+              <div class="text-xl md:text-2xl font-mono font-medium text-[#F5F5F5] mt-1">99.8% Match</div>
+              <div class="text-[11px] text-[#8A8A8A] font-mono mt-1">Zero oversell conflicts</div>
+            </div>
+          </div>
+          <!-- Streamlined Bill Summary Strip -->
+        </div>
+      </div>
+    </section>
+    <!-- 2. STREAMLINED VALUE PROPOSITION (Unified & Condensed) -->
+    <section class="w-full border-b border-[#2A2A2A] px-4 md:px-8 lg:px-12 py-16">
+      <div class="w-full">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="interactive-card p-6 bg-[#141414] border border-[#2A2A2A]">
+            <span class="font-mono text-[11px] text-[#C8FF00] block mb-2 tracking-wider">01 / NO OVERSELLING</span>
+            <h3 class="text-base font-semibold text-[#F5F5F5] mb-2 tracking-tight">Real-Time Stock Locks</h3>
+            <p class="text-xs text-[#8A8A8A] leading-relaxed">
+              Every item check reserves physical quantity before the receipt prints. Zero conflicts at the counter.
+            </p>
+          </div>
+          <div class="interactive-card p-6 bg-[#141414] border border-[#2A2A2A]">
+            <span class="font-mono text-[11px] text-[#C8FF00] block mb-2 tracking-wider">02 / INSTANT TAX
+              COMPLIANCE</span>
+            <h3 class="text-base font-semibold text-[#F5F5F5] mb-2 tracking-tight">1-Click GST Schedules</h3>
+            <p class="text-xs text-[#8A8A8A] leading-relaxed">
+              Automatic CGST, SGST, IGST calculations mapped to HSN rates. Instant audit-ready export.
+            </p>
+          </div>
+          <div class="interactive-card p-6 bg-[#141414] border border-[#2A2A2A]">
+            <span class="font-mono text-[11px] text-[#C8FF00] block mb-2 tracking-wider">03 / DECISION
+              INTELLIGENCE</span>
+            <h3 class="text-base font-semibold text-[#F5F5F5] mb-2 tracking-tight">Actionable Reorder Signals</h3>
+            <p class="text-xs text-[#8A8A8A] leading-relaxed">
+              Clear automated recommendations on what to double down on and which inventory to clear out.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 3. SHARP FEATURE GRID -->
+    <!-- 4. STREAMLINED HOW IT WORKS -->
+    <section class="w-full border-b border-[#2A2A2A] px-4 md:px-8 lg:px-12 py-20" id="how-it-works">
+      <div class="w-full">
+        <div class="max-w-xl mb-12">
+          <span class="font-mono text-xs text-[#8A8A8A] uppercase tracking-wider block mb-2">Onboarding</span>
+          <h2 class="text-2xl md:text-3xl font-semibold text-[#F5F5F5] tracking-tight">Up and running in three simple
+            steps.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="interactive-card p-6 bg-[#141414] border border-[#2A2A2A]">
+            <span class="font-mono text-xl font-bold text-[#C8FF00]">01</span>
+            <h3 class="text-sm font-semibold text-[#F5F5F5] mt-4 mb-2 tracking-tight">Set up your business</h3>
+            <p class="text-xs text-[#8A8A8A] leading-relaxed">
+              Enter firm details, GSTIN, and operational counter tags. Takes less than two minutes.
+            </p>
+          </div>
+          <div class="interactive-card p-6 bg-[#141414] border border-[#2A2A2A]">
+            <span class="font-mono text-xl font-bold text-[#C8FF00]">02</span>
+            <h3 class="text-sm font-semibold text-[#F5F5F5] mt-4 mb-2 tracking-tight">Upload your inventory</h3>
+            <p class="text-xs text-[#8A8A8A] leading-relaxed">
+              Import existing catalogue via CSV or quickly punch in your top selling SKUs.
+            </p>
+          </div>
+          <div class="interactive-card p-6 bg-[#141414] border border-[#2A2A2A]">
+            <span class="font-mono text-xl font-bold text-[#C8FF00]">03</span>
+            <h3 class="text-sm font-semibold text-[#F5F5F5] mt-4 mb-2 tracking-tight">Start dispatching bills</h3>
+            <p class="text-xs text-[#8A8A8A] leading-relaxed">
+              Inventory deducts instantly and metrics sync continuously. No re-login friction.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 5. DECLUTTERED ANALYTICS PREVIEW -->
+    <section class="w-full border-b border-[#2A2A2A] px-4 md:px-8 lg:px-12 py-20" id="analytics">
+      <div class="w-full">
+        <div class="max-w-xl mb-12">
+          <span class="font-mono text-xs text-[#8A8A8A] uppercase tracking-wider block mb-2">Clean Metrics</span>
+          <h2 class="text-2xl md:text-3xl font-semibold text-[#F5F5F5] tracking-tight">Decisions without spreadsheet
+            clutter.</h2>
+        </div>
+        <div class="p-6 bg-[#141414] border border-[#2A2A2A] space-y-6">
+          <!-- 3 Key Metric Stat Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="interactive-card p-4 bg-[#0A0A0A] border border-[#2A2A2A]">
+              <div
+                class="flex items-center justify-between text-[11px] font-mono text-[#8A8A8A] uppercase tracking-wide">
+                <span class="">Peak Month Sales</span>
+                <span
+                  class="px-1.5 py-0.5 border border-[#2A2A2A] bg-[#141414] text-[10px] text-[#C8FF00] flex items-center gap-1 font-mono">
+                  <span class="w-1 h-1 rounded-full bg-[#C8FF00] radar-indicator"></span>
+                  Peak Volume
+                </span>
+              </div>
+              <div class="text-xl md:text-2xl font-mono font-medium text-[#F5F5F5] mt-2">₹42.8 Lakhs</div>
+              <div class="text-[11px] text-[#C8FF00] font-mono mt-1">+64.2% MoM (October • Festive Surge)</div>
+            </div>
+            <div class="interactive-card p-4 bg-[#0A0A0A] border border-[#2A2A2A]">
+              <div class="text-[11px] font-mono text-[#8A8A8A] uppercase tracking-wide">Average Monthly Run Rate</div>
+              <div class="text-xl md:text-2xl font-mono font-medium text-[#F5F5F5] mt-2">₹28.4 Lakhs</div>
+              <div class="text-[11px] text-[#8A8A8A] font-mono mt-1">+24.1% YoY baseline</div>
+            </div>
+            <div class="interactive-card p-4 bg-[#0A0A0A] border border-[#2A2A2A]">
+              <div class="text-[11px] font-mono text-[#8A8A8A] uppercase tracking-wide">Annual Revenue Pacing</div>
+              <div class="text-xl md:text-2xl font-mono font-medium text-[#F5F5F5] mt-2">₹3.42 Cr</div>
+              <div class="text-[11px] text-[#8A8A8A] font-mono mt-1">On track • FY 2024-25 target</div>
+            </div>
+          </div>
+          <!-- Technical SVG Sales Growth Line & Volume Chart -->
+          <div class="p-5 bg-[#0A0A0A] border border-[#2A2A2A] transition-colors hover:border-[#383838]">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+              <div>
+                <div class="font-mono text-xs text-[#8A8A8A] uppercase tracking-wider">Sales Trajectory &amp; Velocity
+                  (FY 2024-25)</div>
+                <div class="text-sm font-semibold text-[#F5F5F5] mt-0.5 tracking-tight font-display">12-Month Invoiced
+                  Turnover Trend</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span
+                  class="px-2 py-0.5 border border-[#2A2A2A] bg-[#141414] font-mono text-[10px] text-[#C8FF00] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#C8FF00] status-pulse-dot"></span>
+                  MAX SALES: ₹42.8L (Oct)
+                </span>
+                <span class="font-mono text-xs text-[#C8FF00]">+28.4% YOY</span>
+              </div>
+            </div>
+            <!-- Responsive SVG Chart -->
+            <div class="w-full overflow-hidden">
+              <svg class="w-full h-auto text-[#8A8A8A]" fill="none" viewBox="0 0 720 180"
+                xmlns="http://www.w3.org/2000/svg">
+                <!-- Grid lines -->
+                <line stroke="#2A2A2A" stroke-dasharray="3 3" stroke-width="1" x1="40" x2="700" y1="20" y2="20"></line>
+                <line stroke="#2A2A2A" stroke-dasharray="3 3" stroke-width="1" x1="40" x2="700" y1="60" y2="60"></line>
+                <line stroke="#2A2A2A" stroke-dasharray="3 3" stroke-width="1" x1="40" x2="700" y1="100" y2="100">
+                </line>
+                <line stroke="#2A2A2A" stroke-width="1" x1="40" x2="700" y1="140" y2="140"></line>
+                <!-- Y Axis Values -->
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="9" text-anchor="end" x="32"
+                  y="24">₹45L</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="9" text-anchor="end" x="32"
+                  y="64">₹30L</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="9" text-anchor="end" x="32"
+                  y="104">₹15L</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="9" text-anchor="end" x="32"
+                  y="143">₹0</text>
+                <!-- Area gradient fill under line -->
+                <defs>
+                  <linearGradient id="salesGrad" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#C8FF00" stop-opacity="0.15"></stop>
+                    <stop offset="100%" stop-color="#C8FF00" stop-opacity="0.00"></stop>
+                  </linearGradient>
+                </defs>
+                <polygon fill="url(#salesGrad)"
+                  points="60,140 60,108 118,98 176,90 234,84 292,72 350,62 408,24 466,54 524,68 582,62 640,48 698,38 698,140">
+                </polygon>
+                <!-- Trend Polyline -->
+                <polyline points="60,108 118,98 176,90 234,84 292,72 350,62 408,24 466,54 524,68 582,62 640,48 698,38"
+                  stroke="#F5F5F5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+                <!-- Data Point Circles -->
+                <circle cx="60" cy="108" fill="#141414" r="3" stroke="#8A8A8A" stroke-width="1.5"></circle>
+                <circle cx="118" cy="98" fill="#141414" r="3" stroke="#8A8A8A" stroke-width="1.5"></circle>
+                <circle cx="176" cy="90" fill="#141414" r="3" stroke="#8A8A8A" stroke-width="1.5"></circle>
+                <circle cx="234" cy="84" fill="#141414" r="3" stroke="#8A8A8A" stroke-width="1.5"></circle>
+                <circle cx="292" cy="72" fill="#141414" r="3" stroke="#8A8A8A" stroke-width="1.5"></circle>
+                <circle cx="350" cy="62" fill="#141414" r="3" stroke="#8A8A8A" stroke-width="1.5"></circle>
+                <!-- Peak highlight dot (October) with pulsing glow -->
+                <line stroke="#C8FF00" stroke-dasharray="2 2" stroke-opacity="0.85" stroke-width="1" x1="408" x2="408"
+                  y1="29" y2="140"></line>
+                <circle class="chart-peak-pulse" cx="408" cy="24" fill="#C8FF00" fill-opacity="0.2" r="8"></circle>
+                <circle class="chart-peak-pulse" cx="408" cy="24" fill="#C8FF00" r="5" stroke="#0A0A0A"
+                  stroke-width="2"></circle>
+                <circle cx="466" cy="54" fill="#141414" r="3" stroke="#8A8A8A" stroke-width="1.5"></circle>
+                <circle cx="524" cy="68" fill="#141414" r="3" stroke="#8A8A8A" stroke-width="1.5"></circle>
+                <circle cx="582" cy="62" fill="#141414" r="3" stroke="#8A8A8A" stroke-width="1.5"></circle>
+                <circle cx="640" cy="48" fill="#141414" r="3" stroke="#8A8A8A" stroke-width="1.5"></circle>
+                <circle cx="698" cy="38" fill="#141414" r="3" stroke="#8A8A8A" stroke-width="1.5"></circle>
+                <!-- Month Ticks -->
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="10" text-anchor="middle" x="60"
+                  y="160">Apr</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="10" text-anchor="middle"
+                  x="118" y="160">May</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="10" text-anchor="middle"
+                  x="176" y="160">Jun</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="10" text-anchor="middle"
+                  x="234" y="160">Jul</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="10" text-anchor="middle"
+                  x="292" y="160">Aug</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="10" text-anchor="middle"
+                  x="350" y="160">Sep</text>
+                <text fill="#C8FF00" font-family="Geist Mono, JetBrains Mono" font-size="10" font-weight="bold"
+                  text-anchor="middle" x="408" y="160">Oct</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="10" text-anchor="middle"
+                  x="466" y="160">Nov</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="10" text-anchor="middle"
+                  x="524" y="160">Dec</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="10" text-anchor="middle"
+                  x="582" y="160">Jan</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="10" text-anchor="middle"
+                  x="640" y="160">Feb</text>
+                <text fill="#8A8A8A" font-family="Geist Mono, JetBrains Mono" font-size="10" text-anchor="middle"
+                  x="698" y="160">Mar</text>
+              </svg>
+            </div>
+          </div>
+          <!-- Bar Velocity Strip and Inventory Turnover Breakdown -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="interactive-card p-4 bg-[#0A0A0A] border border-[#2A2A2A]">
+              <div class="flex items-center justify-between mb-3">
+                <span class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide">Volume Distribution</span>
+                <span class="font-mono text-[11px] text-[#8A8A8A]">12-Month Relative Density</span>
+              </div>
+              <div class="w-full h-16 flex items-end justify-between gap-1.5 pt-2">
+                <div class="flex-1 bg-[#1E1E1E] transition-all hover:bg-[#2e2e2e]" style="height: 35%;"></div>
+                <div class="flex-1 bg-[#1E1E1E] transition-all hover:bg-[#2e2e2e]" style="height: 42%;"></div>
+                <div class="flex-1 bg-[#1E1E1E] transition-all hover:bg-[#2e2e2e]" style="height: 48%;"></div>
+                <div class="flex-1 bg-[#1E1E1E] transition-all hover:bg-[#2e2e2e]" style="height: 52%;"></div>
+                <div class="flex-1 bg-[#1E1E1E] transition-all hover:bg-[#2e2e2e]" style="height: 58%;"></div>
+                <div class="flex-1 bg-[#1E1E1E] transition-all hover:bg-[#2e2e2e]" style="height: 64%;"></div>
+                <div class="flex-1 bg-[#C8FF00] peak-bar-glow rounded-t-[1px]" style="height: 100%;"></div>
+                <div class="flex-1 bg-[#1E1E1E] transition-all hover:bg-[#2e2e2e]" style="height: 78%;"></div>
+                <div class="flex-1 bg-[#1E1E1E] transition-all hover:bg-[#2e2e2e]" style="height: 68%;"></div>
+                <div class="flex-1 bg-[#1E1E1E] transition-all hover:bg-[#2e2e2e]" style="height: 72%;"></div>
+                <div class="flex-1 bg-[#1E1E1E] transition-all hover:bg-[#2e2e2e]" style="height: 82%;"></div>
+                <div class="flex-1 bg-[#2A2A2A] transition-all hover:bg-[#383838]" style="height: 88%;"></div>
+              </div>
+              <div class="flex justify-between font-mono text-[10px] text-[#8A8A8A] mt-2">
+                <span class="">Apr</span>
+                <span class="text-[#C8FF00] flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#C8FF00] radar-indicator"></span>
+                  Oct (Festive Peak)
+                </span>
+                <span class="">Mar</span>
+              </div>
+            </div>
+            <div class="interactive-card p-4 bg-[#0A0A0A] border border-[#2A2A2A] flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide">Operational Efficiency</span>
+                <span class="font-mono text-[11px] text-[#C8FF00] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#C8FF00] status-pulse-dot"></span>
+                  Optimal
+                </span>
+              </div>
+              <div class="space-y-2.5 my-2 font-mono text-xs">
+                <div class="flex items-center justify-between text-[#8A8A8A]">
+                  <span class="">Counter Settlement Speed:</span>
+                  <span class="text-[#F5F5F5]">4.2s / ticket</span>
+                </div>
+                <div class="flex items-center justify-between text-[#8A8A8A]">
+                  <span class="">Stockout Incidents:</span>
+                  <span class="text-[#C8FF00] flex items-center gap-1">
+                    <span class="w-1 h-1 rounded-full bg-[#C8FF00]"></span>
+                    0 recorded
+                  </span>
+                </div>
+                <div class="flex items-center justify-between text-[#8A8A8A]">
+                  <span class="">GST Schedule Reconciliation:</span>
+                  <span class="text-[#F5F5F5]">100% matched</span>
+                </div>
+              </div>
+              <div class="text-[11px] font-mono text-[#8A8A8A] border-t border-[#2A2A2A] pt-2">
+                Auto-computed ledger analytics updated in real-time.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 6. PRICING -->
+    <!-- 7. CONCISE FAQ -->
+    <section class="w-full border-b border-[#2A2A2A] px-4 md:px-8 lg:px-12 py-20" id="faq">
+      <div class="w-full">
+        <div class="max-w-xl mb-10">
+          <span class="font-mono text-xs text-[#8A8A8A] uppercase tracking-wider block mb-2">Questions</span>
+          <h2 class="text-2xl md:text-3xl font-semibold text-[#F5F5F5] tracking-tight">Frequently Asked Questions</h2>
+        </div>
+        <div class="space-y-3">
+          <div class="interactive-card p-4 bg-[#141414] border border-[#2A2A2A]">
+            <h3 class="text-sm font-semibold text-[#F5F5F5] tracking-tight">Do I need to sign in every day?</h3>
+            <p class="text-xs text-[#8A8A8A] mt-1.5 leading-relaxed">
+              No. DukaanHub maintains verified persistent sessions so you land immediately on your counter terminal.
+            </p>
+          </div>
+          <div class="interactive-card p-4 bg-[#141414] border border-[#2A2A2A]">
+            <h3 class="text-sm font-semibold text-[#F5F5F5] tracking-tight">How does it prevent stock overselling?</h3>
+            <p class="text-xs text-[#8A8A8A] mt-1.5 leading-relaxed">
+              Stock is checked before invoice confirmation. If an SKU balance is insufficient, the system alerts and
+              halts entry.
+            </p>
+          </div>
+          <div class="interactive-card p-4 bg-[#141414] border border-[#2A2A2A]">
+            <h3 class="text-sm font-semibold text-[#F5F5F5] tracking-tight">Are GST rates calculated automatically?</h3>
+            <p class="text-xs text-[#8A8A8A] mt-1.5 leading-relaxed">
+              Yes. It automatically calculates taxable subtotals and splits CGST, SGST, and IGST according to HSN tax
+              rules.
+            </p>
+          </div>
+          <div class="interactive-card p-4 bg-[#141414] border border-[#2A2A2A]">
+            <h3 class="text-sm font-semibold text-[#F5F5F5] tracking-tight">Can I handle customer returns and debit
+              notes?</h3>
+            <p class="text-xs text-[#8A8A8A] mt-1.5 leading-relaxed">
+              Yes. Returns generate clean credit notes that update both ledger balances and net sales figures instantly.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 8. FINAL CALL TO ACTION -->
+    <section class="w-full border-b border-[#2A2A2A] px-4 md:px-8 lg:px-12 py-20" id="get-started">
+      <div class="w-full">
+        <div class="interactive-card p-8 md:p-12 bg-[#141414] border border-[#2A2A2A] text-center">
+          <h2 class="text-2xl md:text-3xl font-semibold text-[#F5F5F5] tracking-tight">Stop managing wholesale from
+            paper notebooks.</h2>
+          <p class="text-sm text-[#8A8A8A] max-w-md mx-auto mt-3 leading-relaxed">
+            One platform for billing, inventory, and insights that actually keep you in control.
+          </p>
+          <div class="mt-6 flex justify-center">
+            <a class="btn-primary-action inline-flex items-center justify-center bg-[#C8FF00] text-[#0A0A0A] font-semibold text-sm px-6 py-3 rounded-sm tracking-tight"
+              href="#">
+              Get Started with DukaanHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- FOOTER -->
+  <footer class="w-full bg-[#0A0A0A] px-4 md:px-8 lg:px-12 py-12">
+    <div
+      class="w-full flex flex-col md:flex-row items-center justify-between gap-6 border-b border-[#2A2A2A] pb-8 text-xs text-[#8A8A8A]">
+
+      <div class="flex items-center gap-6">
+        <a class="nav-label hover:text-[#F5F5F5] transition-colors" href="#features">Features</a>
+        <a class="nav-label hover:text-[#F5F5F5] transition-colors" href="#pricing">Pricing</a>
+        <a class="nav-label hover:text-[#F5F5F5] transition-colors" href="#faq">FAQ</a>
+        <a class="nav-label hover:text-[#F5F5F5] transition-colors" href="#contact">Contact</a>
+      </div>
+    </div>
+    <div
+      class="w-full mt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-[#8A8A8A] gap-2">
+      <div class="">Engineered for high-volume wholesale commerce.</div>
+      <div class="">© 2025 DukaanHub. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="assets/css/theme.css">
+  <script src="assets/js/animations.js"></script>
+  <script src="assets/js/theme-toggle.js"></script>
+
+</body>
+
+</html>
