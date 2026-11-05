@@ -62,7 +62,7 @@ html.light [class~="text-[#C8FF00]"] {
   color: var(--accent-text) !important
 }
 
-html.light [class~="text-[#C8FF00"][class~="bg-[#141414]"],
+html.light [class~="text-[#C8FF00]"][class~="bg-[#141414]"],
 html.light [class~="text-[#C8FF00]"][class~="bg-[#141414]"] {
   background-color: var(--chip-bg) !important;
   border-color: var(--chip-border) !important;

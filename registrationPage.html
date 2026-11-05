@@ -117,6 +117,42 @@
             transform: translateY(-1px);
         }
 
+        /* Store Sale Loading Animations */
+        @keyframes floatDollar {
+            0% {
+                transform: translateY(4px) scale(0.9);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-12px) scale(1.15);
+                opacity: 1;
+                filter: drop-shadow(0 0 14px rgba(200, 255, 0, 0.7));
+            }
+            100% {
+                transform: translateY(4px) scale(0.9);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes storeBounce {
+            0%, 100% {
+                transform: scale(1);
+                border-color: #2A2A2A;
+            }
+            50% {
+                transform: scale(1.05);
+                border-color: #383838;
+            }
+        }
+
+        .dollar-badge {
+            animation: floatDollar 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        .store-box {
+            animation: storeBounce 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
         /* Select option backgrounds across themes */
         html.dark select option {
             background-color: #141414;
@@ -182,15 +218,54 @@
         };
     </script>
 
-    <!-- Base DukaanHub Assets with resilient fallbacks -->
-    <link rel="stylesheet" href="assets/css/animations.css"
-        onerror="this.onerror=null;this.href='Digital-Sales-And-Inventory-Management-3rd-sem-Project-/assets/css/animations.css'">
-    <link rel="stylesheet" href="assets/css/theme.css"
-        onerror="this.onerror=null;this.href='Digital-Sales-And-Inventory-Management-3rd-sem-Project-/assets/css/theme.css'">
+    <!-- Base DukaanHub Assets -->
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
 </head>
 
 <body
     class="bg-[#0A0A0A] font-sans text-[#F5F5F5] antialiased min-h-screen selection:bg-[#C8FF00] selection:text-[#0A0A0A] flex flex-col justify-between">
+
+    <!-- Fullscreen Loading Overlay: Store with hovering dollar sale animation -->
+    <div id="loadingOverlay"
+        class="fixed inset-0 z-50 bg-[#0A0A0A]/90 backdrop-blur-md hidden flex-col items-center justify-center p-4 transition-all duration-300">
+        <div
+            class="interactive-card relative flex flex-col items-center p-8 sm:p-10 bg-[#141414] border border-[#2A2A2A] rounded-md max-w-sm w-full text-center shadow-2xl">
+            
+            <!-- Store + Floating Dollar Graphic -->
+            <div class="relative w-28 h-28 flex items-center justify-center mb-6">
+                <!-- Dollar Symbol hovering over the store (depicting a sale) -->
+                <div
+                    class="dollar-badge absolute -top-3 z-10 w-10 h-10 rounded-full bg-[#C8FF00] text-[#0A0A0A] font-bold text-lg font-mono flex items-center justify-center shadow-[0_0_20px_rgba(200,255,0,0.5)]">
+                    <span>$</span>
+                </div>
+
+                <!-- Storefront Icon Card -->
+                <div
+                    class="store-box w-20 h-20 rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center shadow-inner relative">
+                    <span class="material-symbols-outlined text-[44px] text-[#F5F5F5]">storefront</span>
+                    <!-- Green Live Pulse Dot on store -->
+                    <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#C8FF00] status-pulse-dot"></span>
+                </div>
+
+                <!-- Animated Cash Wave Ring -->
+                <div class="absolute -top-1 w-12 h-12 rounded-full border border-[#C8FF00]/40 animate-ping pointer-events-none"></div>
+            </div>
+
+            <!-- Status Headline & Subtitle -->
+            <h3 id="loadingTitle" class="text-base sm:text-lg font-bold text-[#F5F5F5] tracking-tight font-display">
+                Registering Business...
+            </h3>
+            <p id="loadingSubtitle" class="text-xs text-[#8A8A8A] font-mono mt-1.5 leading-relaxed">
+                Recording your sale terminal and creating wholesale ledger...
+            </p>
+
+            <!-- Minimal Progress Bar -->
+            <div class="w-full bg-[#0A0A0A] border border-[#2A2A2A] h-1.5 rounded-full mt-6 overflow-hidden">
+                <div class="h-full bg-[#C8FF00] rounded-full animate-pulse w-3/4"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Top Navigation Bar matching index.html -->
     <header
@@ -281,7 +356,7 @@
                                         class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">person</span>
                                     <input
                                         class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
-                                        id="ownerName" name="ownerName" placeholder="e.g. Rajesh Sharma" required=""
+                                        id="ownerName" name="ownerName" placeholder="e.g. Rajesh Sharma" required
                                         type="text" value="Rajesh Sharma" />
                                     <span
                                         class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">check_circle</span>
@@ -305,7 +380,7 @@
                                         <input
                                             class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] font-mono text-xs sm:text-sm transition-colors"
                                             id="phone" maxlength="10" name="phone" placeholder="Enter 10-digit number"
-                                            required="" type="tel" value="9820491823" />
+                                            required type="tel" value="9820491823" />
                                         <span
                                             class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">verified</span>
                                     </div>
@@ -324,7 +399,7 @@
                                     <input
                                         class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
                                         id="businessEmail" name="businessEmail" placeholder="name@business.com"
-                                        required="" type="email" value="rajesh@apexretail.in" />
+                                        required type="email" value="rajesh@apexretail.in" />
                                     <span
                                         class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">mark_email_read</span>
                                 </div>
@@ -358,7 +433,7 @@
                                         class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">lock</span>
                                     <input
                                         class="input-hub w-full h-10 pl-9 pr-10 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
-                                        id="password" name="password" placeholder="Create strong password" required=""
+                                        id="password" name="password" placeholder="Create strong password" required
                                         type="password" value="RetailSec#2024" />
                                     <button
                                         class="toggle-password-btn absolute right-3 text-[#8A8A8A] hover:text-[#F5F5F5] cursor-pointer flex items-center"
@@ -382,7 +457,7 @@
                                     <input
                                         class="input-hub w-full h-10 pl-9 pr-10 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
                                         id="confirmPassword" name="confirmPassword" placeholder="Re-enter password"
-                                        required="" type="password" value="RetailSec#2024" />
+                                        required type="password" value="RetailSec#2024" />
                                     <button
                                         class="toggle-password-btn absolute right-3 text-[#8A8A8A] hover:text-[#F5F5F5] cursor-pointer flex items-center"
                                         data-target="confirmPassword" title="Toggle visibility" type="button">
@@ -422,7 +497,7 @@
                                     <input
                                         class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
                                         id="businessName" name="businessName"
-                                        placeholder="e.g. Apex Nexus Wholesale Dynamics" required="" type="text"
+                                        placeholder="e.g. Apex Nexus Wholesale Dynamics" required type="text"
                                         value="Apex Nexus Retail Dynamics" />
                                     <span
                                         class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">check_circle</span>
@@ -440,8 +515,8 @@
                                         class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">category</span>
                                     <select
                                         class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] border border-[#2A2A2A] text-xs sm:text-sm appearance-none cursor-pointer transition-colors"
-                                        id="businessCategory" name="businessCategory" required="">
-                                        <option selected="" value="Wholesale">Wholesale Commerce</option>
+                                        id="businessCategory" name="businessCategory" required>
+                                        <option selected value="Wholesale">Wholesale Commerce</option>
                                         <option value="Retail">Retail &amp; Supermart</option>
                                         <option value="Distributor">Primary / Secondary Distributor</option>
                                         <option value="Manufacturing">Manufacturing &amp; Packaging</option>
@@ -462,13 +537,31 @@
                                         class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">verified_user</span>
                                     <input
                                         class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] font-mono text-xs sm:text-sm uppercase tracking-wider transition-colors"
-                                        id="gstin" maxlength="15" name="gstin" placeholder="27AAACA9876Q1Z8" required=""
+                                        id="gstin" maxlength="15" name="gstin" placeholder="27AAACA9876Q1Z8" required
                                         type="text" value="27AAACA9876Q1Z8" />
                                     <span
                                         class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">fact_check</span>
                                 </div>
                                 <span class="text-[10px] text-[#8A8A8A] font-mono">Format: 22AAAAA0000A1Z5 (15
                                     alphanumeric characters)</span>
+                            </div>
+
+                            <!-- Field: Business Address -->
+                            <div class="flex flex-col gap-1.5">
+                                <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
+                                    for="address">
+                                    Business Address <span class="text-[#C8FF00]">*</span>
+                                </label>
+                                <div class="relative flex items-center">
+                                    <span
+                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">location_on</span>
+                                    <input
+                                        class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
+                                        id="address" name="address" placeholder="e.g. Shop 42, Main Wholesale Market, Bengaluru" required
+                                        type="text" value="Shop 42, Main Wholesale Market, Bengaluru" />
+                                    <span
+                                        class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">check_circle</span>
+                                </div>
                             </div>
 
                             <!-- Information Box: Neo-Grotesque GST compliance badge -->
@@ -494,9 +587,9 @@
 
                     <!-- Consent Checkbox -->
                     <label class="flex items-start sm:items-center gap-3 cursor-pointer select-none">
-                        <input checked=""
+                        <input checked
                             class="mt-0.5 sm:mt-0 w-4 h-4 rounded-sm border-[#2A2A2A] bg-[#0A0A0A] text-[#C8FF00] accent-[#C8FF00] focus:ring-0 cursor-pointer"
-                            id="termsConsent" name="termsConsent" required="" type="checkbox" />
+                            id="termsConsent" name="termsConsent" required type="checkbox" />
                         <span class="text-xs text-[#8A8A8A] leading-relaxed">
                             I agree to the <a class="text-[#F5F5F5] hover:text-[#C8FF00] underline transition-colors"
                                 href="#terms">Terms of Service</a>
@@ -592,51 +685,114 @@
                 });
             });
 
-            // Form Submit Feedback Animation
+            // Safe helper to read trimmed input value by ID
+            function getInputValue(id) {
+                const el = document.getElementById(id);
+                return (el && el.value) ? el.value.trim() : '';
+            }
+
+            // Form Submit: Show store loading animation and redirect to main dashboard
             if (form) {
-                form.addEventListener('submit', (e) => {
+                form.addEventListener('submit', async function (e) {
                     e.preventDefault();
 
-                    const password = document.getElementById('password')?.value;
-                    const confirmPassword = document.getElementById('confirmPassword')?.value;
+                    const passwordEl = document.getElementById('password');
+                    const confirmPasswordEl = document.getElementById('confirmPassword');
+                    const password = (passwordEl && passwordEl.value) ? passwordEl.value : '';
+                    const confirmPassword = (confirmPasswordEl && confirmPasswordEl.value) ? confirmPasswordEl.value : '';
 
                     if (password && confirmPassword && password !== confirmPassword) {
                         alert("Passwords do not match. Please verify both passwords.");
                         return;
                     }
 
+                    const overlay = document.getElementById('loadingOverlay');
+                    const loadingTitle = document.getElementById('loadingTitle');
+                    const loadingSubtitle = document.getElementById('loadingSubtitle');
                     const submitBtn = document.getElementById('submitBtn');
+
+                    // Display the store sale loading screen with hovering dollar
+                    if (overlay) {
+                        overlay.classList.remove('hidden');
+                        overlay.classList.add('flex');
+                    }
                     if (submitBtn) {
-                        const originalContent = submitBtn.innerHTML;
-                        submitBtn.innerHTML = `
-                            <span class="material-symbols-outlined text-[17px] animate-spin">progress_activity</span>
-                            <span>Provisioning Account...</span>
-                        `;
                         submitBtn.disabled = true;
+                    }
 
-                        setTimeout(() => {
-                            submitBtn.innerHTML = `
-                                <span class="material-symbols-outlined text-[17px]">check</span>
-                                <span>Account Provisioned!</span>
-                            `;
+                    try {
+                        const businessNameVal = getInputValue('businessName');
+                        const gstinVal = getInputValue('gstin').toUpperCase();
+                        const addressVal = getInputValue('address') || 'Main Wholesale Market';
+                        const businessEmailVal = getInputValue('businessEmail').toLowerCase();
+                        const ownerNameVal = getInputValue('ownerName');
 
-                            setTimeout(() => {
-                                submitBtn.innerHTML = originalContent;
-                                submitBtn.disabled = false;
-                                alert("Business registration successful! Welcome to DukaanHub Console.");
-                            }, 1600);
-                        }, 1200);
+                        const payload = {
+                            businessName: businessNameVal,
+                            gstNumber: gstinVal,
+                            address: addressVal,
+                            businessEmail: businessEmailVal,
+                            ownerName: ownerNameVal,
+                            adminEmail: businessEmailVal,
+                            password: password
+                        };
+
+                        const response = await fetch('http://localhost:5000/api/auth/register', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(payload)
+                        });
+
+                        const data = await response.json();
+
+                        if (!response.ok) {
+                            throw new Error(data.message || 'Registration failed. Check server logs.');
+                        }
+
+                        // Success: update loading text briefly and redirect without an alert
+                        if (loadingTitle) {
+                            loadingTitle.textContent = "Account Provisioned!";
+                        }
+                        if (loadingSubtitle) {
+                            loadingSubtitle.textContent = "Redirecting to your dashboard...";
+                        }
+
+                        // Save session details to localStorage
+                        if (data.business) {
+                            localStorage.setItem('dukaanhub-business', JSON.stringify(data.business));
+                        }
+                        if (data.user) {
+                            localStorage.setItem('dukaanhub-user', JSON.stringify(data.user));
+                        }
+
+                        // Smooth transition directly into main dashboard.html
+                        setTimeout(function () {
+                            window.location.href = 'main dashboard.html';
+                        }, 900);
+
+                    } catch (error) {
+                        console.error('Registration failed:', error);
+                        // Hide loading overlay on error
+                        if (overlay) {
+                            overlay.classList.remove('flex');
+                            overlay.classList.add('hidden');
+                        }
+                        alert("❌ Registration Failed:\n" + error.message);
+                    } finally {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                        }
                     }
                 });
             }
         });
     </script>
 
-    <!-- Base Scripts from assets with fallback -->
-    <script src="assets/js/animations.js"
-        onerror="this.onerror=null;var s=document.createElement('script');s.src='Digital-Sales-And-Inventory-Management-3rd-sem-Project-/assets/js/animations.js';document.body.appendChild(s);"></script>
-    <script src="assets/js/theme-toggle.js"
-        onerror="this.onerror=null;var s=document.createElement('script');s.src='Digital-Sales-And-Inventory-Management-3rd-sem-Project-/assets/js/theme-toggle.js';document.body.appendChild(s);"></script>
+    <!-- Base Scripts from assets -->
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/theme-toggle.js"></script>
 
 </body>
 
