@@ -123,11 +123,13 @@
                 transform: translateY(4px) scale(0.9);
                 opacity: 0.7;
             }
+
             50% {
                 transform: translateY(-12px) scale(1.15);
                 opacity: 1;
                 filter: drop-shadow(0 0 14px rgba(200, 255, 0, 0.7));
             }
+
             100% {
                 transform: translateY(4px) scale(0.9);
                 opacity: 0.7;
@@ -135,10 +137,13 @@
         }
 
         @keyframes storeBounce {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
                 border-color: #2A2A2A;
             }
+
             50% {
                 transform: scale(1.05);
                 border-color: #383838;
@@ -174,6 +179,15 @@
         html.light .input-hub:focus {
             border-color: #587300 !important;
             box-shadow: 0 0 0 1px #587300;
+        }
+
+        /* Checkbox styling */
+        input[type="checkbox"] {
+            accent-color: #C8FF00;
+        }
+
+        html.light input[type="checkbox"] {
+            accent-color: #587300;
         }
 
         /* Top header bar in light mode */
@@ -218,9 +232,11 @@
         };
     </script>
 
-    <!-- Base DukaanHub Assets -->
-    <link rel="stylesheet" href="assets/css/animations.css">
-    <link rel="stylesheet" href="assets/css/theme.css">
+    <!-- Base DukaanHub Assets with resilient fallbacks -->
+    <link rel="stylesheet" href="assets/css/animations.css"
+        onerror="this.onerror=null;this.href='Digital-Sales-And-Inventory-Management-3rd-sem-Project-/assets/css/animations.css'">
+    <link rel="stylesheet" href="assets/css/theme.css"
+        onerror="this.onerror=null;this.href='Digital-Sales-And-Inventory-Management-3rd-sem-Project-/assets/css/theme.css'">
 </head>
 
 <body
@@ -231,7 +247,7 @@
         class="fixed inset-0 z-50 bg-[#0A0A0A]/90 backdrop-blur-md hidden flex-col items-center justify-center p-4 transition-all duration-300">
         <div
             class="interactive-card relative flex flex-col items-center p-8 sm:p-10 bg-[#141414] border border-[#2A2A2A] rounded-md max-w-sm w-full text-center shadow-2xl">
-            
+
             <!-- Store + Floating Dollar Graphic -->
             <div class="relative w-28 h-28 flex items-center justify-center mb-6">
                 <!-- Dollar Symbol hovering over the store (depicting a sale) -->
@@ -249,7 +265,9 @@
                 </div>
 
                 <!-- Animated Cash Wave Ring -->
-                <div class="absolute -top-1 w-12 h-12 rounded-full border border-[#C8FF00]/40 animate-ping pointer-events-none"></div>
+                <div
+                    class="absolute -top-1 w-12 h-12 rounded-full border border-[#C8FF00]/40 animate-ping pointer-events-none">
+                </div>
             </div>
 
             <!-- Status Headline & Subtitle -->
@@ -355,11 +373,9 @@
                                     <span
                                         class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">person</span>
                                     <input
-                                        class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
+                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
                                         id="ownerName" name="ownerName" placeholder="e.g. Rajesh Sharma" required
-                                        type="text" value="Rajesh Sharma" />
-                                    <span
-                                        class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">check_circle</span>
+                                        type="text" />
                                 </div>
                             </div>
 
@@ -378,11 +394,9 @@
                                         <span
                                             class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">call</span>
                                         <input
-                                            class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] font-mono text-xs sm:text-sm transition-colors"
+                                            class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] font-mono text-xs sm:text-sm transition-colors"
                                             id="phone" maxlength="10" name="phone" placeholder="Enter 10-digit number"
-                                            required type="tel" value="9820491823" />
-                                        <span
-                                            class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">verified</span>
+                                            required type="tel" />
                                     </div>
                                 </div>
                             </div>
@@ -397,11 +411,9 @@
                                     <span
                                         class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">mail</span>
                                     <input
-                                        class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
-                                        id="businessEmail" name="businessEmail" placeholder="name@business.com"
-                                        required type="email" value="rajesh@apexretail.in" />
-                                    <span
-                                        class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">mark_email_read</span>
+                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
+                                        id="businessEmail" name="businessEmail" placeholder="name@business.com" required
+                                        type="email" />
                                 </div>
                             </div>
                         </div>
@@ -434,7 +446,7 @@
                                     <input
                                         class="input-hub w-full h-10 pl-9 pr-10 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
                                         id="password" name="password" placeholder="Create strong password" required
-                                        type="password" value="RetailSec#2024" />
+                                        type="password" />
                                     <button
                                         class="toggle-password-btn absolute right-3 text-[#8A8A8A] hover:text-[#F5F5F5] cursor-pointer flex items-center"
                                         data-target="password" title="Toggle visibility" type="button">
@@ -457,7 +469,7 @@
                                     <input
                                         class="input-hub w-full h-10 pl-9 pr-10 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
                                         id="confirmPassword" name="confirmPassword" placeholder="Re-enter password"
-                                        required type="password" value="RetailSec#2024" />
+                                        required type="password" />
                                     <button
                                         class="toggle-password-btn absolute right-3 text-[#8A8A8A] hover:text-[#F5F5F5] cursor-pointer flex items-center"
                                         data-target="confirmPassword" title="Toggle visibility" type="button">
@@ -495,12 +507,9 @@
                                     <span
                                         class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">domain</span>
                                     <input
-                                        class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
+                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
                                         id="businessName" name="businessName"
-                                        placeholder="e.g. Apex Nexus Wholesale Dynamics" required type="text"
-                                        value="Apex Nexus Retail Dynamics" />
-                                    <span
-                                        class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">check_circle</span>
+                                        placeholder="e.g. Apex Nexus Wholesale Dynamics" required type="text" />
                                 </div>
                             </div>
 
@@ -516,7 +525,8 @@
                                     <select
                                         class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] border border-[#2A2A2A] text-xs sm:text-sm appearance-none cursor-pointer transition-colors"
                                         id="businessCategory" name="businessCategory" required>
-                                        <option selected value="Wholesale">Wholesale Commerce</option>
+                                        <option value="" disabled selected>Select Business Category</option>
+                                        <option value="Wholesale">Wholesale Commerce</option>
                                         <option value="Retail">Retail &amp; Supermart</option>
                                         <option value="Distributor">Primary / Secondary Distributor</option>
                                         <option value="Manufacturing">Manufacturing &amp; Packaging</option>
@@ -536,11 +546,9 @@
                                     <span
                                         class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">verified_user</span>
                                     <input
-                                        class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] font-mono text-xs sm:text-sm uppercase tracking-wider transition-colors"
+                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] font-mono text-xs sm:text-sm uppercase tracking-wider transition-colors"
                                         id="gstin" maxlength="15" name="gstin" placeholder="27AAACA9876Q1Z8" required
-                                        type="text" value="27AAACA9876Q1Z8" />
-                                    <span
-                                        class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">fact_check</span>
+                                        type="text" />
                                 </div>
                                 <span class="text-[10px] text-[#8A8A8A] font-mono">Format: 22AAAAA0000A1Z5 (15
                                     alphanumeric characters)</span>
@@ -556,11 +564,10 @@
                                     <span
                                         class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">location_on</span>
                                     <input
-                                        class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
-                                        id="address" name="address" placeholder="e.g. Shop 42, Main Wholesale Market, Bengaluru" required
-                                        type="text" value="Shop 42, Main Wholesale Market, Bengaluru" />
-                                    <span
-                                        class="material-symbols-outlined absolute right-3 text-[18px] text-[#C8FF00]">check_circle</span>
+                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
+                                        id="address" name="address"
+                                        placeholder="e.g. Shop 42, Main Wholesale Market, Bengaluru" required
+                                        type="text" />
                                 </div>
                             </div>
 
@@ -587,14 +594,14 @@
 
                     <!-- Consent Checkbox -->
                     <label class="flex items-start sm:items-center gap-3 cursor-pointer select-none">
-                        <input checked
-                            class="mt-0.5 sm:mt-0 w-4 h-4 rounded-sm border-[#2A2A2A] bg-[#0A0A0A] text-[#C8FF00] accent-[#C8FF00] focus:ring-0 cursor-pointer"
+                        <input
+                            class="mt-0.5 sm:mt-0 w-4 h-4 rounded-sm border-[#2A2A2A] bg-[#0A0A0A] text-[#C8FF00] accent-[#C8FF00] focus:ring-0 cursor-pointer shrink-0"
                             id="termsConsent" name="termsConsent" required type="checkbox" />
                         <span class="text-xs text-[#8A8A8A] leading-relaxed">
                             I agree to the <a class="text-[#F5F5F5] hover:text-[#C8FF00] underline transition-colors"
-                                href="#terms">Terms of Service</a>
+                                href="#terms" onclick="event.stopPropagation()">Terms of Service</a>
                             and <a class="text-[#F5F5F5] hover:text-[#C8FF00] underline transition-colors"
-                                href="#privacy">Privacy Policy</a>,
+                                href="#privacy" onclick="event.stopPropagation()">Privacy Policy</a>,
                             authorizing DukaanHub to manage live wholesale ledgers, GST filings, and SKU
                             reconciliations.
                         </span>
@@ -723,7 +730,7 @@
                     try {
                         const businessNameVal = getInputValue('businessName');
                         const gstinVal = getInputValue('gstin').toUpperCase();
-                        const addressVal = getInputValue('address') || 'Main Wholesale Market';
+                        const addressVal = getInputValue('address');
                         const businessEmailVal = getInputValue('businessEmail').toLowerCase();
                         const ownerNameVal = getInputValue('ownerName');
 
@@ -790,9 +797,11 @@
         });
     </script>
 
-    <!-- Base Scripts from assets -->
-    <script src="assets/js/animations.js"></script>
-    <script src="assets/js/theme-toggle.js"></script>
+    <!-- Base Scripts from assets with resilient fallback -->
+    <script src="assets/js/animations.js"
+        onerror="this.onerror=null;var s=document.createElement('script');s.src='Digital-Sales-And-Inventory-Management-3rd-sem-Project-/assets/js/animations.js';document.body.appendChild(s);"></script>
+    <script src="assets/js/theme-toggle.js"
+        onerror="this.onerror=null;var s=document.createElement('script');s.src='Digital-Sales-And-Inventory-Management-3rd-sem-Project-/assets/js/theme-toggle.js';document.body.appendChild(s);"></script>
 
 </body>
 
