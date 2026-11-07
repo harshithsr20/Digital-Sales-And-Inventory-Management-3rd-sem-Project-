@@ -285,15 +285,20 @@
         </div>
     </div>
 
-    <!-- Top Navigation Bar matching index.html -->
+    <!-- Top Navigation Bar matching index.html: Full-Width -->
     <header
-        class="w-full bg-[#0A0A0A]/90 backdrop-blur-md border-b border-[#2A2A2A] transition-colors py-3 px-4 md:px-8">
-        <div class="max-w-5xl mx-auto flex items-center justify-between">
+        class="w-full bg-[#0A0A0A]/90 backdrop-blur-md border-b border-[#2A2A2A] transition-colors py-3.5 px-4 sm:px-8 lg:px-12">
+        <div class="w-full flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <a href="index.html" class="flex items-center gap-2 group">
                     <span
                         class="font-bold text-base tracking-tight font-display text-[#F5F5F5] group-hover:text-white transition-colors">DukaanHub</span>
                 </a>
+                <span
+                    class="hidden md:inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#141414] border border-[#2A2A2A] text-[10px] font-mono text-[#8A8A8A]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#C8FF00] status-pulse-dot"></span>
+                    Wholesale Console
+                </span>
             </div>
 
             <div class="flex items-center gap-4">
@@ -327,329 +332,357 @@
         </div>
     </header>
 
-    <!-- Main Content Container: Center Aligned -->
-    <main class="w-full flex-1 flex flex-col items-center justify-center px-4 sm:px-6 py-8 sm:py-12">
-        <div class="w-full max-w-4xl mx-auto flex flex-col items-center">
+    <!-- Main Content Container: Full-Width Window -->
+    <main class="w-full flex-1 px-4 sm:px-8 lg:px-12 py-8 lg:py-10">
+            <div class="w-full flex flex-col gap-6">
 
-            <!-- Center Aligned Title & Subtitle Section -->
-            <div class="text-center mb-8 max-w-2xl mx-auto flex flex-col items-center">
-                <span class="font-mono text-xs text-[#C8FF00] uppercase tracking-wider block mb-2">Onboarding</span>
-                <h1 class="text-3xl sm:text-4xl font-bold text-[#F5F5F5] tracking-tight">Register Your Business</h1>
-                <p class="text-xs sm:text-sm text-[#8A8A8A] mt-2.5 max-w-lg leading-relaxed">
-                    Join DukaanHub to manage live wholesale inventory, automated GST invoicing, and real-time sales
-                    ledgers. Zero notebook chaos.
-                </p>
-            </div>
+                    <!-- Title -->
+                    <div>
+                        <h1
+                            class="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#F5F5F5] tracking-tight font-display">
+                            Register Your Business
+                        </h1>
+                    </div>
 
-            <!-- Registration Form: Center-Aligned Grid Layout -->
-            <form class="w-full flex flex-col gap-5" id="businessRegistrationForm">
+                            <!-- Registration Form: Full-Width Grid Layout -->
+                            <form class="w-full flex flex-col gap-5" id="businessRegistrationForm">
 
-                <!-- 2-Column Responsive Card Grid -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start w-full">
+                                <!-- 2-Column Responsive Card Grid -->
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start w-full">
 
-                    <!-- LEFT COLUMN: Section 1 & Section 3 -->
-                    <div class="flex flex-col gap-4 w-full">
+                                    <!-- LEFT COLUMN: Section 1 & Section 3 -->
+                                    <div class="flex flex-col gap-4 w-full">
 
-                        <!-- SECTION 1: Owner & Contact Information -->
-                        <div
-                            class="interactive-card p-5 sm:p-6 bg-[#141414] border border-[#2A2A2A] flex flex-col gap-4">
-                            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2A2A2A]">
-                                <div
-                                    class="w-7 h-7 bg-[#0A0A0A] border border-[#2A2A2A] text-[#C8FF00] flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-[17px]">badge</span>
-                                </div>
-                                <h2 class="text-sm sm:text-base font-semibold text-[#F5F5F5] tracking-tight">
-                                    1. Owner &amp; Contact Details
-                                </h2>
-                            </div>
+                                        <!-- SECTION 1: Owner & Contact Information -->
+                                        <div
+                                            class="interactive-card p-5 sm:p-6 bg-[#141414] border border-[#2A2A2A] flex flex-col gap-4">
+                                            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2A2A2A]">
+                                                <div
+                                                    class="w-7 h-7 bg-[#0A0A0A] border border-[#2A2A2A] text-[#C8FF00] flex items-center justify-center shrink-0">
+                                                    <span class="material-symbols-outlined text-[17px]">badge</span>
+                                                </div>
+                                                <h2
+                                                    class="text-sm sm:text-base font-semibold text-[#F5F5F5] tracking-tight">
+                                                    1. Owner &amp; Contact Details
+                                                </h2>
+                                            </div>
 
-                            <!-- Field: Owner Name -->
-                            <div class="flex flex-col gap-1.5">
-                                <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
-                                    for="ownerName">
-                                    Owner / Proprietor Full Name <span class="text-[#C8FF00]">*</span>
-                                </label>
-                                <div class="relative flex items-center">
-                                    <span
-                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">person</span>
-                                    <input
-                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
-                                        id="ownerName" name="ownerName" placeholder="e.g. Rajesh Sharma" required
-                                        type="text" />
-                                </div>
-                            </div>
+                                            <!-- Field: Owner Name -->
+                                            <div class="flex flex-col gap-1.5">
+                                                <label
+                                                    class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
+                                                    for="ownerName">
+                                                    Owner / Proprietor Full Name <span class="text-[#C8FF00]">*</span>
+                                                </label>
+                                                <div class="relative flex items-center">
+                                                    <span
+                                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">person</span>
+                                                    <input
+                                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
+                                                        id="ownerName" name="ownerName" placeholder="e.g. Rajesh Sharma"
+                                                        required type="text" />
+                                                </div>
+                                            </div>
 
-                            <!-- Field: Phone Number -->
-                            <div class="flex flex-col gap-1.5">
-                                <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide" for="phone">
-                                    Phone Number <span class="text-[#C8FF00]">*</span>
-                                </label>
-                                <div class="flex gap-2">
-                                    <div
-                                        class="flex items-center gap-1 h-10 px-2.5 bg-[#0A0A0A] border border-[#2A2A2A] text-[#F5F5F5] font-mono text-xs shrink-0">
-                                        <span>🇮🇳</span>
-                                        <span class="font-semibold text-[11px]">+91</span>
+                                            <!-- Field: Phone Number -->
+                                            <div class="flex flex-col gap-1.5">
+                                                <label
+                                                    class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
+                                                    for="phone">
+                                                    Phone Number <span class="text-[#C8FF00]">*</span>
+                                                </label>
+                                                <div class="flex gap-2">
+                                                    <div
+                                                        class="flex items-center gap-1 h-10 px-2.5 bg-[#0A0A0A] border border-[#2A2A2A] text-[#F5F5F5] font-mono text-xs shrink-0">
+                                                        <span>🇮🇳</span>
+                                                        <span class="font-semibold text-[11px]">+91</span>
+                                                    </div>
+                                                    <div class="relative flex items-center w-full">
+                                                        <span
+                                                            class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">call</span>
+                                                        <input
+                                                            class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] font-mono text-xs sm:text-sm transition-colors"
+                                                            id="phone" maxlength="10" name="phone"
+                                                            placeholder="Enter 10-digit number" required type="tel" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Field: Business Email -->
+                                            <div class="flex flex-col gap-1.5">
+                                                <label
+                                                    class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
+                                                    for="businessEmail">
+                                                    Business Email Address <span class="text-[#C8FF00]">*</span>
+                                                </label>
+                                                <div class="relative flex items-center">
+                                                    <span
+                                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">mail</span>
+                                                    <input
+                                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
+                                                        id="businessEmail" name="businessEmail"
+                                                        placeholder="name@business.com" required type="email" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- SECTION 3: Security / Account Password -->
+                                        <div
+                                            class="interactive-card p-5 sm:p-6 bg-[#141414] border border-[#2A2A2A] flex flex-col gap-4">
+                                            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2A2A2A]">
+                                                <div
+                                                    class="w-7 h-7 bg-[#0A0A0A] border border-[#2A2A2A] text-[#C8FF00] flex items-center justify-center shrink-0">
+                                                    <span class="material-symbols-outlined text-[17px]">security</span>
+                                                </div>
+                                                <h2
+                                                    class="text-sm sm:text-base font-semibold text-[#F5F5F5] tracking-tight">
+                                                    3. Security &amp; Access
+                                                </h2>
+                                            </div>
+
+                                            <!-- Field: Password -->
+                                            <div class="flex flex-col gap-1.5">
+                                                <div class="flex items-center justify-between">
+                                                    <label
+                                                        class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
+                                                        for="password">
+                                                        Password <span class="text-[#C8FF00]">*</span>
+                                                    </label>
+                                                    <span class="text-[10px] font-mono text-[#8A8A8A]">Min. 8
+                                                        characters</span>
+                                                </div>
+                                                <div class="relative flex items-center">
+                                                    <span
+                                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">lock</span>
+                                                    <input
+                                                        class="input-hub w-full h-10 pl-9 pr-10 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
+                                                        id="password" name="password"
+                                                        placeholder="Create strong password" required type="password" />
+                                                    <button
+                                                        class="toggle-password-btn absolute right-3 text-[#8A8A8A] hover:text-[#F5F5F5] cursor-pointer flex items-center"
+                                                        data-target="password" title="Toggle visibility" type="button">
+                                                        <span
+                                                            class="material-symbols-outlined text-[18px]">visibility</span>
+                                                    </button>
+                                                </div>
+                                                <span class="text-[10px] text-[#8A8A8A] font-mono">Include letters and
+                                                    numbers for
+                                                    secure counter access</span>
+                                            </div>
+
+                                            <!-- Field: Confirm Password -->
+                                            <div class="flex flex-col gap-1.5">
+                                                <label
+                                                    class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
+                                                    for="confirmPassword">
+                                                    Confirm Password <span class="text-[#C8FF00]">*</span>
+                                                </label>
+                                                <div class="relative flex items-center">
+                                                    <span
+                                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">lock_reset</span>
+                                                    <input
+                                                        class="input-hub w-full h-10 pl-9 pr-10 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
+                                                        id="confirmPassword" name="confirmPassword"
+                                                        placeholder="Re-enter password" required type="password" />
+                                                    <button
+                                                        class="toggle-password-btn absolute right-3 text-[#8A8A8A] hover:text-[#F5F5F5] cursor-pointer flex items-center"
+                                                        data-target="confirmPassword" title="Toggle visibility"
+                                                        type="button">
+                                                        <span
+                                                            class="material-symbols-outlined text-[18px]">visibility</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div class="relative flex items-center w-full">
-                                        <span
-                                            class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">call</span>
+
+                                    <!-- RIGHT COLUMN: Section 2: Business Details -->
+                                    <div class="flex flex-col gap-4 w-full">
+
+                                        <!-- SECTION 2: Business Details -->
+                                        <div
+                                            class="interactive-card p-5 sm:p-6 bg-[#141414] border border-[#2A2A2A] flex flex-col gap-4">
+                                            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2A2A2A]">
+                                                <div
+                                                    class="w-7 h-7 bg-[#0A0A0A] border border-[#2A2A2A] text-[#C8FF00] flex items-center justify-center shrink-0">
+                                                    <span class="material-symbols-outlined text-[17px]">store</span>
+                                                </div>
+                                                <h2
+                                                    class="text-sm sm:text-base font-semibold text-[#F5F5F5] tracking-tight">
+                                                    2. Business Details
+                                                </h2>
+                                            </div>
+
+                                            <!-- Field: Business Name -->
+                                            <div class="flex flex-col gap-1.5">
+                                                <label
+                                                    class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
+                                                    for="businessName">
+                                                    Business / Company Name <span class="text-[#C8FF00]">*</span>
+                                                </label>
+                                                <div class="relative flex items-center">
+                                                    <span
+                                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">domain</span>
+                                                    <input
+                                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
+                                                        id="businessName" name="businessName"
+                                                        placeholder="e.g. Apex Nexus Wholesale Dynamics" required
+                                                        type="text" />
+                                                </div>
+                                            </div>
+
+                                            <!-- Field: Business Category -->
+                                            <div class="flex flex-col gap-1.5">
+                                                <label
+                                                    class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
+                                                    for="businessCategory">
+                                                    Business Category <span class="text-[#C8FF00]">*</span>
+                                                </label>
+                                                <div class="relative flex items-center">
+                                                    <span
+                                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">category</span>
+                                                    <select
+                                                        class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] border border-[#2A2A2A] text-xs sm:text-sm appearance-none cursor-pointer transition-colors"
+                                                        id="businessCategory" name="businessCategory" required>
+                                                        <option value="" disabled selected>Select Business Category
+                                                        </option>
+                                                        <option value="Wholesale">Wholesale Commerce</option>
+                                                        <option value="Retail">Retail &amp; Supermart</option>
+                                                        <option value="Distributor">Primary / Secondary Distributor
+                                                        </option>
+                                                        <option value="Manufacturing">Manufacturing &amp; Packaging
+                                                        </option>
+                                                        <option value="E-commerce">Omnichannel &amp; E-commerce</option>
+                                                    </select>
+                                                    <span
+                                                        class="material-symbols-outlined absolute right-3 text-[18px] text-[#8A8A8A] pointer-events-none">expand_more</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Field: GST Identification Number (GSTIN) -->
+                                            <div class="flex flex-col gap-1.5">
+                                                <label
+                                                    class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
+                                                    for="gstin">
+                                                    GST Identification Number (GSTIN) <span
+                                                        class="text-[#C8FF00]">*</span>
+                                                </label>
+                                                <div class="relative flex items-center">
+                                                    <span
+                                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">verified_user</span>
+                                                    <input
+                                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] font-mono text-xs sm:text-sm uppercase tracking-wider transition-colors"
+                                                        id="gstin" maxlength="15" name="gstin"
+                                                        placeholder="27AAACA9876Q1Z8" required type="text" />
+                                                </div>
+                                                <span class="text-[10px] text-[#8A8A8A] font-mono">Format:
+                                                    22AAAAA0000A1Z5 (15
+                                                    alphanumeric characters)</span>
+                                            </div>
+
+                                            <!-- Field: Business Address -->
+                                            <div class="flex flex-col gap-1.5">
+                                                <label
+                                                    class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
+                                                    for="address">
+                                                    Business Address <span class="text-[#C8FF00]">*</span>
+                                                </label>
+                                                <div class="relative flex items-center">
+                                                    <span
+                                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">location_on</span>
+                                                    <input
+                                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
+                                                        id="address" name="address"
+                                                        placeholder="e.g. Shop 42, Main Wholesale Market, Bengaluru"
+                                                        required type="text" />
+                                                </div>
+                                            </div>
+
+                                            <!-- Information Box: Neo-Grotesque GST compliance badge -->
+                                            <div
+                                                class="p-3.5 bg-[#0A0A0A] border border-[#2A2A2A] flex items-start gap-2.5 mt-2">
+                                                <span
+                                                    class="material-symbols-outlined text-[#C8FF00] text-[18px] mt-0.5 shrink-0">info</span>
+                                                <div class="text-[11px] leading-relaxed text-[#8A8A8A]">
+                                                    <strong class="text-[#F5F5F5] font-semibold block mb-0.5">Automated
+                                                        Tax
+                                                        Schedules</strong>
+                                                    DukaanHub automatically calculates CGST, SGST, and IGST rates and
+                                                    links your
+                                                    catalogue to compliant HSN tax ledgers.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- FULL WIDTH: Consent & Submission Actions -->
+                                <div
+                                    class="interactive-card p-5 sm:p-6 bg-[#141414] border border-[#2A2A2A] flex flex-col gap-4 w-full">
+
+                                    <!-- Consent Checkbox -->
+                                    <label class="flex items-start sm:items-center gap-3 cursor-pointer select-none">
                                         <input
-                                            class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] font-mono text-xs sm:text-sm transition-colors"
-                                            id="phone" maxlength="10" name="phone" placeholder="Enter 10-digit number"
-                                            required type="tel" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Field: Business Email -->
-                            <div class="flex flex-col gap-1.5">
-                                <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
-                                    for="businessEmail">
-                                    Business Email Address <span class="text-[#C8FF00]">*</span>
-                                </label>
-                                <div class="relative flex items-center">
-                                    <span
-                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">mail</span>
-                                    <input
-                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
-                                        id="businessEmail" name="businessEmail" placeholder="name@business.com" required
-                                        type="email" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- SECTION 3: Security / Account Password -->
-                        <div
-                            class="interactive-card p-5 sm:p-6 bg-[#141414] border border-[#2A2A2A] flex flex-col gap-4">
-                            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2A2A2A]">
-                                <div
-                                    class="w-7 h-7 bg-[#0A0A0A] border border-[#2A2A2A] text-[#C8FF00] flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-[17px]">security</span>
-                                </div>
-                                <h2 class="text-sm sm:text-base font-semibold text-[#F5F5F5] tracking-tight">
-                                    3. Security &amp; Access
-                                </h2>
-                            </div>
-
-                            <!-- Field: Password -->
-                            <div class="flex flex-col gap-1.5">
-                                <div class="flex items-center justify-between">
-                                    <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
-                                        for="password">
-                                        Password <span class="text-[#C8FF00]">*</span>
+                                            class="mt-0.5 sm:mt-0 w-4 h-4 rounded-sm border-[#2A2A2A] bg-[#0A0A0A] text-[#C8FF00] accent-[#C8FF00] focus:ring-0 cursor-pointer shrink-0"
+                                            id="termsConsent" name="termsConsent" required type="checkbox" />
+                                        <span class="text-xs text-[#8A8A8A] leading-relaxed">
+                                            I agree to the <a
+                                                class="text-[#F5F5F5] hover:text-[#C8FF00] underline transition-colors"
+                                                href="#terms" onclick="event.stopPropagation()">Terms of Service</a>
+                                            and <a
+                                                class="text-[#F5F5F5] hover:text-[#C8FF00] underline transition-colors"
+                                                href="#privacy" onclick="event.stopPropagation()">Privacy Policy</a>,
+                                            authorizing DukaanHub to manage live wholesale ledgers, GST filings, and SKU
+                                            reconciliations.
+                                        </span>
                                     </label>
-                                    <span class="text-[10px] font-mono text-[#8A8A8A]">Min. 8 characters</span>
-                                </div>
-                                <div class="relative flex items-center">
-                                    <span
-                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">lock</span>
-                                    <input
-                                        class="input-hub w-full h-10 pl-9 pr-10 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
-                                        id="password" name="password" placeholder="Create strong password" required
-                                        type="password" />
-                                    <button
-                                        class="toggle-password-btn absolute right-3 text-[#8A8A8A] hover:text-[#F5F5F5] cursor-pointer flex items-center"
-                                        data-target="password" title="Toggle visibility" type="button">
-                                        <span class="material-symbols-outlined text-[18px]">visibility</span>
-                                    </button>
-                                </div>
-                                <span class="text-[10px] text-[#8A8A8A] font-mono">Include letters and numbers for
-                                    secure counter access</span>
-                            </div>
 
-                            <!-- Field: Confirm Password -->
-                            <div class="flex flex-col gap-1.5">
-                                <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
-                                    for="confirmPassword">
-                                    Confirm Password <span class="text-[#C8FF00]">*</span>
-                                </label>
-                                <div class="relative flex items-center">
-                                    <span
-                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">lock_reset</span>
-                                    <input
-                                        class="input-hub w-full h-10 pl-9 pr-10 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
-                                        id="confirmPassword" name="confirmPassword" placeholder="Re-enter password"
-                                        required type="password" />
-                                    <button
-                                        class="toggle-password-btn absolute right-3 text-[#8A8A8A] hover:text-[#F5F5F5] cursor-pointer flex items-center"
-                                        data-target="confirmPassword" title="Toggle visibility" type="button">
-                                        <span class="material-symbols-outlined text-[18px]">visibility</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                                    <!-- Buttons Row: Centered / Balanced Alignment -->
+                                    <div
+                                        class="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#2A2A2A]">
+                                        <button
+                                            class="btn-secondary-action w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 border border-[#2A2A2A] bg-[#0A0A0A] text-[#8A8A8A] hover:text-[#F5F5F5] text-xs font-mono rounded-sm transition-colors cursor-pointer"
+                                            id="clearBtn" type="button">
+                                            <span class="material-symbols-outlined text-[16px]">restart_alt</span>
+                                            Clear Form
+                                        </button>
 
+                                        <button
+                                            class="btn-primary-action w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#C8FF00] text-[#0A0A0A] font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-sm tracking-tight cursor-pointer shadow-lg"
+                                            id="submitBtn" type="submit">
+                                            <span>Register Business</span>
+                                            <span class="material-symbols-outlined text-[17px]">arrow_forward</span>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                    <!-- Footer Redirection Link -->
+                    <div class="text-center sm:text-left pt-1">
+                        <p class="text-xs text-[#8A8A8A]">
+                            Already registered your organization?
+                            <a class="text-[#C8FF00] font-medium hover:underline inline-flex items-center gap-0.5 ml-1 transition-colors"
+                                href="index.html#get-started">
+                                Sign in to DukaanHub Console
+                                <span class="material-symbols-outlined text-[13px]">north_east</span>
+                            </a>
+                        </p>
                     </div>
 
-                    <!-- RIGHT COLUMN: Section 2: Business Details -->
-                    <div class="flex flex-col gap-4 w-full">
-
-                        <!-- SECTION 2: Business Details -->
-                        <div
-                            class="interactive-card p-5 sm:p-6 bg-[#141414] border border-[#2A2A2A] flex flex-col gap-4">
-                            <div class="flex items-center gap-2.5 pb-3 border-b border-[#2A2A2A]">
-                                <div
-                                    class="w-7 h-7 bg-[#0A0A0A] border border-[#2A2A2A] text-[#C8FF00] flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-[17px]">store</span>
-                                </div>
-                                <h2 class="text-sm sm:text-base font-semibold text-[#F5F5F5] tracking-tight">
-                                    2. Business Details
-                                </h2>
-                            </div>
-
-                            <!-- Field: Business Name -->
-                            <div class="flex flex-col gap-1.5">
-                                <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
-                                    for="businessName">
-                                    Business / Company Name <span class="text-[#C8FF00]">*</span>
-                                </label>
-                                <div class="relative flex items-center">
-                                    <span
-                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">domain</span>
-                                    <input
-                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
-                                        id="businessName" name="businessName"
-                                        placeholder="e.g. Apex Nexus Wholesale Dynamics" required type="text" />
-                                </div>
-                            </div>
-
-                            <!-- Field: Business Category -->
-                            <div class="flex flex-col gap-1.5">
-                                <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
-                                    for="businessCategory">
-                                    Business Category <span class="text-[#C8FF00]">*</span>
-                                </label>
-                                <div class="relative flex items-center">
-                                    <span
-                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">category</span>
-                                    <select
-                                        class="input-hub w-full h-10 pl-9 pr-9 bg-[#0A0A0A] text-[#F5F5F5] border border-[#2A2A2A] text-xs sm:text-sm appearance-none cursor-pointer transition-colors"
-                                        id="businessCategory" name="businessCategory" required>
-                                        <option value="" disabled selected>Select Business Category</option>
-                                        <option value="Wholesale">Wholesale Commerce</option>
-                                        <option value="Retail">Retail &amp; Supermart</option>
-                                        <option value="Distributor">Primary / Secondary Distributor</option>
-                                        <option value="Manufacturing">Manufacturing &amp; Packaging</option>
-                                        <option value="E-commerce">Omnichannel &amp; E-commerce</option>
-                                    </select>
-                                    <span
-                                        class="material-symbols-outlined absolute right-3 text-[18px] text-[#8A8A8A] pointer-events-none">expand_more</span>
-                                </div>
-                            </div>
-
-                            <!-- Field: GST Identification Number (GSTIN) -->
-                            <div class="flex flex-col gap-1.5">
-                                <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide" for="gstin">
-                                    GST Identification Number (GSTIN) <span class="text-[#C8FF00]">*</span>
-                                </label>
-                                <div class="relative flex items-center">
-                                    <span
-                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">verified_user</span>
-                                    <input
-                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] font-mono text-xs sm:text-sm uppercase tracking-wider transition-colors"
-                                        id="gstin" maxlength="15" name="gstin" placeholder="27AAACA9876Q1Z8" required
-                                        type="text" />
-                                </div>
-                                <span class="text-[10px] text-[#8A8A8A] font-mono">Format: 22AAAAA0000A1Z5 (15
-                                    alphanumeric characters)</span>
-                            </div>
-
-                            <!-- Field: Business Address -->
-                            <div class="flex flex-col gap-1.5">
-                                <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide"
-                                    for="address">
-                                    Business Address <span class="text-[#C8FF00]">*</span>
-                                </label>
-                                <div class="relative flex items-center">
-                                    <span
-                                        class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">location_on</span>
-                                    <input
-                                        class="input-hub w-full h-10 pl-9 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm transition-colors"
-                                        id="address" name="address"
-                                        placeholder="e.g. Shop 42, Main Wholesale Market, Bengaluru" required
-                                        type="text" />
-                                </div>
-                            </div>
-
-                            <!-- Information Box: Neo-Grotesque GST compliance badge -->
-                            <div class="p-3.5 bg-[#0A0A0A] border border-[#2A2A2A] flex items-start gap-2.5 mt-2">
-                                <span
-                                    class="material-symbols-outlined text-[#C8FF00] text-[18px] mt-0.5 shrink-0">info</span>
-                                <div class="text-[11px] leading-relaxed text-[#8A8A8A]">
-                                    <strong class="text-[#F5F5F5] font-semibold block mb-0.5">Automated Tax
-                                        Schedules</strong>
-                                    DukaanHub automatically calculates CGST, SGST, and IGST rates and links your
-                                    catalogue to compliant HSN tax ledgers.
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    </form>
 
                 </div>
-
-                <!-- FULL WIDTH: Consent & Submission Actions -->
-                <div
-                    class="interactive-card p-5 sm:p-6 bg-[#141414] border border-[#2A2A2A] flex flex-col gap-4 w-full">
-
-                    <!-- Consent Checkbox -->
-                    <label class="flex items-start sm:items-center gap-3 cursor-pointer select-none">
-                        <input
-                            class="mt-0.5 sm:mt-0 w-4 h-4 rounded-sm border-[#2A2A2A] bg-[#0A0A0A] text-[#C8FF00] accent-[#C8FF00] focus:ring-0 cursor-pointer shrink-0"
-                            id="termsConsent" name="termsConsent" required type="checkbox" />
-                        <span class="text-xs text-[#8A8A8A] leading-relaxed">
-                            I agree to the <a class="text-[#F5F5F5] hover:text-[#C8FF00] underline transition-colors"
-                                href="#terms" onclick="event.stopPropagation()">Terms of Service</a>
-                            and <a class="text-[#F5F5F5] hover:text-[#C8FF00] underline transition-colors"
-                                href="#privacy" onclick="event.stopPropagation()">Privacy Policy</a>,
-                            authorizing DukaanHub to manage live wholesale ledgers, GST filings, and SKU
-                            reconciliations.
-                        </span>
-                    </label>
-
-                    <!-- Buttons Row: Centered / Balanced Alignment -->
-                    <div
-                        class="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#2A2A2A]">
-                        <button
-                            class="btn-secondary-action w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 border border-[#2A2A2A] bg-[#0A0A0A] text-[#8A8A8A] hover:text-[#F5F5F5] text-xs font-mono rounded-sm transition-colors cursor-pointer"
-                            id="clearBtn" type="button">
-                            <span class="material-symbols-outlined text-[16px]">restart_alt</span>
-                            Clear Form
-                        </button>
-
-                        <button
-                            class="btn-primary-action w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#C8FF00] text-[#0A0A0A] font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-sm tracking-tight cursor-pointer shadow-lg"
-                            id="submitBtn" type="submit">
-                            <span>Register Business</span>
-                            <span class="material-symbols-outlined text-[17px]">arrow_forward</span>
-                        </button>
-                    </div>
-
-                </div>
-
-                <!-- Footer Redirection Link: Center Aligned -->
-                <div class="text-center pt-2">
-                    <p class="text-xs text-[#8A8A8A]">
-                        Already registered your organization?
-                        <a class="text-[#C8FF00] font-medium hover:underline inline-flex items-center gap-0.5 ml-1 transition-colors"
-                            href="index.html#get-started">
-                            Sign in to DukaanHub Console
-                            <span class="material-symbols-outlined text-[13px]">north_east</span>
-                        </a>
-                    </p>
-                </div>
-
-            </form>
-
-        </div>
     </main>
 
-    <!-- Footer matching index.html -->
-    <footer class="w-full bg-[#0A0A0A] border-t border-[#2A2A2A] px-4 md:px-8 py-8 transition-colors">
+    <!-- Footer matching index.html: Full-Width -->
+    <footer class="w-full bg-[#0A0A0A] border-t border-[#2A2A2A] px-4 sm:px-8 lg:px-12 py-6 transition-colors">
         <div
-            class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-[#8A8A8A] gap-3 text-center sm:text-left">
+            class="w-full flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-[#8A8A8A] gap-3 text-center sm:text-left">
             <div>Engineered for high-volume wholesale commerce.</div>
-            <div>© 2025 DukaanHub. All rights reserved.</div>
+            <div>Active Node: PostgreSQL (Neon Cloud) · © 2025 DukaanHub. All rights reserved.</div>
         </div>
     </footer>
 
