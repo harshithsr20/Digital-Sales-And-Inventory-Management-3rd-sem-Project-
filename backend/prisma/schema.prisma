@@ -1,0 +1,34 @@
+// Prisma Schema definition for DukaanHub Wholesale Management
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Business represents the registered wholesale firm
+model Business {
+  id        Int      @id @default(autoincrement())
+  name      String
+  gstNumber String   @unique
+  address   String
+  email     String   @unique
+  createdAt DateTime @default(now())
+
+  // Relation: one business has many users
+  users     User[]
+}
+
+// User represents an account holder (e.g. business owner or admin)
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  role         String   @default("admin")
+  businessId   Int
+  business     Business @relation(fields: [businessId], references: [id])
+  createdAt    DateTime @default(now())
+}
