@@ -1,13 +1,257 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Main Dashboard — DukaanHub</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Dashboard · DukaanHub</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{sans:["Geist","-apple-system","BlinkMacSystemFont","sans-serif"],display:["Space Grotesk","Geist","sans-serif"],mono:["Geist Mono","JetBrains Mono","monospace"]}}}};
+</script>
+<!-- Optional: link your existing project styles after this block -->
+<!-- <link rel="stylesheet" href="assets/css/theme.css"/><link rel="stylesheet" href="assets/css/animations.css"/> -->
+<style>
+:root{--bg:#0A0A0A;--surface:#141414;--subcard:#0A0A0A;--line:#2A2A2A;--line-hover:#383838;--ink:#F5F5F5;--muted:#8A8A8A;--accent:#C8FF00;--accent-text:#C8FF00;--header:rgba(10,10,10,.9)}
+html.light{--bg:#FFFFFF;--surface:#F4F5F7;--subcard:#FFFFFF;--line:#E3E5E8;--line-hover:#C9CCD1;--ink:#0A0A0A;--muted:#5F6670;--accent-text:#587300;--header:rgba(255,255,255,.9)}
+::-webkit-scrollbar{display:none}*{scrollbar-width:none}
+body{background:var(--bg);color:var(--ink);font-family:'Geist',sans-serif}
+h1,h2,h3,.heading{font-family:'Space Grotesk','Geist',sans-serif!important;letter-spacing:-.03em}
+h1{font-weight:700;letter-spacing:-.035em;line-height:1.08}h2{font-weight:600}h3{font-weight:600;letter-spacing:-.025em}
+.font-mono,[class*="font-mono"]{font-family:'Geist Mono','JetBrains Mono',monospace!important}
+.material-symbols-outlined{font-family:'Material Symbols Outlined';font-weight:400;font-style:normal;line-height:1;display:inline-block;-webkit-font-feature-settings:'liga'}
+.bg-app{background:var(--bg)}.bg-surface{background:var(--surface)}.bg-sub{background:var(--subcard)}
+.bd{border:1px solid var(--line)}.bd-b{border-bottom:1px solid var(--line)}.bd-t{border-top:1px solid var(--line)}
+.ink{color:var(--ink)}.muted{color:var(--muted)}.acc{color:var(--accent-text)}
+.interactive-card{background:var(--surface);border:1px solid var(--line);border-radius:6px;position:relative;overflow:hidden;
+ transition:border-color .3s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1)}
+.interactive-card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+ background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.05),transparent 70%)}
+.interactive-card:hover{border-color:var(--line-hover);transform:translateY(-2px)}.interactive-card:hover::after{opacity:1}
+.icon-badge{width:28px;height:28px;background:var(--subcard);border:1px solid var(--line);color:var(--accent-text);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.btn-primary-action{background:#C8FF00;color:#0A0A0A;border-radius:2px;transition:transform .3s cubic-bezier(.34,1.56,.64,1),filter .2s,box-shadow .2s}
+html.light .btn-primary-action{background:#0A0A0A;color:#C8FF00}
+.btn-primary-action:hover{transform:scale(1.02);filter:brightness(1.05);box-shadow:0 0 20px rgba(200,255,0,.2)}
+.btn-secondary-action{border:1px solid var(--line);background:var(--subcard);color:var(--muted);border-radius:2px;transition:color .2s,border-color .2s}
+.btn-secondary-action:hover{color:var(--ink);border-color:var(--line-hover)}
+.status-pulse-dot{position:relative}
+.status-pulse-dot::after{content:"";position:absolute;inset:0;border-radius:9999px;background:#C8FF00;animation:liveBeaconPing 2s cubic-bezier(0,0,.2,1) infinite}
+@keyframes liveBeaconPing{0%{transform:scale(1);opacity:.7}100%{transform:scale(3);opacity:0}}
+.module-card:focus-visible,.btn-primary-action:focus-visible,.btn-secondary-action:focus-visible{outline:1px solid #C8FF00;outline-offset:2px}
+.module-card:hover .arrow{transform:translateX(3px);color:var(--accent-text)}.arrow{transition:transform .3s,color .2s}
+.ph{color:var(--muted)}
+.empty{border:1px dashed var(--line);background:var(--subcard);color:var(--muted)}
+table{width:100%;border-collapse:collapse}th{font-weight:400;text-align:left}
+th,td{padding:.55rem .75rem;border-bottom:1px solid var(--line);font-size:12px;white-space:nowrap}
+#fx-progress{position:fixed;top:0;left:0;height:2px;width:0;background:#C8FF00;z-index:60}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
+<body class="min-h-screen flex flex-col antialiased">
+<div id="fx-progress"></div>
 
-<body class="bg-[#0A0A0A] text-[#F5F5F5]">
+<!-- Flowchart: Login valid → Main dashboard -->
+<header class="w-full sticky top-0 z-50 backdrop-blur-md bd-b py-3.5 px-4 sm:px-8 lg:px-12" style="background:var(--header)">
+  <div class="flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="font-display font-bold text-base tracking-tight acc">DukaanHub</span>
+    </div>
+    <nav class="flex items-center gap-2 sm:gap-3">
+      <span class="hidden md:flex items-center gap-1.5 font-mono text-[11px] muted"><span class="material-symbols-outlined text-[16px]">person</span><span data-bind="user.name">—</span></span>
+      <button class="btn-secondary-action inline-flex items-center justify-center w-9 h-9 cursor-pointer" id="themeToggle" type="button" aria-label="Toggle theme"><span class="material-symbols-outlined text-[18px]">contrast</span></button>
+      <button class="btn-secondary-action inline-flex items-center gap-1.5 px-3 h-9 font-mono text-xs cursor-pointer" id="logoutBtn" type="button"><span class="material-symbols-outlined text-[16px]">logout</span>Logout</button>
+    </nav>
+  </div>
+</header>
+
+<main class="w-full flex-1 px-4 sm:px-8 lg:px-12 py-8 lg:py-10 flex flex-col gap-6">
+
+  <!-- Title row -->
+  <section class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+    <div>
+      <p class="font-mono text-[11px] uppercase tracking-wide muted mb-2">Main Dashboard</p>
+      <h1 class="text-3xl sm:text-4xl" data-bind="business.name">Business name</h1>
+      <div class="flex flex-wrap gap-x-5 gap-y-1 mt-3 font-mono text-[11px] muted">
+        <span>GSTIN: <span class="ink" data-bind="business.gstin">—</span></span>
+        <span>OWNER: <span class="ink" data-bind="business.owner">—</span></span>
+        <span>ADDRESS: <span class="ink" data-bind="business.address">—</span></span>
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <button class="btn-secondary-action inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-mono cursor-pointer" id="refreshBtn" type="button"><span class="material-symbols-outlined text-[16px]">refresh</span>Refresh</button>
+      <button class="btn-primary-action inline-flex items-center gap-2 font-semibold text-xs sm:text-sm px-6 py-2.5 tracking-tight cursor-pointer" data-module="billing" type="button"><span>Create New Bill</span><span class="material-symbols-outlined text-[17px]">arrow_forward</span></button>
+    </div>
+  </section>
+
+  <!-- KPI strip -->
+  <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6" aria-label="Key metrics">
+    <div class="interactive-card p-5"><p class="font-mono text-[11px] uppercase tracking-wide muted">Today's Sales</p><p class="font-mono text-2xl mt-3 ph" data-kpi="todaySales">—</p><p class="font-mono text-[11px] mt-1 muted" data-kpi-sub="todaySales">&nbsp;</p></div>
+    <div class="interactive-card p-5"><p class="font-mono text-[11px] uppercase tracking-wide muted">Stock Value</p><p class="font-mono text-2xl mt-3 ph" data-kpi="stockValue">—</p><p class="font-mono text-[11px] mt-1 muted" data-kpi-sub="stockValue">&nbsp;</p></div>
+    <div class="interactive-card p-5"><p class="font-mono text-[11px] uppercase tracking-wide muted">Low-Stock Items</p><p class="font-mono text-2xl mt-3 ph" data-kpi="lowStockCount">—</p><p class="font-mono text-[11px] mt-1 muted" data-kpi-sub="lowStockCount">&nbsp;</p></div>
+    <div class="interactive-card p-5"><p class="font-mono text-[11px] uppercase tracking-wide muted">Outstanding Credit</p><p class="font-mono text-2xl mt-3 ph" data-kpi="outstandingCredit">—</p><p class="font-mono text-[11px] mt-1 muted" data-kpi-sub="outstandingCredit">&nbsp;</p></div>
+  </section>
+
+  <!-- Flowchart: Select module (Catalogue / Inventory / Billing / Returns / Credit / Analytics) -->
+  <section aria-label="Modules">
+    <div class="flex items-center gap-2.5 pb-3 bd-b mb-4">
+      <div class="icon-badge"><span class="material-symbols-outlined text-[17px]">apps</span></div>
+      <h2 class="text-sm sm:text-base ink">Select Module</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="moduleGrid"></div>
+  </section>
+
+  <!-- Live panels -->
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+
+    <!-- Sales trends (Analytics) -->
+    <div class="interactive-card p-5 sm:p-6 lg:col-span-2 flex flex-col">
+      <div class="flex items-center justify-between gap-2.5 pb-3 bd-b">
+        <div class="flex items-center gap-2.5"><div class="icon-badge"><span class="material-symbols-outlined text-[17px]">monitoring</span></div><h2 class="text-sm sm:text-base ink">Sales Trends</h2></div>
+        <button class="btn-secondary-action inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-[11px] cursor-pointer" data-action="export-reports" type="button"><span class="material-symbols-outlined text-[15px]">download</span>Export Reports</button>
+      </div>
+      <div class="flex-1 min-h-[220px] mt-4" id="salesChart"><div class="empty h-full min-h-[220px] flex items-center justify-center font-mono text-xs">No sales data yet</div></div>
+    </div>
+
+    <!-- Low stock (Stock below reorder level → alert + reorder suggestion) -->
+    <div class="interactive-card p-5 sm:p-6 flex flex-col">
+      <div class="flex items-center gap-2.5 pb-3 bd-b"><div class="icon-badge"><span class="material-symbols-outlined text-[17px]">notification_important</span></div><h2 class="text-sm sm:text-base ink">Low-Stock Alerts</h2></div>
+      <ul class="flex-1 mt-4 flex flex-col gap-2" id="lowStockList"><li class="empty p-4 font-mono text-xs text-center">No low-stock alerts</li></ul>
+    </div>
+
+    <!-- Recent bills -->
+    <div class="interactive-card p-5 sm:p-6 lg:col-span-2">
+      <div class="flex items-center gap-2.5 pb-3 bd-b"><div class="icon-badge"><span class="material-symbols-outlined text-[17px]">receipt_long</span></div><h2 class="text-sm sm:text-base ink">Recent Bills</h2></div>
+      <div class="overflow-x-auto mt-2"><table>
+        <thead><tr class="font-mono text-[11px] uppercase muted"><th>Invoice No.</th><th>Customer</th><th>Payment</th><th>Total</th><th>Time</th></tr></thead>
+        <tbody id="billsBody"></tbody></table></div>
+    </div>
+
+    <!-- Credit ledger -->
+    <div class="interactive-card p-5 sm:p-6 flex flex-col">
+      <div class="flex items-center gap-2.5 pb-3 bd-b"><div class="icon-badge"><span class="material-symbols-outlined text-[17px]">account_balance_wallet</span></div><h2 class="text-sm sm:text-base ink">Customer Credit</h2></div>
+      <ul class="flex-1 mt-4 flex flex-col gap-2" id="creditList"><li class="empty p-4 font-mono text-xs text-center">No outstanding balances</li></ul>
+    </div>
+
+    <!-- Top products -->
+    <div class="interactive-card p-5 sm:p-6">
+      <div class="flex items-center gap-2.5 pb-3 bd-b"><div class="icon-badge"><span class="material-symbols-outlined text-[17px]">trending_up</span></div><h2 class="text-sm sm:text-base ink">Top Products</h2></div>
+      <ul class="mt-4 flex flex-col gap-2" id="topProducts"><li class="empty p-4 font-mono text-xs text-center">No product data yet</li></ul>
+    </div>
+
+    <!-- Stock movement history -->
+    <div class="interactive-card p-5 sm:p-6 lg:col-span-2">
+      <div class="flex items-center gap-2.5 pb-3 bd-b"><div class="icon-badge"><span class="material-symbols-outlined text-[17px]">swap_vert</span></div><h2 class="text-sm sm:text-base ink">Stock Movement History</h2></div>
+      <div class="overflow-x-auto mt-2"><table>
+        <thead><tr class="font-mono text-[11px] uppercase muted"><th>Inventory ID</th><th>Product</th><th>Type</th><th>Qty</th><th>Time</th></tr></thead>
+        <tbody id="movementBody"></tbody></table></div>
+    </div>
+  </section>
+</main>
+
+<footer class="w-full bd-t px-4 sm:px-8 lg:px-12 py-6 flex flex-col sm:flex-row justify-between gap-2 font-mono text-[11px] muted">
+  <span>DukaanHub · Wholesale Operating System</span>
+</footer>
+
+<script>
+/* ---------- Module definitions (from flowchart: Select module) ---------- */
+const MODULES=[
+ {id:'catalogue',icon:'inventory_2',title:'Catalogue',desc:'Add / edit / delete products',flow:'Name · category · price · unit · reorder level → unique inventory ID → save',stat:'products',label:'Products'},
+ {id:'inventory',icon:'warehouse',title:'Inventory',desc:'Record stock received from supplier',flow:'Update stock quantity → log stock movement history',stat:'stockUnits',label:'Units in stock'},
+ {id:'billing',icon:'point_of_sale',title:'Billing',desc:'Create new bill',flow:'Search by ID or name → qty → totals → paid / credit → invoice',stat:'billsToday',label:'Bills today'},
+ {id:'returns',icon:'assignment_return',title:'Returns',desc:'Process returned items',flow:'Invoice no. → items + reason → validate → cash refund / credit note',stat:'returnsToday',label:'Returns today'},
+ {id:'credit',icon:'account_balance_wallet',title:'Credit',desc:'View customer credit ledger',flow:'Ledger → record repayment',stat:'creditCustomers',label:'Customers with dues'},
+ {id:'analytics',icon:'monitoring',title:'Analytics',desc:'Sales and inventory insights',flow:'Sales trends · top products · revenue · stock value → export',stat:'reportsReady',label:'Reports'}
+];
+const $=s=>document.querySelector(s);
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+
+/* ---------- Render static module cards ---------- */
+MODULES.forEach(m=>{
+  const b=el('button','module-card interactive-card p-5 sm:p-6 text-left cursor-pointer flex flex-col gap-4');
+  b.type='button';b.dataset.module=m.id;
+  b.innerHTML=`<div class="flex items-center justify-between"><div class="icon-badge"><span class="material-symbols-outlined text-[17px]">${m.icon}</span></div><span class="material-symbols-outlined arrow muted text-[18px]">arrow_forward</span></div>
+  <div><h3 class="text-base ink"></h3><p class="text-xs muted mt-1"></p></div>
+  <p class="font-mono text-[11px] muted leading-relaxed"></p>
+  <div class="mt-auto pt-3 bd-t flex items-baseline justify-between"><span class="font-mono text-[11px] uppercase muted"></span><span class="font-mono text-sm ph" data-stat="${m.stat}">—</span></div>`;
+  const [h,p,f]=[b.querySelector('h3'),b.querySelector('p'),b.querySelector('p.font-mono')];
+  h.textContent=m.title;p.textContent=m.desc;f.textContent=m.flow;b.querySelector('span.uppercase').textContent=m.label;
+  $('#moduleGrid').appendChild(b);
+});
+
+/* ---------- Navigation hook: wire these events to your routes ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-module]');
+  if(t){document.dispatchEvent(new CustomEvent('dukaan:navigate',{detail:{module:t.dataset.module}}))}
+  const a=e.target.closest('[data-action]');
+  if(a){document.dispatchEvent(new CustomEvent('dukaan:action',{detail:{action:a.dataset.action}}))}
+});
+$('#logoutBtn').onclick=()=>document.dispatchEvent(new CustomEvent('dukaan:logout'));   // flowchart: Continue working? No → Logout → End
+$('#refreshBtn').onclick=()=>document.dispatchEvent(new CustomEvent('dukaan:refresh'));
+
+/* ---------- Data layer: call DukaanDashboard.setData({...}) with real data ----------
+ Shape (all keys optional):
+ { user:{name}, business:{name,gstin,owner,address},
+   kpis:{todaySales,stockValue,lowStockCount,outstandingCredit}, kpiSub:{...same keys},
+   moduleStats:{products,stockUnits,billsToday,returnsToday,creditCustomers,reportsReady},
+   salesTrend:[{label,value}], topProducts:[{name,value}],
+   lowStock:[{id,name,qty,reorderLevel,suggestion}],
+   creditLedger:[{customer,balance}],
+   recentBills:[{invoice,customer,payment,total,time}],
+   stockMovements:[{id,product,type,qty,time}] }                                  */
+const emptyRow=(tbody,cols,msg)=>{tbody.replaceChildren();const tr=el('tr'),td=el('td','font-mono text-center muted',msg);td.colSpan=cols;td.style.padding='1.5rem';tr.appendChild(td);tbody.appendChild(tr)};
+const setRows=(tbody,rows,keys,msg)=>{
+  if(!rows||!rows.length)return emptyRow(tbody,keys.length,msg);
+  tbody.replaceChildren(...rows.map(r=>{const tr=el('tr','font-mono');keys.forEach(k=>tr.appendChild(el('td','ink',r[k]??'—')));return tr}));
+};
+const setList=(ul,rows,build,msg)=>{
+  if(!rows||!rows.length){ul.replaceChildren(el('li','empty p-4 font-mono text-xs text-center',msg));return}
+  ul.replaceChildren(...rows.map(build));
+};
+const pair=(a,b,sub)=>{const li=el('li','bd bg-sub px-3 py-2.5 flex items-center justify-between gap-3');
+  const l=el('div');l.appendChild(el('p','text-xs ink',a));if(sub)l.appendChild(el('p','font-mono text-[11px] muted',sub));
+  li.append(l,el('span','font-mono text-xs acc',b));return li};
+
+function drawChart(data){
+  const box=$('#salesChart');
+  if(!data||!data.length){box.replaceChildren(el('div','empty h-full min-h-[220px] flex items-center justify-center font-mono text-xs','No sales data yet'));return}
+  const max=Math.max(...data.map(d=>+d.value||0))||1,W=600,H=220,bw=W/data.length;
+  const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox',`0 0 ${W} ${H+20}`);svg.setAttribute('class','w-full h-full');
+  data.forEach((d,i)=>{const h=(d.value/max)*H,r=document.createElementNS(ns,'rect');
+    r.setAttribute('x',i*bw+bw*.18);r.setAttribute('y',H-h);r.setAttribute('width',bw*.64);r.setAttribute('height',h);r.setAttribute('fill','#C8FF00');
+    const tt=document.createElementNS(ns,'title');tt.textContent=`${d.label}: ${d.value}`;r.appendChild(tt);svg.appendChild(r);
+    const t=document.createElementNS(ns,'text');t.setAttribute('x',i*bw+bw/2);t.setAttribute('y',H+14);t.setAttribute('text-anchor','middle');t.setAttribute('font-size','10');t.setAttribute('fill','#8A8A8A');t.textContent=d.label;svg.appendChild(t)});
+  box.replaceChildren(svg);
+}
+
+window.DukaanDashboard={
+  setData(d={}){
+    const get=(o,p)=>p.split('.').reduce((a,k)=>a&&a[k],o);
+    document.querySelectorAll('[data-bind]').forEach(n=>{const v=get(d,n.dataset.bind);if(v!=null&&v!=='')n.textContent=v});
+    Object.entries(d.kpis||{}).forEach(([k,v])=>{const n=document.querySelector(`[data-kpi="${k}"]`);if(n){n.textContent=v;n.classList.remove('ph')}});
+    Object.entries(d.kpiSub||{}).forEach(([k,v])=>{const n=document.querySelector(`[data-kpi-sub="${k}"]`);if(n)n.textContent=v});
+    Object.entries(d.moduleStats||{}).forEach(([k,v])=>{const n=document.querySelector(`[data-stat="${k}"]`);if(n){n.textContent=v;n.classList.remove('ph')}});
+    if('salesTrend' in d)drawChart(d.salesTrend);
+    if('topProducts' in d)setList($('#topProducts'),d.topProducts,r=>pair(r.name,r.value),'No product data yet');
+    if('lowStock' in d)setList($('#lowStockList'),d.lowStock,r=>pair(r.name,`${r.qty} / ${r.reorderLevel}`,[r.id,r.suggestion].filter(Boolean).join(' · ')),'No low-stock alerts');
+    if('creditLedger' in d)setList($('#creditList'),d.creditLedger,r=>pair(r.customer,r.balance),'No outstanding balances');
+    if('recentBills' in d)setRows($('#billsBody'),d.recentBills,['invoice','customer','payment','total','time'],'No bills yet');
+    if('stockMovements' in d)setRows($('#movementBody'),d.stockMovements,['id','product','type','qty','time'],'No stock movements yet');
+  }
+};
+emptyRow($('#billsBody'),5,'No bills yet');
+emptyRow($('#movementBody'),5,'No stock movements yet');
+
+/* ---------- Theme toggle (persisted) ---------- */
+const root=document.documentElement,KEY='dukaanhub-theme';
+const applyTheme=t=>{root.classList.toggle('light',t==='light');root.classList.toggle('dark',t!=='light')};
+try{applyTheme(localStorage.getItem(KEY)||'dark')}catch(e){}
+$('#themeToggle').onclick=()=>{const t=root.classList.contains('light')?'dark':'light';applyTheme(t);try{localStorage.setItem(KEY,t)}catch(e){}};
+
+/* ---------- Spotlight + scroll progress ---------- */
+document.addEventListener('mousemove',e=>{const c=e.target.closest('.interactive-card');if(!c)return;const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')});
+addEventListener('scroll',()=>{const h=document.documentElement;$('#fx-progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight||1)*100)+'%'},{passive:true});
+</script>
 </body>
-
 </html>
