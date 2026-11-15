@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Product Catalogue | DukaanHub</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { darkMode: "class", theme: { extend: {
+  colors: { surface:"#141414", background:"#0A0A0A", primary:"#F5F5F5", secondary:"#8A8A8A", accent:"#C8FF00", "border-line":"#2A2A2A" },
+  fontFamily: { sans:["Geist","-apple-system","BlinkMacSystemFont","sans-serif"], display:["Space Grotesk","Geist","sans-serif"], mono:["Geist Mono","JetBrains Mono","monospace"] } } } };
+</script>
+<link rel="stylesheet" href="assets/css/theme.css" />
+<link rel="stylesheet" href="assets/css/animations.css" />
+<style>
+  ::-webkit-scrollbar{display:none}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{font-family:'Geist',sans-serif;background:#0A0A0A;color:#F5F5F5}
+  h1,h2{font-family:'Space Grotesk','Geist',sans-serif!important;letter-spacing:-.035em}
+  .font-mono{font-family:'Geist Mono','JetBrains Mono',monospace!important}
+
+  /* open, borderless fields: just a line underneath */
+  .field{width:100%;background:transparent;border:0;border-bottom:1px solid #2A2A2A;padding:1.1rem 0 .9rem;font-size:1.125rem;color:inherit;border-radius:0;transition:border-color .25s cubic-bezier(.16,1,.3,1)}
+  .field::placeholder{color:#8A8A8A;opacity:.7}
+  .field:hover{border-bottom-color:#3F3F3F}
+  .field:focus{outline:none;border-bottom-color:#C8FF00;box-shadow:0 1px 0 0 #C8FF00}
+  .field.invalid{border-bottom-color:#ff5c5c}
+  .lbl{display:block;font-size:.875rem;color:#8A8A8A;margin-bottom:.15rem;letter-spacing:.01em}
+
+  .btn-primary-action{transition:transform .2s cubic-bezier(.16,1,.3,1),filter .2s,box-shadow .2s}
+  .btn-primary-action:hover:not(:disabled){transform:scale(1.02);filter:brightness(1.05);box-shadow:0 0 20px rgba(200,255,0,.2)}
+  .btn-primary-action:disabled{opacity:.6;cursor:wait}
+
+  .row{padding:1.5rem 0;border-bottom:1px solid rgba(138,138,138,.14)}
+  @keyframes liveBeaconPing{0%{box-shadow:0 0 0 0 rgba(200,255,0,.5)}100%{box-shadow:0 0 0 8px rgba(200,255,0,0)}}
+  .status-pulse-dot{animation:liveBeaconPing 1.8s infinite}
+  @keyframes rowIn{from{background:rgba(200,255,0,.10)}to{background:transparent}}
+  .row-new{animation:rowIn 1.8s ease-out}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  html.light body{background:#fff;color:#0A0A0A}
+  html.light .text-\[\#F5F5F5\]{color:#0A0A0A}
+  html.light .text-\[\#8A8A8A\],html.light .lbl{color:#5F6670}
+  html.light .text-\[\#C8FF00\]{color:#587300}
+  html.light .field{border-bottom-color:#E3E5E8}
+  html.light .row{border-bottom-color:#E3E5E8}
+  html.light .brand{color:#587300}
+</style>
+</head>
+<body class="min-h-screen flex flex-col" style="padding-top:env(safe-area-inset-top,0px)">
+
+<header class="w-full py-5 px-4 sm:px-8 lg:px-12 flex items-center justify-between">
+  <a href="mainDashboard.html" class="brand flex items-center gap-2.5 font-display font-bold text-[#C8FF00] text-lg tracking-tight">
+    DukaanHub
+  </a>
+  <nav class="flex items-center gap-6 text-sm text-[#8A8A8A]">
+    <a href="mainDashboard.html" class="hover:text-[#F5F5F5] transition-colors">Dashboard</a>
+    <a href="catalogue.html" class="text-[#F5F5F5]">Catalogue</a>
+    <button id="themeToggle" type="button" class="hover:text-[#F5F5F5] transition-colors flex" aria-label="Toggle theme"><span class="material-symbols-outlined text-[20px]">contrast</span></button>
+  </nav>
+</header>
+
+<main class="w-full flex-1">
+
+  <!-- Add product: fills the whole window -->
+  <section id="add" class="px-4 sm:px-8 lg:px-12 py-10 flex flex-col justify-center" style="min-height:calc(100svh - 5rem)">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
+      <div class="lg:col-span-5">
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.02]">What do you sell?</h1>
+        <p class="text-[#8A8A8A] mt-6 max-w-md leading-relaxed text-base sm:text-lg">Add each product once. It gets its own inventory ID when you save. Sales numbers fill in on their own once billing starts.</p>
+      </div>
+
+      <form id="productForm" class="lg:col-span-7 flex flex-col gap-12" novalidate>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-14 gap-y-12">
+          <div class="sm:col-span-2">
+            <label class="lbl" for="productName">Product name</label>
+            <input class="field" id="productName" name="productName" placeholder="Basmati Rice 25kg" required type="text" maxlength="120" autocomplete="off" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="lbl" for="vendorName">Wholesale vendor</label>
+            <input class="field" id="vendorName" name="vendorName" placeholder="Sri Lakshmi Traders" required type="text" maxlength="120" autocomplete="off" />
+          </div>
+          <div>
+            <label class="lbl" for="unitsPresent">Units present</label>
+            <input class="field font-mono" id="unitsPresent" name="unitsPresent" placeholder="0" required type="number" min="0" step="1" inputmode="numeric" />
+          </div>
+          <div>
+            <label class="lbl" for="discount">Discount % (if any)</label>
+            <input class="field font-mono" id="discount" name="discount" placeholder="0" type="number" min="0" max="100" step="0.01" inputmode="decimal" />
+          </div>
+          <div>
+            <label class="lbl" for="priceWholesale">Wholesale price ₹</label>
+            <input class="field font-mono" id="priceWholesale" name="priceWholesale" placeholder="0.00" required type="number" min="0" step="0.01" inputmode="decimal" />
+          </div>
+          <div>
+            <label class="lbl" for="priceMrp">MRP ₹</label>
+            <input class="field font-mono" id="priceMrp" name="priceMrp" placeholder="0.00" required type="number" min="0" step="0.01" inputmode="decimal" />
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
+          <div class="flex items-center gap-8">
+            <button id="saveBtn" class="btn-primary-action inline-flex items-center justify-center gap-2 bg-[#C8FF00] text-[#0A0A0A] font-semibold text-sm px-9 py-4 rounded-sm tracking-tight cursor-pointer" type="submit">
+              <span>Save product</span><span class="material-symbols-outlined text-[17px]">arrow_forward</span>
+            </button>
+            <button id="clearBtn" class="text-sm text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer" type="button">Clear</button>
+          </div>
+          <p class="text-sm text-[#8A8A8A]">Inventory ID: <span class="font-mono">assigned when you save</span></p>
+        </div>
+        <p id="formMsg" class="font-mono text-xs min-h-[16px] -mt-6" role="status"></p>
+      </form>
+    </div>
+
+    <a href="#products" class="mt-14 inline-flex items-center gap-2 self-start text-sm text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors">
+      <span>See your products</span><span id="count2" class="font-mono">0</span>
+      <span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+    </a>
+  </section>
+
+  <!-- Product list: scroll down to see it -->
+  <section id="products" class="px-4 sm:px-8 lg:px-12 pt-20 pb-24" style="min-height:100svh;scroll-margin-top:1rem">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <h2 class="text-3xl sm:text-4xl font-semibold">Your products <span id="count" class="font-mono text-base text-[#8A8A8A] font-normal ml-1">0</span></h2>
+      <div class="w-full sm:w-80">
+        <input id="search" class="field text-base" placeholder="Search by name, vendor or ID" type="search" aria-label="Search products" />
+      </div>
+    </div>
+
+    <div id="rows" class="mt-8"></div>
+    <p id="empty" class="hidden py-16 text-[#8A8A8A]">Nothing here yet. Add your first product and it will show up in this list.</p>
+    <p id="listErr" class="hidden py-6 font-mono text-xs text-[#ff5c5c]"></p>
+
+    <a href="#add" class="mt-12 inline-flex items-center gap-2 text-sm text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors">
+      <span class="material-symbols-outlined text-[18px]">arrow_upward</span><span>Add another product</span>
+    </a>
+  </section>
+</main>
+
+<footer class="w-full px-4 sm:px-8 lg:px-12 py-6 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] text-[#8A8A8A]" style="padding-bottom:calc(1.5rem + env(safe-area-inset-bottom,0px))">
+  <span>DukaanHub Wholesale Operating System</span>
+</footer>
+
+<script>
+const host = window.location.hostname || 'localhost';
+const isBackendHost = window.location.protocol.startsWith('http') && window.location.port === '5000';
+const API = isBackendHost ? '/api/products' : `http://${host}:5000/api/products`;
+const $ = (id) => document.getElementById(id);
+const form = $("productForm"), msg = $("formMsg"), rows = $("rows");
+let products = [];
+
+const inr = (n) => "₹" + Number(n).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+function setMsg(text, ok) {
+  msg.textContent = text || "";
+  msg.className = "font-mono text-xs min-h-[16px] " + (ok ? "text-[#C8FF00]" : "text-[#ff5c5c]");
+}
+
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+}
+
+function stat(label, value) {
+  const d = el("div", "text-right");
+  d.append(el("div", "font-mono text-sm", value), el("div", "text-xs text-[#8A8A8A] mt-0.5", label));
+  return d;
+}
+
+function renderRow(p, isNew) {
+  const r = el("div", "row grid grid-cols-2 sm:grid-cols-12 gap-x-6 gap-y-3 items-center" + (isNew ? " row-new" : ""));
+  const main = el("div", "col-span-2 sm:col-span-4");
+  main.append(el("div", "font-medium text-base", p.product_name), el("div", "text-sm text-[#8A8A8A] mt-0.5", p.vendor_name));
+  const id = el("div", "font-mono text-xs text-[#C8FF00] mt-1.5", p.inventory_id);
+  main.append(id);
+  const disc = Number(p.discount_percent) > 0 ? Number(p.discount_percent) + "%" : "—";
+  const sales = p.total_sales == null ? "—" : inr(p.total_sales);
+  const cols = [stat("in stock", p.units_present), stat("wholesale", inr(p.price_wholesale)), stat("MRP", inr(p.price_mrp)), stat("discount", disc)];
+  cols.forEach((c) => c.className += " sm:col-span-2");
+  cols[3].className = "text-right sm:col-span-2";
+  const s = cols[3]; s.append(el("div", "text-xs text-[#8A8A8A] mt-1", "sales " + sales));
+  r.append(main, ...cols);
+  return r;
+}
+
+function render(newId) {
+  const q = $("search").value.trim().toLowerCase();
+  const list = products.filter((p) => !q || [p.product_name, p.vendor_name, p.inventory_id].some((v) => v.toLowerCase().includes(q)));
+  rows.replaceChildren(...list.map((p) => renderRow(p, p.inventory_id === newId)));
+  $("count").textContent = products.length; $("count2").textContent = products.length;
+  const none = list.length === 0;
+  $("empty").classList.toggle("hidden", !none);
+  $("empty").textContent = products.length ? "No products match your search." : "Nothing here yet. Add your first product and it will show up in this list.";
+}
+
+function getAuthHeaders(extra = {}) {
+  const token = localStorage.getItem("dukaanhub-token");
+  const headers = { ...extra };
+  if (token) headers["Authorization"] = "Bearer " + token;
+  return headers;
+}
+
+async function load() {
+  try {
+    const loadRes = await fetch(API, { credentials: "include", headers: getAuthHeaders() });
+    if (loadRes.status === 401) { location.href = "registrationPage.html"; return; }
+    if (!loadRes.ok) throw new Error();
+    products = await loadRes.json();
+    $("listErr").classList.add("hidden");
+    render();
+  } catch {
+    $("listErr").textContent = "Could not load your catalogue. Check your connection and refresh.";
+    $("listErr").classList.remove("hidden");
+  }
+}
+
+function validate() {
+  const v = Object.fromEntries(new FormData(form));
+  let bad = 0;
+  const mark = (name, isBad) => { form[name].classList.toggle("invalid", isBad); if (isBad) bad++; };
+  mark("productName", !v.productName.trim());
+  mark("vendorName", !v.vendorName.trim());
+  mark("unitsPresent", !/^\d+$/.test(v.unitsPresent));
+  mark("priceWholesale", v.priceWholesale === "" || +v.priceWholesale < 0);
+  mark("priceMrp", v.priceMrp === "" || +v.priceMrp < 0);
+  mark("discount", v.discount !== "" && (+v.discount < 0 || +v.discount > 100));
+  if (bad) { setMsg("Fix the red fields. Units must be a whole number and discount between 0 and 100.", false); return null; }
+  if (+v.priceMrp < +v.priceWholesale) { setMsg("MRP is lower than your wholesale price. Check both prices.", false); form.priceMrp.classList.add("invalid"); return null; }
+  return v;
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const v = validate();
+  if (!v) return;
+  const btn = $("saveBtn"); btn.disabled = true; setMsg("Saving...", true);
+  try {
+    const saveRes = await fetch(API, { method: "POST", credentials: "include", headers: getAuthHeaders({ "Content-Type": "application/json" }), body: JSON.stringify(v) });
+    const data = await saveRes.json().catch(() => ({}));
+    if (!saveRes.ok) throw new Error(data.error || "Could not save product");
+    products.unshift(data);
+    render(data.inventory_id);
+    form.reset();
+    setMsg("Saved as " + data.inventory_id, true);
+    form.productName.focus();
+  } catch (err) {
+    setMsg(err.message, false);
+  } finally { btn.disabled = false; }
+});
+
+$("clearBtn").addEventListener("click", () => { form.reset(); form.querySelectorAll(".invalid").forEach((i) => i.classList.remove("invalid")); setMsg(""); });
+form.addEventListener("input", (e) => e.target.classList.remove("invalid"));
+$("search").addEventListener("input", () => render());
+
+(function () {
+  const root = document.documentElement;
+  try { if (localStorage.getItem("dukaanhub-theme") === "light") { root.classList.add("light"); root.classList.remove("dark"); } } catch {}
+  $("themeToggle").addEventListener("click", () => {
+    const light = root.classList.toggle("light"); root.classList.toggle("dark", !light);
+    try { localStorage.setItem("dukaanhub-theme", light ? "light" : "dark"); } catch {}
+  });
+})();
+
+load();
+</script>
+</body>
+</html>

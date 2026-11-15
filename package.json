@@ -1,0 +1,10 @@
+{
+  "name": "dukaanhub",
+  "version": "1.0.0",
+  "description": "DukaanHub Wholesale Billing & Product Catalogue",
+  "main": "server.js",
+  "scripts": {
+    "start": "npm --prefix backend start",
+    "dev": "npm --prefix backend run dev"
+  }
+}

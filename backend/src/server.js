@@ -10,23 +10,39 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const authMiddleware = require('./middleware/authMiddleware');
 const prisma = require('./prisma');
+const catalogueRoutes = require('../../server/catalogue.routes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const projectRoot = path.resolve(__dirname, '../../');
 
-// Enable Cross-Origin Resource Sharing (CORS) for frontend clients
-app.use(cors());
+// Enable Cross-Origin Resource Sharing (CORS) with credentials support for Live Server & local clients
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 
 // Parse incoming JSON request bodies
 app.use(express.json());
 
-// Root health check route
-app.get('/', (req, res) => {
+// Serve static frontend assets and pages (catalogue.html, mainDashboard.html, registrationPage.html, etc.)
+app.use(express.static(projectRoot));
+
+// Explicit route to serve the product catalogue page
+app.get('/catalogue', (req, res) => {
+  res.sendFile(path.join(projectRoot, 'catalogue.html'));
+});
+
+// Root health check route (if index.html isn't served by static)
+app.get('/api', (req, res) => {
   res.json({ message: 'DukaanHub Backend API is up and running' });
 });
 
 // Mount authentication routes at /api/auth
 app.use('/api/auth', authRoutes);
+
+// Mount product catalogue routes at /api/products
+app.use('/api/products', catalogueRoutes);
 
 /**
  * GET /api/me

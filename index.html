@@ -3,6 +3,36 @@
 
 <head>
   <script>try { if (localStorage.getItem("dukaanhub-theme") !== "dark") document.documentElement.classList.add("light") } catch (e) { document.documentElement.classList.add("light") }</script>
+  <!-- Remember Me: redirect Get Started links to mainDashboard if logged in -->
+  <script>
+    try {
+      var tok = localStorage.getItem("dukaanhub-token");
+      if (tok) {
+        var chk = (window.location.port === '5000' || !window.location.port) ? '/api/products' : 'http://localhost:5000/api/products';
+        fetch(chk, { headers: { 'Authorization': 'Bearer ' + tok }, credentials: 'include' })
+          .then(function (r) {
+            if (r.ok) {
+              document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll('a[href="registrationPage.html"]').forEach(function (link) {
+                  link.href = "mainDashboard.html";
+                  if (link.textContent.trim() === "Get Started") {
+                    link.textContent = "Go to Dashboard";
+                  }
+                });
+              });
+            } else {
+              localStorage.removeItem('dukaanhub-token');
+              localStorage.removeItem('dukaanhub-business');
+              localStorage.removeItem('dukaanhub-user');
+            }
+          })
+          .catch(function () {});
+      } else {
+        localStorage.removeItem('dukaanhub-business');
+        localStorage.removeItem('dukaanhub-user');
+      }
+    } catch (e) {}
+  </script>
 </head>
 
 <body
