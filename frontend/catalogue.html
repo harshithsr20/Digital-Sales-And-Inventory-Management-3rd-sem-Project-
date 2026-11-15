@@ -207,7 +207,7 @@ function getAuthHeaders(extra = {}) {
 async function load() {
   try {
     const loadRes = await fetch(API, { credentials: "include", headers: getAuthHeaders() });
-    if (loadRes.status === 401) { location.href = "registrationPage.html"; return; }
+    if (loadRes.status === 401) { location.href = "login.html"; return; }
     if (!loadRes.ok) throw new Error();
     products = await loadRes.json();
     $("listErr").classList.add("hidden");

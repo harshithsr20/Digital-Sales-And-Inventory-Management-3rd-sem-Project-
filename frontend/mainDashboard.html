@@ -885,7 +885,7 @@
                         localStorage.removeItem('dukaanhub-user');
                         var logoutApi = (window.location.port === '5000' || !window.location.port) ? '/api/auth/logout' : 'http://localhost:5000/api/auth/logout';
                         fetch(logoutApi, { method: 'POST', credentials: 'include' }).catch(function () {});
-                        window.location.href = 'registrationPage.html?reset=1';
+                        window.location.href = 'login.html';
                     });
                 }
             } catch (e) { }

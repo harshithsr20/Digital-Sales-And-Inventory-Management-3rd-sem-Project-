@@ -10,10 +10,11 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const authMiddleware = require('./middleware/authMiddleware');
 const prisma = require('./prisma');
-const catalogueRoutes = require('../../server/catalogue.routes');
+const catalogueRoutes = require('./routes/catalogue.routes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const frontendDir = path.resolve(__dirname, '../../frontend');
 const projectRoot = path.resolve(__dirname, '../../');
 
 // Enable Cross-Origin Resource Sharing (CORS) with credentials support for Live Server & local clients
@@ -25,12 +26,17 @@ app.use(cors({
 // Parse incoming JSON request bodies
 app.use(express.json());
 
-// Serve static frontend assets and pages (catalogue.html, mainDashboard.html, registrationPage.html, etc.)
+// Serve static frontend assets and pages from frontend/ and root
+app.use(express.static(frontendDir));
 app.use(express.static(projectRoot));
 
-// Explicit route to serve the product catalogue page
-app.get('/catalogue', (req, res) => {
-  res.sendFile(path.join(projectRoot, 'catalogue.html'));
+// Explicit routes to serve frontend pages
+app.get(['/catalogue', '/catalogue.html'], (req, res) => {
+  res.sendFile(path.join(frontendDir, 'catalogue.html'));
+});
+
+app.get(['/login', '/login.html'], (req, res) => {
+  res.sendFile(path.join(frontendDir, 'login.html'));
 });
 
 // Root health check route (if index.html isn't served by static)
