@@ -339,9 +339,9 @@
                         </svg>
                         <span>Catalogue</span>
                     </a>
-
-                    <a href="#billing" data-nav="billing"
-                        class="top-nav-link flex items-center gap-2.5 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent whitespace-nowrap">
+                    <a href="billingPage.html"
+                        class="top-nav-link flex items-center gap-2.5 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent whitespace-nowrap"
+                        title="Billing & POS">
                         <svg class="nav-icon w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                             stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -402,7 +402,8 @@
                     <button id="logout-btn" type="button" title="Log out / Register another business"
                         class="text-xs px-2.5 py-1.5 rounded-lg border border-[var(--line)] text-[var(--muted)] hover:text-[#ff5c5c] hover:border-[#ff5c5c] transition-colors cursor-pointer flex items-center gap-1 ml-1">
                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                         </svg>
                         <span>Logout</span>
                     </button>
@@ -444,30 +445,36 @@
 
             <a href="#billing" data-nav="billing"
                 class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent">
-                <svg class="nav-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
-                </svg>
-                <span>Billing</span>
-            </a>
+                <a href="billingPage.html"
+                    class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent"
+                    title="Billing & POS">
+                    <svg class="nav-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
+                    </svg>
+                    <span>Billing</span>
+                </a>
 
-            <a href="#inventory" data-nav="inventory"
-                class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent">
-                <svg class="nav-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                </svg>
-                <span>Inventory</span>
-            </a>
+                <a href="#inventory" data-nav="inventory"
+                    class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent">
+                    <svg class="nav-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                    </svg>
+                    <span>Inventory</span>
+                </a>
 
-            <a href="#analytics-section" data-nav="analytics"
-                class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent">
-                <svg class="nav-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                <span>Analytics</span>
-            </a>
+                <a href="#analytics-section" data-nav="analytics"
+                    class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent">
+                    <svg class="nav-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <span>Analytics</span>
+                </a>
         </div>
     </header>
 
@@ -524,12 +531,14 @@
                         <span class="font-medium">Total Products</span>
                         <span class="font-mono-code text-[11px] text-[var(--muted)]">SKU Active</span>
                     </div>
-                    <div id="stat-total-products" class="text-2xl font-bold font-mono-code tracking-tight text-[var(--ink)]">
+                    <div id="stat-total-products"
+                        class="text-2xl font-bold font-mono-code tracking-tight text-[var(--ink)]">
                         0
                     </div>
                     <div class="mt-2 text-xs text-[var(--muted)] flex items-center justify-between">
                         <span id="stat-total-products-sub">No catalog items added</span>
-                        <a href="catalogue.html" class="text-[var(--accent)] hover:underline font-medium">Open Catalogue &rarr;</a>
+                        <a href="catalogue.html" class="text-[var(--accent)] hover:underline font-medium">Open Catalogue
+                            &rarr;</a>
                     </div>
                 </div>
 
@@ -684,56 +693,58 @@
 
                 <!-- Left: Recent Sales Table (Span 7) -->
                 <div id="billing" class="lg:col-span-7 interactive-card rounded-xl p-5 scroll-mt-24">
-                    <div class="flex items-center justify-between pb-4 border-b border-[var(--line)]">
-                        <div>
-                            <h3 class="text-sm font-semibold text-[var(--ink)]">Recent Sales</h3>
-                            <p class="text-[11px] text-[var(--muted)]">Latest processed invoices</p>
+                    <div id="recent-sales" class="lg:col-span-7 interactive-card rounded-xl p-5 scroll-mt-24">
+                        <div class="flex items-center justify-between pb-4 border-b border-[var(--line)]">
+                            <div>
+                                <h3 class="text-sm font-semibold text-[var(--ink)]">Recent Sales</h3>
+                                <p class="text-[11px] text-[var(--muted)]">Latest processed invoices</p>
+                            </div>
+                            <span class="text-xs font-mono-code text-[var(--muted)]">0 records</span>
                         </div>
-                        <span class="text-xs font-mono-code text-[var(--muted)]">0 records</span>
-                    </div>
 
-                    <div class="mt-4 overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-xs">
-                            <thead>
-                                <tr class="text-[var(--muted)] font-mono-code border-b border-[var(--line)]">
-                                    <th class="pb-2.5 font-medium">Invoice ID</th>
-                                    <th class="pb-2.5 font-medium">Customer</th>
-                                    <th class="pb-2.5 font-medium text-right">Amount</th>
-                                    <th class="pb-2.5 font-medium text-right">Date</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-[var(--line)]">
-                                <tr>
-                                    <td colspan="4" class="py-8 text-center text-xs text-[var(--muted)] font-mono-code">
-                                        No recent transactions recorded yet.
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Right: Low Stock Alerts (Span 5) -->
-                <div id="inventory" class="lg:col-span-5 interactive-card rounded-xl p-5 scroll-mt-24">
-                    <div class="flex items-center justify-between pb-4 border-b border-[var(--line)]">
-                        <div>
-                            <h3 class="text-sm font-semibold text-[var(--ink)]">Low Stock Alerts</h3>
-                            <p class="text-[11px] text-[var(--muted)]">Items requiring restocking</p>
-                        </div>
-                        <span
-                            class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono-code font-medium text-[var(--muted)] bg-[var(--surface-elevated)]">
-                            0 Alerts
-                        </span>
-                    </div>
-
-                    <!-- Short List -->
-                    <div class="mt-4 space-y-3">
-                        <div
-                            class="p-8 rounded-lg bg-[var(--surface-elevated)] border border-[var(--line)] text-center text-xs text-[var(--muted)] font-mono-code">
-                            All product inventory levels are healthy.
+                        <div class="mt-4 overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="text-[var(--muted)] font-mono-code border-b border-[var(--line)]">
+                                        <th class="pb-2.5 font-medium">Invoice ID</th>
+                                        <th class="pb-2.5 font-medium">Customer</th>
+                                        <th class="pb-2.5 font-medium text-right">Amount</th>
+                                        <th class="pb-2.5 font-medium text-right">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-[var(--line)]">
+                                    <tr>
+                                        <td colspan="4"
+                                            class="py-8 text-center text-xs text-[var(--muted)] font-mono-code">
+                                            No recent transactions recorded yet.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
+
+                    <!-- Right: Low Stock Alerts (Span 5) -->
+                    <div id="inventory" class="lg:col-span-5 interactive-card rounded-xl p-5 scroll-mt-24">
+                        <div class="flex items-center justify-between pb-4 border-b border-[var(--line)]">
+                            <div>
+                                <h3 class="text-sm font-semibold text-[var(--ink)]">Low Stock Alerts</h3>
+                                <p class="text-[11px] text-[var(--muted)]">Items requiring restocking</p>
+                            </div>
+                            <span
+                                class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono-code font-medium text-[var(--muted)] bg-[var(--surface-elevated)]">
+                                0 Alerts
+                            </span>
+                        </div>
+
+                        <!-- Short List -->
+                        <div class="mt-4 space-y-3">
+                            <div
+                                class="p-8 rounded-lg bg-[var(--surface-elevated)] border border-[var(--line)] text-center text-xs text-[var(--muted)] font-mono-code">
+                                All product inventory levels are healthy.
+                            </div>
+                        </div>
+                    </div>
 
             </section>
 
@@ -815,102 +826,113 @@
 
             links.forEach(function (link) {
                 link.addEventListener('click', function () {
-                    var navKey = link.getAttribute('data-nav');
-                    if (navKey) setActiveNav(navKey);
-                    setMenuOpen(false);
+                    link.addEventListener('click', function (e) {
+                        var navKey = link.getAttribute('data-nav');
+                        var href = link.getAttribute('href');
+                        if (href && !href.startsWith('#')) {
+                            var bar = document.getElementById('fx-progress');
+                            if (bar) {
+                                bar.style.transition = 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)';
+                                bar.style.transform = 'scaleX(1)';
+                            }
+                            setMenuOpen(false);
+                            return;
+                        }
+                        if (navKey) setActiveNav(navKey);
+                        setMenuOpen(false);
+                    });
                 });
-            });
-        })();
+            })();
 
-        /* Hydrate user and store profile from localStorage session if available */
-        (function () {
-            'use strict';
-            try {
-                var userRaw = localStorage.getItem('dukaanhub-user');
-                var bizRaw = localStorage.getItem('dukaanhub-business');
-                var user = userRaw ? JSON.parse(userRaw) : null;
-                var biz = bizRaw ? JSON.parse(bizRaw) : null;
+            /* Hydrate user and store profile from localStorage session if available */
+            (function () {
+                'use strict';
+                try {
+                    var userRaw = localStorage.getItem('dukaanhub-user');
+                    var bizRaw = localStorage.getItem('dukaanhub-business');
+                    var user = userRaw ? JSON.parse(userRaw) : null;
+                    var biz = bizRaw ? JSON.parse(bizRaw) : null;
 
-                var nameEl = document.getElementById('profile-name');
-                var roleEl = document.getElementById('profile-role');
-                var initialsEl = document.getElementById('profile-initials');
-                var welcomeEl = document.getElementById('welcome-title');
+                    var nameEl = document.getElementById('profile-name');
+                    var roleEl = document.getElementById('profile-role');
+                    var initialsEl = document.getElementById('profile-initials');
+                    var welcomeEl = document.getElementById('welcome-title');
 
-                var displayName = (user && (user.ownerName || user.name)) || (biz && biz.name) || '';
-                if (displayName) {
-                    if (nameEl) nameEl.textContent = displayName;
-                    if (welcomeEl) welcomeEl.textContent = 'Welcome back, ' + displayName.split(/\s+/)[0] + '!';
-                    if (initialsEl) {
-                        var parts = displayName.trim().split(/\s+/);
-                        var initials = (parts[0] ? parts[0][0] : '') + (parts.length > 1 ? parts[parts.length - 1][0] : '');
-                        if (initials) initialsEl.textContent = initials.toUpperCase();
+                    var displayName = (user && (user.ownerName || user.name)) || (biz && biz.name) || '';
+                    if (displayName) {
+                        if (nameEl) nameEl.textContent = displayName;
+                        if (welcomeEl) welcomeEl.textContent = 'Welcome back, ' + displayName.split(/\s+/)[0] + '!';
+                        if (initialsEl) {
+                            var parts = displayName.trim().split(/\s+/);
+                            var initials = (parts[0] ? parts[0][0] : '') + (parts.length > 1 ? parts[parts.length - 1][0] : '');
+                            if (initials) initialsEl.textContent = initials.toUpperCase();
+                        }
                     }
-                }
-                if (biz && (biz.name || biz.businessName) && roleEl) {
-                    roleEl.textContent = biz.name || biz.businessName;
-                }
+                    if (biz && (biz.name || biz.businessName) && roleEl) {
+                        roleEl.textContent = biz.name || biz.businessName;
+                    }
 
-                // Hydrate live catalogue products count
-                var token = localStorage.getItem('dukaanhub-token');
-                var host = window.location.hostname || 'localhost';
-                var isBackendHost = window.location.protocol.startsWith('http') && window.location.port === '5000';
-                var pApi = isBackendHost ? '/api/products' : 'http://' + host + ':5000/api/products';
-                fetch(pApi, { headers: token ? { 'Authorization': 'Bearer ' + token } : {}, credentials: 'include' })
-                    .then(function (res) {
-                        if (res.status === 401) {
-                            // Stale or invalid session: purge and redirect to registration
+                    // Hydrate live catalogue products count
+                    var token = localStorage.getItem('dukaanhub-token');
+                    var host = window.location.hostname || 'localhost';
+                    var isBackendHost = window.location.protocol.startsWith('http') && window.location.port === '5000';
+                    var pApi = isBackendHost ? '/api/products' : 'http://' + host + ':5000/api/products';
+                    fetch(pApi, { headers: token ? { 'Authorization': 'Bearer ' + token } : {}, credentials: 'include' })
+                        .then(function (res) {
+                            if (res.status === 401) {
+                                // Stale or invalid session: purge and redirect to registration
+                                localStorage.removeItem('dukaanhub-token');
+                                localStorage.removeItem('dukaanhub-business');
+                                localStorage.removeItem('dukaanhub-user');
+                                window.location.replace('registrationPage.html?reset=1');
+                                return [];
+                            }
+                            return res.ok ? res.json() : [];
+                        })
+                        .then(function (items) {
+                            if (Array.isArray(items)) {
+                                var countEl = document.getElementById('stat-total-products');
+                                var subEl = document.getElementById('stat-total-products-sub');
+                                if (countEl) countEl.textContent = items.length;
+                                if (subEl) subEl.textContent = items.length ? items.length + ' active SKUs in catalogue' : 'No catalog items added';
+                            }
+                        }).catch(function () { });
+
+                    // Logout button handler
+                    var logoutBtn = document.getElementById('logout-btn');
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener('click', function () {
                             localStorage.removeItem('dukaanhub-token');
                             localStorage.removeItem('dukaanhub-business');
                             localStorage.removeItem('dukaanhub-user');
-                            window.location.replace('registrationPage.html?reset=1');
-                            return [];
-                        }
-                        return res.ok ? res.json() : [];
-                    })
-                    .then(function (items) {
-                        if (Array.isArray(items)) {
-                            var countEl = document.getElementById('stat-total-products');
-                            var subEl = document.getElementById('stat-total-products-sub');
-                            if (countEl) countEl.textContent = items.length;
-                            if (subEl) subEl.textContent = items.length ? items.length + ' active SKUs in catalogue' : 'No catalog items added';
-                        }
-                    }).catch(function () { });
+                            var logoutApi = (window.location.port === '5000' || !window.location.port) ? '/api/auth/logout' : 'http://localhost:5000/api/auth/logout';
+                            fetch(logoutApi, { method: 'POST', credentials: 'include' }).catch(function () { });
+                            window.location.href = 'login.html';
+                        });
+                    }
+                } catch (e) { }
+            })();
 
-                // Logout button handler
-                var logoutBtn = document.getElementById('logout-btn');
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', function () {
-                        localStorage.removeItem('dukaanhub-token');
-                        localStorage.removeItem('dukaanhub-business');
-                        localStorage.removeItem('dukaanhub-user');
-                        var logoutApi = (window.location.port === '5000' || !window.location.port) ? '/api/auth/logout' : 'http://localhost:5000/api/auth/logout';
-                        fetch(logoutApi, { method: 'POST', credentials: 'include' }).catch(function () {});
-                        window.location.href = 'login.html';
+            /* Spotlight tracker matching animations.js */
+            (function () {
+                var cards = document.querySelectorAll('.interactive-card');
+                cards.forEach(function (card) {
+                    card.addEventListener('pointermove', function (e) {
+                        var rect = card.getBoundingClientRect();
+                        card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+                        card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
                     });
-                }
-            } catch (e) { }
-        })();
-
-        /* Spotlight tracker matching animations.js */
-        (function () {
-            var cards = document.querySelectorAll('.interactive-card');
-            cards.forEach(function (card) {
-                card.addEventListener('pointermove', function (e) {
-                    var rect = card.getBoundingClientRect();
-                    card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
-                    card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
                 });
-            });
 
-            /* Scroll progress indicator */
-            var bar = document.getElementById('fx-progress');
-            if (bar) {
-                window.addEventListener('scroll', function () {
-                    var max = document.documentElement.scrollHeight - window.innerHeight;
-                    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ')';
-                }, { passive: true });
-            }
-        })();
+                /* Scroll progress indicator */
+                var bar = document.getElementById('fx-progress');
+                if (bar) {
+                    window.addEventListener('scroll', function () {
+                        var max = document.documentElement.scrollHeight - window.innerHeight;
+                        bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ')';
+                    }, { passive: true });
+                }
+            })();
     </script>
 </body>
 
