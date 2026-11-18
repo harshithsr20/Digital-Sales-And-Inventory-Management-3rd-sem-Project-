@@ -825,24 +825,23 @@
             }
 
             links.forEach(function (link) {
-                link.addEventListener('click', function () {
-                    link.addEventListener('click', function (e) {
-                        var navKey = link.getAttribute('data-nav');
-                        var href = link.getAttribute('href');
-                        if (href && !href.startsWith('#')) {
-                            var bar = document.getElementById('fx-progress');
-                            if (bar) {
-                                bar.style.transition = 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)';
-                                bar.style.transform = 'scaleX(1)';
-                            }
-                            setMenuOpen(false);
-                            return;
+                link.addEventListener('click', function (e) {
+                    var navKey = link.getAttribute('data-nav');
+                    var href = link.getAttribute('href');
+                    if (href && !href.startsWith('#')) {
+                        var bar = document.getElementById('fx-progress');
+                        if (bar) {
+                            bar.style.transition = 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)';
+                            bar.style.transform = 'scaleX(1)';
                         }
-                        if (navKey) setActiveNav(navKey);
                         setMenuOpen(false);
-                    });
+                        return;
+                    }
+                    if (navKey) setActiveNav(navKey);
+                    setMenuOpen(false);
                 });
-            })();
+            });
+        })();
 
             /* Hydrate user and store profile from localStorage session if available */
             (function () {
