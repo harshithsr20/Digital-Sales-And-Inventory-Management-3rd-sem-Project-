@@ -308,8 +308,8 @@
                     Back to Home
                 </a>
                 <div class="h-4 w-px bg-[#2A2A2A] hidden sm:block"></div>
-                <a href="index.html#get-started"
-                    class="text-xs font-mono text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors">
+                <a href="login.html"
+                    class="text-xs font-mono text-[#8A8A8A] hover:text-[#C8FF00] transition-colors">
                     Log In
                 </a>
 
@@ -665,7 +665,7 @@
                         <p class="text-xs text-[#8A8A8A]">
                             Already registered your organization?
                             <a class="text-[#C8FF00] font-medium hover:underline inline-flex items-center gap-0.5 ml-1 transition-colors"
-                                href="index.html#get-started">
+                                href="login.html">
                                 Sign in to DukaanHub Console
                                 <span class="material-symbols-outlined text-[13px]">north_east</span>
                             </a>
@@ -689,6 +689,13 @@
     <!-- Interactive Script for Forms, Passwords, and Validations -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // If reset requested via URL query, clear stale local storage
+            if (window.location.search.includes('reset')) {
+                localStorage.removeItem('dukaanhub-token');
+                localStorage.removeItem('dukaanhub-business');
+                localStorage.removeItem('dukaanhub-user');
+            }
+
             const form = document.getElementById('businessRegistrationForm');
             const clearBtn = document.getElementById('clearBtn');
             const gstinInput = document.getElementById('gstin');
@@ -777,8 +784,12 @@
                             password: password
                         };
 
-                        const response = await fetch('http://localhost:5000/api/auth/register', {
+                        const host = window.location.hostname || 'localhost';
+                        const isBackendHost = window.location.protocol.startsWith('http') && window.location.port === '5000';
+                        const apiUrl = isBackendHost ? '/api/auth/register' : `http://${host}:5000/api/auth/register`;
+                        const response = await fetch(apiUrl, {
                             method: 'POST',
+                            credentials: 'include',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -800,6 +811,9 @@
                         }
 
                         // Save session details to localStorage
+                        if (data.token) {
+                            localStorage.setItem('dukaanhub-token', data.token);
+                        }
                         if (data.business) {
                             localStorage.setItem('dukaanhub-business', JSON.stringify(data.business));
                         }
@@ -807,9 +821,9 @@
                             localStorage.setItem('dukaanhub-user', JSON.stringify(data.user));
                         }
 
-                        // Smooth transition directly into main dashboard.html
+                        // Smooth transition directly into mainDashboard.html
                         setTimeout(function () {
-                            window.location.href = 'main dashboard.html';
+                            window.location.href = 'mainDashboard.html';
                         }, 900);
 
                     } catch (error) {
@@ -819,7 +833,11 @@
                             overlay.classList.remove('flex');
                             overlay.classList.add('hidden');
                         }
-                        alert("❌ Registration Failed:\n" + error.message);
+                        var userMsg = error.message;
+                        if (userMsg === 'Failed to fetch' || (error.name === 'TypeError' && userMsg.includes('fetch'))) {
+                            userMsg = 'Cannot reach backend server. Please make sure the server is running on port 5000 by executing:\n\nnpm run dev';
+                        }
+                        alert("❌ Registration Failed:\n" + userMsg);
                     } finally {
                         if (submitBtn) {
                             submitBtn.disabled = false;

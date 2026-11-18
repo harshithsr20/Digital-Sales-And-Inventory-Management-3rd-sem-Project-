@@ -82,9 +82,24 @@ router.post('/register', async (req, res, next) => {
       return { business, user };
     });
 
+    // Generate JWT token (expires in 1 day)
+    const token = jwt.sign(
+      {
+        userId: result.user.id,
+        businessId: result.business.id,
+        role: result.user.role,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
+    // Set HTTP cookie for credentials-included fetch calls
+    res.setHeader('Set-Cookie', `token=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`);
+
     // 5. Respond with 201 Created (do not expose passwordHash)
     return res.status(201).json({
       message: 'Business and admin user registered successfully',
+      token,
       business: {
         id: result.business.id,
         name: result.business.name,
@@ -147,6 +162,9 @@ router.post('/login', async (req, res, next) => {
       { expiresIn: '1d' }
     );
 
+    // Set HTTP cookie for credentials-included fetch calls
+    res.setHeader('Set-Cookie', `token=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`);
+
     // Return token and safe user + business profile
     return res.status(200).json({
       message: 'Login successful',
@@ -166,6 +184,15 @@ router.post('/login', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+/**
+ * POST /api/auth/logout
+ * Clears authentication cookie
+ */
+router.post('/logout', (req, res) => {
+  res.setHeader('Set-Cookie', 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
+  res.status(200).json({ message: 'Logged out successfully' });
 });
 
 module.exports = router;

@@ -3,6 +3,36 @@
 
 <head>
   <script>try { if (localStorage.getItem("dukaanhub-theme") !== "dark") document.documentElement.classList.add("light") } catch (e) { document.documentElement.classList.add("light") }</script>
+  <!-- Remember Me: redirect Get Started links to mainDashboard if logged in -->
+  <script>
+    try {
+      var tok = localStorage.getItem("dukaanhub-token");
+      if (tok) {
+        var chk = (window.location.port === '5000' || !window.location.port) ? '/api/products' : 'http://localhost:5000/api/products';
+        fetch(chk, { headers: { 'Authorization': 'Bearer ' + tok }, credentials: 'include' })
+          .then(function (r) {
+            if (r.ok) {
+              document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll('a[href="registrationPage.html"]').forEach(function (link) {
+                  link.href = "mainDashboard.html";
+                  if (link.textContent.trim() === "Get Started") {
+                    link.textContent = "Go to Dashboard";
+                  }
+                });
+              });
+            } else {
+              localStorage.removeItem('dukaanhub-token');
+              localStorage.removeItem('dukaanhub-business');
+              localStorage.removeItem('dukaanhub-user');
+            }
+          })
+          .catch(function () {});
+      } else {
+        localStorage.removeItem('dukaanhub-business');
+        localStorage.removeItem('dukaanhub-user');
+      }
+    } catch (e) {}
+  </script>
 </head>
 
 <body
@@ -277,8 +307,8 @@
         </nav>
       </div>
       <div class="flex items-center gap-4">
-        <a class="text-xs font-mono text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors hidden sm:inline-block"
-          href="#get-started">Log In</a>
+        <a class="text-xs font-mono text-[#8A8A8A] hover:text-[#C8FF00] transition-colors hidden sm:inline-block"
+          href="login.html">Log In</a>
         <a class="btn-primary-action inline-flex items-center justify-center bg-[#C8FF00] text-[#0A0A0A] font-semibold text-xs px-3.5 py-2 rounded-sm tracking-tight"
           href="registrationPage.html">
           Get Started

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="web_standard" name="shell-type" />
+    <title>Sign In — DukaanHub Wholesale Console</title>
+
+    <!-- Theme initialization: prevents flash of wrong theme -->
+    <script>
+        try {
+            if (localStorage.getItem("dukaanhub-theme") !== "dark") {
+                document.documentElement.classList.add("light");
+            }
+        } catch (e) {
+            document.documentElement.classList.add("light");
+        }
+    </script>
+
+    <!-- Google Fonts matching index.html & design.md -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+        rel="stylesheet" />
+
+    <!-- Typography styles matching index.html -->
+    <style>
+        h1,
+        h2,
+        h3,
+        .heading,
+        [class*="headline"] {
+            font-family: 'Space Grotesk', 'Geist', sans-serif !important;
+            letter-spacing: -0.03em;
+        }
+
+        h1 {
+            font-weight: 700;
+            letter-spacing: -0.035em;
+        }
+
+        h2 {
+            font-weight: 600;
+            letter-spacing: -0.03em;
+        }
+
+        h3 {
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        nav a,
+        .nav-label {
+            font-family: 'Space Grotesk', 'Geist', sans-serif;
+            letter-spacing: -0.015em;
+        }
+
+        .font-mono-code,
+        [class*="font-mono"] {
+            font-family: 'Geist Mono', 'JetBrains Mono', monospace !important;
+        }
+
+        /* Clean scrollbars */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Input styling matching design tokens */
+        .input-hub {
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .input-hub:focus {
+            border-color: #C8FF00 !important;
+            box-shadow: 0 0 0 1px #C8FF00;
+        }
+
+        html.light .input-hub:focus {
+            border-color: #587300 !important;
+            box-shadow: 0 0 0 1px #587300;
+        }
+
+        /* Live status beacon animation */
+        @keyframes liveBeaconPing {
+            0% {
+                box-shadow: 0 0 0 0 rgba(200, 255, 0, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 0 8px rgba(200, 255, 0, 0);
+            }
+        }
+
+        .status-pulse-dot {
+            animation: liveBeaconPing 1.8s infinite;
+        }
+
+        /* Primary action button micro-interaction */
+        .btn-primary-action {
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary-action:hover:not(:disabled) {
+            transform: scale(1.015);
+            filter: brightness(1.04);
+            box-shadow: 0 0 20px rgba(200, 255, 0, 0.25);
+        }
+
+        .btn-primary-action:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+
+    <!-- Tailwind Configuration matching DukaanHub Design System -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        surface: "#141414",
+                        background: "#0A0A0A",
+                        primary: "#F5F5F5",
+                        secondary: "#8A8A8A",
+                        accent: "#C8FF00",
+                        "border-line": "#2A2A2A",
+                    },
+                    fontFamily: {
+                        sans: ["Geist", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+                        display: ["Space Grotesk", "Geist", "sans-serif"],
+                        mono: ["Geist Mono", "JetBrains Mono", "monospace"],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <!-- External Theme Tokens and Additive Motion -->
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <link href="assets/css/animations.css" rel="stylesheet" />
+</head>
+
+<body
+    class="bg-[#0A0A0A] text-[#F5F5F5] antialiased min-h-screen flex flex-col selection:bg-[#C8FF00] selection:text-[#0A0A0A] transition-colors duration-200">
+
+    <!-- Top Navigation Bar: Full-Width Window -->
+    <header
+        class="w-full bg-[#0A0A0A]/90 backdrop-blur-md border-b border-[#2A2A2A] transition-colors py-3.5 px-4 sm:px-8 lg:px-12 sticky top-0 z-40">
+        <div class="w-full flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="flex items-center gap-2 group">
+                    <span
+                        class="font-bold text-base tracking-tight font-display text-[#F5F5F5] group-hover:text-white transition-colors">DukaanHub</span>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="index.html"
+                    class="text-xs font-mono text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors hidden sm:inline-flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[15px]">arrow_back</span>
+                    Back to Home
+                </a>
+                <div class="h-4 w-px bg-[#2A2A2A] hidden sm:block"></div>
+                <a href="registrationPage.html"
+                    class="text-xs font-mono text-[#8A8A8A] hover:text-[#C8FF00] transition-colors">
+                    Register Business
+                </a>
+
+                <!-- Theme Switcher Switch Button -->
+                <button aria-checked="false" aria-label="Switch to light mode" class="fx-theme" role="switch"
+                    type="button">
+                    <span class="fx-knob">
+                        <svg class="fx-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                            stroke-linecap="round">
+                            <circle cx="12" cy="12" r="4" fill="currentColor" />
+                            <path
+                                d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" />
+                        </svg>
+                        <svg class="fx-moon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" />
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="w-full flex-1 px-4 sm:px-8 lg:px-12 py-10 sm:py-16 flex items-center justify-center">
+        <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+
+            <!-- Left Column: Terminal Identity & Operational Overview -->
+            <div class="lg:col-span-6 flex flex-col gap-6">
+                <div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F5F5] leading-[1.08]">
+                        Welcome back to your counter terminal.
+                    </h1>
+                    <p class="text-[#8A8A8A] text-sm sm:text-base mt-4 leading-relaxed max-w-lg">
+                        Sign in to resume live billing, manage your wholesale product catalogue, review settled invoices, and sync ledger metrics.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Column: Interactive Login Card -->
+            <div class="lg:col-span-6 w-full max-w-md mx-auto">
+                <div class="interactive-card p-6 sm:p-8 bg-[#141414] border border-[#2A2A2A] rounded-none shadow-2xl relative">
+
+                    <!-- Card Header with Terminal Icon Badge -->
+                    <div class="flex items-center gap-3 pb-5 border-b border-[#2A2A2A] mb-6">
+                        <div class="w-8 h-8 bg-[#0A0A0A] border border-[#2A2A2A] text-[#C8FF00] flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[19px]">login</span>
+                        </div>
+                        <div>
+                            <h2 class="text-base sm:text-lg font-bold text-[#F5F5F5] tracking-tight">
+                                Wholesale Console Sign In
+                            </h2>
+                            <p class="text-xs text-[#8A8A8A] font-mono">
+                                Enter your registered credentials
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Inline Error Alert Box (Hidden by default) -->
+                    <div id="errorAlert" class="hidden mb-5 p-3.5 bg-red-950/40 border border-red-500/40 text-red-200 text-xs font-mono flex items-start gap-2.5">
+                        <span class="material-symbols-outlined text-[16px] text-[#ff5c5c] shrink-0 mt-0.5">error</span>
+                        <div id="errorMessage" class="flex-1 leading-relaxed"></div>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="loginForm" class="flex flex-col gap-5" novalidate>
+                        <!-- Email Input -->
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide flex items-center justify-between"
+                                for="email">
+                                <span>Admin / Business Email <span class="text-[#C8FF00]">*</span></span>
+                            </label>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">mail</span>
+                                <input
+                                    class="input-hub w-full h-11 pl-10 pr-3 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm rounded-none"
+                                    id="email" name="email" placeholder="admin@wholesale.com" required type="email"
+                                    autocomplete="email" />
+                            </div>
+                        </div>
+
+                        <!-- Password Input with Toggle -->
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wide flex items-center justify-between"
+                                for="password">
+                                <span>Password <span class="text-[#C8FF00]">*</span></span>
+                            </label>
+                            <div class="relative flex items-center">
+                                <span class="material-symbols-outlined absolute left-3 text-[18px] text-[#8A8A8A] pointer-events-none">lock</span>
+                                <input
+                                    class="input-hub w-full h-11 pl-10 pr-10 bg-[#0A0A0A] text-[#F5F5F5] placeholder:text-[#8A8A8A] border border-[#2A2A2A] text-xs sm:text-sm rounded-none"
+                                    id="password" name="password" placeholder="••••••••••••" required type="password"
+                                    autocomplete="current-password" />
+                                <button type="button" id="togglePasswordBtn"
+                                    class="absolute right-2.5 p-1 text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer"
+                                    aria-label="Toggle password visibility">
+                                    <span id="passwordIcon" class="material-symbols-outlined text-[18px]">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Session Remember Note -->
+                        <div class="flex items-center justify-between text-xs text-[#8A8A8A] pt-1 font-mono">
+                            <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                                <input type="checkbox" id="rememberMe" checked class="accent-[#C8FF00] w-3.5 h-3.5 rounded-none cursor-pointer" />
+                                <span>Keep session active</span>
+                            </label>
+                            <span class="text-[11px] text-[#8A8A8A]">24h Token Validity</span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-2">
+                            <button id="submitBtn"
+                                class="btn-primary-action w-full h-11 inline-flex items-center justify-center gap-2 bg-[#C8FF00] text-[#0A0A0A] font-semibold text-xs sm:text-sm px-6 rounded-none tracking-tight cursor-pointer shadow-lg"
+                                type="submit">
+                                <span id="submitBtnText">Sign In to Counter</span>
+                                <span id="submitBtnIcon" class="material-symbols-outlined text-[17px]">arrow_forward</span>
+                            </button>
+                        </div>
+
+                        <!-- Registration Redirection Link -->
+                        <div class="pt-2 text-center border-t border-[#2A2A2A] mt-2">
+                            <p class="text-xs text-[#8A8A8A]">
+                                Need to provision a new business?
+                                <a class="text-[#C8FF00] font-medium hover:underline inline-flex items-center gap-0.5 ml-1 transition-colors"
+                                    href="registrationPage.html">
+                                    Register Wholesale Workspace
+                                    <span class="material-symbols-outlined text-[13px]">north_east</span>
+                                </a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Edge-to-Edge Footer matching index.html & registrationPage.html -->
+    <footer class="w-full border-t border-[#2A2A2A] py-6 px-4 sm:px-8 lg:px-12 bg-[#0A0A0A] transition-colors mt-auto">
+        <div
+            class="w-full flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-[#8A8A8A] gap-3 text-center sm:text-left">
+            <div>DukaanHub Wholesale Operating System · Counter Authentication Terminal</div>
+            <div>Active Node: PostgreSQL (Neon Cloud) · © 2026 DukaanHub. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- Interactive Client Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitBtnText = document.getElementById('submitBtnText');
+            const submitBtnIcon = document.getElementById('submitBtnIcon');
+            const errorAlert = document.getElementById('errorAlert');
+            const errorMessage = document.getElementById('errorMessage');
+            const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+            const passwordIcon = document.getElementById('passwordIcon');
+
+            // If user already has an active token, check and offer seamless redirect
+            try {
+                const existingToken = localStorage.getItem('dukaanhub-token');
+                if (existingToken && !window.location.search.includes('switch')) {
+                    const host = window.location.hostname || 'localhost';
+                    const isBackendHost = window.location.protocol.startsWith('http') && window.location.port === '5000';
+                    const chkApi = isBackendHost ? '/api/products' : `http://${host}:5000/api/products`;
+                    fetch(chkApi, { headers: { 'Authorization': 'Bearer ' + existingToken }, credentials: 'include' })
+                        .then(r => {
+                            if (r.ok) {
+                                window.location.replace('mainDashboard.html');
+                            }
+                        })
+                        .catch(() => {});
+                }
+            } catch (e) {}
+
+            // Password reveal toggle
+            if (togglePasswordBtn && passwordInput && passwordIcon) {
+                togglePasswordBtn.addEventListener('click', () => {
+                    const isPwd = passwordInput.type === 'password';
+                    passwordInput.type = isPwd ? 'text' : 'password';
+                    passwordIcon.textContent = isPwd ? 'visibility_off' : 'visibility';
+                });
+            }
+
+            function showError(msg) {
+                if (errorAlert && errorMessage) {
+                    errorMessage.textContent = msg;
+                    errorAlert.classList.remove('hidden');
+                }
+            }
+
+            function clearError() {
+                if (errorAlert) {
+                    errorAlert.classList.add('hidden');
+                }
+            }
+
+            // Real-time error dismissal on input change
+            emailInput.addEventListener('input', clearError);
+            passwordInput.addEventListener('input', clearError);
+
+            // Form Submit handler
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    clearError();
+
+                    const emailVal = emailInput.value.trim().toLowerCase();
+                    const passwordVal = passwordInput.value;
+
+                    if (!emailVal || !passwordVal) {
+                        showError('Both email address and password are required to log in.');
+                        return;
+                    }
+
+                    // Loading State
+                    submitBtn.disabled = true;
+                    submitBtnText.textContent = 'Authenticating Terminal...';
+                    submitBtnIcon.textContent = 'sync';
+                    submitBtnIcon.classList.add('animate-spin');
+
+                    try {
+                        const host = window.location.hostname || 'localhost';
+                        const isBackendHost = window.location.protocol.startsWith('http') && window.location.port === '5000';
+                        const loginUrl = isBackendHost ? '/api/auth/login' : `http://${host}:5000/api/auth/login`;
+
+                        const response = await fetch(loginUrl, {
+                            method: 'POST',
+                            credentials: 'include',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: emailVal,
+                                password: passwordVal
+                            })
+                        });
+
+                        const data = await response.json();
+
+                        if (!response.ok) {
+                            throw new Error(data.message || 'Invalid email or password.');
+                        }
+
+                        // Success: Save verified session to localStorage
+                        if (data.token) {
+                            localStorage.setItem('dukaanhub-token', data.token);
+                        }
+                        if (data.business) {
+                            localStorage.setItem('dukaanhub-business', JSON.stringify(data.business));
+                        }
+                        if (data.user) {
+                            localStorage.setItem('dukaanhub-user', JSON.stringify(data.user));
+                        }
+
+                        submitBtnText.textContent = 'Redirecting to Dashboard...';
+                        submitBtnIcon.textContent = 'check';
+                        submitBtnIcon.classList.remove('animate-spin');
+
+                        setTimeout(() => {
+                            window.location.href = 'mainDashboard.html';
+                        }, 400);
+
+                    } catch (err) {
+                        console.error('Login error:', err);
+                        let alertText = err.message || 'Login failed. Please check your credentials.';
+                        if (alertText === 'Failed to fetch' || alertText.includes('NetworkError')) {
+                            alertText = 'Cannot reach backend server. Please verify "npm run dev" is running on port 5000.';
+                        }
+                        showError(alertText);
+                    } finally {
+                        submitBtn.disabled = false;
+                        if (!submitBtnText.textContent.includes('Redirecting')) {
+                            submitBtnText.textContent = 'Sign In to Counter';
+                            submitBtnIcon.textContent = 'arrow_forward';
+                            submitBtnIcon.classList.remove('animate-spin');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Base Motion Scripts from assets with resilient fallbacks -->
+    <script src="assets/js/animations.js"
+        onerror="this.onerror=null;var s=document.createElement('script');s.src='Digital-Sales-And-Inventory-Management-3rd-sem-Project-/assets/js/animations.js';document.body.appendChild(s);"></script>
+    <script src="assets/js/theme-toggle.js"
+        onerror="this.onerror=null;var s=document.createElement('script');s.src='Digital-Sales-And-Inventory-Management-3rd-sem-Project-/assets/js/theme-toggle.js';document.body.appendChild(s);"></script>
+</body>
+
+</html>
