@@ -81,7 +81,7 @@ DukaanHub uses **Neon Serverless PostgreSQL**.
 3. **`products`** (`backend/database/schema.sql`):
    - `id`: BigSerial Primary Key.
    - `business_id`: Integer foreign key referencing `"Business"("id")` with `ON DELETE CASCADE`.
-   - `inventory_id`: Formatted text string (`INV-000001`) driven by sequence `inventory_id_seq`.
+   - `inventory_id`: Formatted text string (`0001-00001`: 4-digit business number + 5-digit per-shop inventory sequence).
    - `product_name`: Text.
    - `units_present`: Integer (>= 0).
    - `vendor_name`: Text.
@@ -181,7 +181,7 @@ Base URL: `http://localhost:5000`
 | `POST` | `/api/auth/logout` | Clears authentication session cookie. | No |
 | `GET` | `/api/me` | Fetches active user profile and linked wholesale business record. | Yes (`Bearer <token>`) |
 | `GET` | `/api/products` | Returns all catalogue products belonging to the logged-in business. | Yes (`Bearer <token>`) |
-| `POST` | `/api/products` | Adds a new product row with DB-generated `INV-XXXXXX` ID. | Yes (`Bearer <token>`) |
+| `POST` | `/api/products` | Adds a new product row with auto-generated per-shop `0001-00001` ID. | Yes (`Bearer <token>`) |
 
 ---
 

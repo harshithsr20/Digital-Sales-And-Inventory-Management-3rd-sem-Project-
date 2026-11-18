@@ -93,21 +93,48 @@ router.post("/", async (req, res) => {
   if (!(wholesale >= 0) || !(mrp >= 0)) return res.status(400).json({ error: "Prices must be 0 or more" });
   if (!(discount >= 0 && discount <= 100)) return res.status(400).json({ error: "Discount must be between 0 and 100" });
 
+  const client = await dbPool.connect();
   try {
-    const { rows } = await dbPool.query(
+    await client.query("BEGIN");
+
+    // Lock the business row to serialize concurrent inserts for the same shop
+    await client.query('SELECT id FROM "Business" WHERE id = $1 FOR UPDATE', [req.businessId]);
+
+    // Calculate next sequence number for this specific business
+    const maxRes = await client.query(
+      `SELECT COALESCE(
+         MAX(NULLIF(regexp_replace(split_part(inventory_id, '-', 2), '\\D', '', 'g'), '')::INTEGER),
+         0
+       ) AS max_num
+       FROM products
+       WHERE business_id = $1`,
+      [req.businessId]
+    );
+
+    const nextNum = Number(maxRes.rows[0].max_num || 0) + 1;
+    const businessPrefix = String(req.businessId).padStart(4, "0");
+    const itemSuffix = String(nextNum).padStart(5, "0");
+    const inventoryId = `${businessPrefix}-${itemSuffix}`;
+
+    const { rows } = await client.query(
       `INSERT INTO products
-         (business_id, product_name, vendor_name, units_present, price_wholesale, price_mrp, discount_percent)
-       VALUES ($1,$2,$3,$4,$5,$6,$7)
+         (business_id, inventory_id, product_name, vendor_name, units_present, price_wholesale, price_mrp, discount_percent)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING inventory_id, product_name, vendor_name, units_present,
                  price_wholesale, price_mrp, discount_percent,
                  total_sales, sales_per_month, max_sales_month, created_at`,
-      [req.businessId, name, vendor, units, wholesale, mrp, discount]
+      [req.businessId, inventoryId, name, vendor, units, wholesale, mrp, discount]
     );
+
+    await client.query("COMMIT");
     res.status(201).json(rows[0]);
   } catch (e) {
+    await client.query("ROLLBACK").catch(() => {});
     if (e.code === "23505") return res.status(409).json({ error: "This product from this vendor is already in your catalogue" });
     console.error("Error inserting catalogue product:", e);
     res.status(500).json({ error: "Could not save product" });
+  } finally {
+    client.release();
   }
 });
 

@@ -1,12 +1,9 @@
--- DukaanHub: product catalogue (run once in the Neon SQL editor)
-
-CREATE SEQUENCE IF NOT EXISTS inventory_id_seq START 1;
+-- DukaanHub: product catalogue schema with per-business inventory IDs (e.g. 0001-00001)
 
 CREATE TABLE IF NOT EXISTS products (
   id               BIGSERIAL PRIMARY KEY,
   business_id      INTEGER NOT NULL REFERENCES "Business"("id") ON DELETE CASCADE, -- owner business from registration
-  inventory_id     TEXT   NOT NULL
-                   DEFAULT ('INV-' || lpad(nextval('inventory_id_seq')::text, 6, '0')),
+  inventory_id     TEXT   NOT NULL,
   product_name     TEXT   NOT NULL,
   units_present    INTEGER       NOT NULL CHECK (units_present >= 0),
   vendor_name      TEXT   NOT NULL,
@@ -24,6 +21,35 @@ CREATE TABLE IF NOT EXISTS products (
 
   UNIQUE (business_id, inventory_id)
 );
+
+-- Trigger function to automatically generate per-shop inventory IDs formatted as BBBB-IIIII
+-- (e.g. 0001-00001: where 0001 is 4-digit business number, 00001 is 5-digit inventory sequence)
+CREATE OR REPLACE FUNCTION generate_inventory_id()
+RETURNS TRIGGER AS $$
+DECLARE
+    next_num INTEGER;
+BEGIN
+    IF NEW.inventory_id IS NULL OR NEW.inventory_id = '' THEN
+        PERFORM 1 FROM "Business" WHERE id = NEW.business_id FOR UPDATE;
+        SELECT COALESCE(
+            MAX(NULLIF(regexp_replace(split_part(inventory_id, '-', 2), '\D', '', 'g'), '')::INTEGER),
+            0
+        ) + 1
+        INTO next_num
+        FROM products
+        WHERE business_id = NEW.business_id;
+
+        NEW.inventory_id := lpad(NEW.business_id::text, 4, '0') || '-' || lpad(next_num::text, 5, '0');
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_generate_inventory_id ON products;
+CREATE TRIGGER trg_generate_inventory_id
+BEFORE INSERT ON products
+FOR EACH ROW
+EXECUTE FUNCTION generate_inventory_id();
 
 -- Same product from the same vendor can't be listed twice for one business
 CREATE UNIQUE INDEX IF NOT EXISTS products_unique_item
