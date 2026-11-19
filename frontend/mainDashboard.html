@@ -443,18 +443,16 @@
                 <span>Catalogue</span>
             </a>
 
-            <a href="#billing" data-nav="billing"
-                class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent">
-                <a href="billingPage.html"
-                    class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent"
-                    title="Billing & POS">
-                    <svg class="nav-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
-                    </svg>
-                    <span>Billing</span>
-                </a>
+            <a href="billingPage.html"
+                class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent"
+                title="Billing & POS">
+                <svg class="nav-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
+                </svg>
+                <span>Billing</span>
+            </a>
 
                 <a href="#inventory" data-nav="inventory"
                     class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent">
@@ -688,35 +686,61 @@
                 </div>
             </section>
 
-            <!-- 3. Bottom Section: Two simple sections side by side -->
-            <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- 3. Bottom Section: Recent Sales & Low Stock Alerts side by side -->
+            <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
 
                 <!-- Left: Recent Sales Table (Span 7) -->
-                <div id="billing" class="lg:col-span-7 interactive-card rounded-xl p-5 scroll-mt-24">
-                    <div id="recent-sales" class="lg:col-span-7 interactive-card rounded-xl p-5 scroll-mt-24">
+                <div id="recent-sales" class="lg:col-span-7 interactive-card rounded-xl p-5 sm:p-6 flex flex-col justify-between scroll-mt-24">
+                    <div>
                         <div class="flex items-center justify-between pb-4 border-b border-[var(--line)]">
-                            <div>
-                                <h3 class="text-sm font-semibold text-[var(--ink)]">Recent Sales</h3>
-                                <p class="text-[11px] text-[var(--muted)]">Latest processed invoices</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-[var(--surface-elevated)] border border-[var(--line)] flex items-center justify-center text-[var(--accent)] shrink-0">
+                                    <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-semibold text-[var(--ink)] tracking-tight">Recent Sales</h3>
+                                    <p class="text-[11px] text-[var(--muted)]">Latest processed invoices &amp; counter receipts</p>
+                                </div>
                             </div>
-                            <span class="text-xs font-mono-code text-[var(--muted)]">0 records</span>
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-xs font-mono-code text-[var(--muted)] bg-[var(--surface-elevated)] px-2.5 py-1 rounded border border-[var(--line)]">
+                                    0 records
+                                </span>
+                                <a href="billingPage.html" class="hidden sm:inline-flex items-center gap-1 text-xs text-[var(--accent)] hover:underline font-medium">
+                                    <span>New Bill</span>
+                                    <span>&rarr;</span>
+                                </a>
+                            </div>
                         </div>
 
                         <div class="mt-4 overflow-x-auto">
                             <table class="w-full text-left border-collapse text-xs">
                                 <thead>
-                                    <tr class="text-[var(--muted)] font-mono-code border-b border-[var(--line)]">
-                                        <th class="pb-2.5 font-medium">Invoice ID</th>
-                                        <th class="pb-2.5 font-medium">Customer</th>
-                                        <th class="pb-2.5 font-medium text-right">Amount</th>
-                                        <th class="pb-2.5 font-medium text-right">Date</th>
+                                    <tr class="text-[var(--muted)] font-mono-code border-b border-[var(--line)] uppercase text-[11px] tracking-wider">
+                                        <th class="pb-3 pt-1 font-medium">Invoice ID</th>
+                                        <th class="pb-3 pt-1 font-medium">Customer</th>
+                                        <th class="pb-3 pt-1 font-medium text-right">Amount</th>
+                                        <th class="pb-3 pt-1 font-medium text-right">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-[var(--line)]">
                                     <tr>
-                                        <td colspan="4"
-                                            class="py-8 text-center text-xs text-[var(--muted)] font-mono-code">
-                                            No recent transactions recorded yet.
+                                        <td colspan="4" class="py-10 text-center">
+                                            <div class="flex flex-col items-center justify-center gap-2">
+                                                <div class="w-10 h-10 rounded-full bg-[var(--surface-elevated)] border border-[var(--line)] flex items-center justify-center text-[var(--muted)]">
+                                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                                    </svg>
+                                                </div>
+                                                <p class="text-xs text-[var(--ink)] font-medium">No recent transactions recorded yet</p>
+                                                <p class="text-[11px] text-[var(--muted)] max-w-xs leading-relaxed">
+                                                    Settled customer bills and POS records will automatically appear here.
+                                                </p>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -724,27 +748,63 @@
                         </div>
                     </div>
 
-                    <!-- Right: Low Stock Alerts (Span 5) -->
-                    <div id="inventory" class="lg:col-span-5 interactive-card rounded-xl p-5 scroll-mt-24">
+                    <div class="pt-4 mt-6 border-t border-[var(--line)] flex items-center justify-between text-xs text-[var(--muted)]">
+                        <span>Real-time counter sync active</span>
+                        <a href="billingPage.html" class="text-[var(--accent)] hover:underline font-medium">
+                            Open POS Counter &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Low Stock Alerts (Span 5) -->
+                <div id="inventory" class="lg:col-span-5 interactive-card rounded-xl p-5 sm:p-6 flex flex-col justify-between scroll-mt-24">
+                    <div>
                         <div class="flex items-center justify-between pb-4 border-b border-[var(--line)]">
-                            <div>
-                                <h3 class="text-sm font-semibold text-[var(--ink)]">Low Stock Alerts</h3>
-                                <p class="text-[11px] text-[var(--muted)]">Items requiring restocking</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-[var(--surface-elevated)] border border-[var(--line)] flex items-center justify-center text-[var(--accent)] shrink-0">
+                                    <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-semibold text-[var(--ink)] tracking-tight">Low Stock Alerts</h3>
+                                    <p class="text-[11px] text-[var(--muted)]">Items requiring restocking &amp; reorder</p>
+                                </div>
                             </div>
-                            <span
-                                class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono-code font-medium text-[var(--muted)] bg-[var(--surface-elevated)]">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono-code font-medium text-[var(--success)] bg-[var(--success-bg)] border border-[var(--success)]/20">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[var(--success)]"></span>
                                 0 Alerts
                             </span>
                         </div>
 
-                        <!-- Short List -->
-                        <div class="mt-4 space-y-3">
-                            <div
-                                class="p-8 rounded-lg bg-[var(--surface-elevated)] border border-[var(--line)] text-center text-xs text-[var(--muted)] font-mono-code">
-                                All product inventory levels are healthy.
+                        <!-- Alerts Content / Status -->
+                        <div class="mt-4">
+                            <div class="py-8 px-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--line)] flex flex-col items-center justify-center text-center gap-2.5">
+                                <div class="w-10 h-10 rounded-full bg-[var(--success-bg)] text-[var(--success)] flex items-center justify-center">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-medium text-[var(--ink)]">All stock levels healthy</p>
+                                    <p class="text-[11px] text-[var(--muted)] mt-0.5 max-w-xs leading-relaxed">
+                                        Every catalog product is currently above minimum inventory reorder threshold.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="pt-4 mt-6 border-t border-[var(--line)] flex items-center justify-between text-xs text-[var(--muted)]">
+                        <span>Reorder threshold: &le; 5 units</span>
+                        <a href="catalogue.html" class="inline-flex items-center gap-1 text-[var(--accent)] hover:underline font-medium">
+                            <span>Open Catalogue</span>
+                            <span>&rarr;</span>
+                        </a>
+                    </div>
+                </div>
 
             </section>
 

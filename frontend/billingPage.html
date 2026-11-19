@@ -5,6 +5,14 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="web_standard" name="shell-type">
+  <script>
+    try {
+      if (localStorage.getItem("dukaanhub-theme") === "light") {
+        document.documentElement.classList.remove("dark");
+        document.documentElement.classList.add("light");
+      }
+    } catch (error) { }
+  </script>
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
   <link
@@ -188,10 +196,53 @@
     html.light .dashboard-topbar { background: rgba(255,255,255,.9); border-color: #E3E5E8; }
     html.light .dashboard-topbar .text-ink { color: #0A0A0A; }
     html.light .dashboard-topbar .topbar-link:not(.topbar-active) { color: #5F6670; }
+    html.light .dashboard-topbar .topbar-link:not(.topbar-active):hover,
+    html.light #mobile-nav-drawer .topbar-link:not(.topbar-active):hover { color: #0A0A0A !important; background-color: #F4F5F7 !important; }
+    html.light .dashboard-topbar .topbar-link:not(.topbar-active):hover .material-symbols-outlined,
+    html.light #mobile-nav-drawer .topbar-link:not(.topbar-active):hover .material-symbols-outlined { color: #0A0A0A !important; }
     html.light .dashboard-topbar .topbar-active { background: #fff; color: #0A0A0A !important; border-color: #E3E5E8; box-shadow: inset 0 -2px 0 #0F172A; }
     html.light .dashboard-topbar .text-primary-container { color: #587300; }
     html.light #profile-initials { background: #fff; color: #0A0A0A; border-color: #E3E5E8; }
     html.light #mobile-nav-drawer { background: #fff; border-color: #E3E5E8; }
+
+    html.light {
+      color-scheme: light;
+      --accent: #0F172A;
+    }
+
+    html.light [class*="bg-canvas"] { background-color: #FFFFFF !important; }
+    html.light [class*="bg-surface"] { background-color: #F8F9FA !important; }
+    html.light [class*="bg-surface-container"] { background-color: #F1F3F5 !important; }
+    html.light [class*="bg-surface-elevated"] { background-color: #FFFFFF !important; }
+    html.light [class*="text-ink-muted"] { color: #64748B !important; }
+    html.light [class*="text-ink"] { color: #0F172A !important; }
+    html.light [class*="text-primary-container"] { color: #587300 !important; }
+    html.light [class*="text-secondary"] { color: #587300 !important; }
+    html.light [class*="text-success"] { color: #047857 !important; }
+    html.light [class*="text-danger"] { color: #DC2626 !important; }
+    html.light [class*="text-border"] { color: #CBD5E1 !important; }
+    html.light [class*="border-border"] { border-color: #E5E7EB !important; }
+    html.light [class*="border-primary-container"] { border-color: #0F172A !important; }
+    html.light [class*="bg-primary-container"] { background-color: #0F172A !important; }
+    html.light [class*="text-on-primary-container"] { color: #FFFFFF !important; }
+    html.light [class*="bg-[#262626]"] { background-color: #FFFFFF !important; }
+    html.light [class*="text-[#C8FF00]"] { color: #0F172A !important; }
+
+    html.light .btn-standard,
+    html.light .btn-stepper {
+      border-color: #D1D5DB;
+      background: #FFFFFF;
+      color: #0F172A;
+    }
+    html.light .btn-standard:hover,
+    html.light .btn-stepper:hover {
+      border-color: #94A3B8;
+      background: #F1F3F5;
+    }
+    html.light .btn-link-action { color: #64748B; }
+    html.light .btn-link-action:hover { color: #0F172A; }
+    html.light .fx-theme { background: #F8F9FA; border-color: #E5E7EB; }
+    html.light .pay-mode-btn { color: #0F172A; }
 
     @media print {
       @page { margin: 8mm; }

@@ -49,11 +49,45 @@ tailwind.config = { darkMode: "class", theme: { extend: {
   html.light .row{border-bottom-color:#E3E5E8}
   html.light .brand{color:#587300}
   .nav-item-active{background-color:#181818;color:#F5F5F5!important;border-color:#2A2A2A;box-shadow:inset 0 -2px 0 #C8FF00}
-  html.light .nav-item-active{background-color:#fff;color:#0A0A0A!important;border-color:#E5E7EB;box-shadow:inset 0 -2px 0 #0F172A}
+
+  /* Topbar navigation link styles */
+  .dashboard-topbar nav a.topbar-link:not(.nav-item-active),
+  #mobile-nav-drawer a.topbar-link:not(.nav-item-active) {
+    color: #8A8A8A;
+    transition: all 0.15s ease;
+  }
+  .dashboard-topbar nav a.topbar-link:not(.nav-item-active):hover,
+  #mobile-nav-drawer a.topbar-link:not(.nav-item-active):hover {
+    color: #F5F5F5 !important;
+    background-color: #141414 !important;
+  }
+
   html.light .dashboard-topbar{background:rgba(255,255,255,.9);border-color:#E5E7EB}
+  html.light .nav-item-active{background-color:#fff;color:#0A0A0A!important;border-color:#E5E7EB;box-shadow:inset 0 -2px 0 #0F172A}
+  html.light .dashboard-topbar nav a.topbar-link:not(.nav-item-active),
+  html.light #mobile-nav-drawer a.topbar-link:not(.nav-item-active) {
+    color: #5F6670 !important;
+    background-color: transparent !important;
+  }
+  html.light .dashboard-topbar nav a.topbar-link:not(.nav-item-active) .material-symbols-outlined,
+  html.light #mobile-nav-drawer a.topbar-link:not(.nav-item-active) .material-symbols-outlined {
+    color: #5F6670 !important;
+  }
+  html.light .dashboard-topbar nav a.topbar-link:not(.nav-item-active):hover,
+  html.light #mobile-nav-drawer a.topbar-link:not(.nav-item-active):hover {
+    color: #0A0A0A !important;
+    background-color: #F4F5F7 !important;
+  }
+  html.light .dashboard-topbar nav a.topbar-link:not(.nav-item-active):hover .material-symbols-outlined,
+  html.light #mobile-nav-drawer a.topbar-link:not(.nav-item-active):hover .material-symbols-outlined {
+    color: #0A0A0A !important;
+  }
   html.light #mobile-nav-drawer{background:#fff;border-color:#E5E7EB}
-  html.light #mobile-nav-drawer a:not(.nav-item-active){color:#5F6670}
-  html.light #profile-initials{background:#fff;border-color:#E5E7EB}
+  html.light #profile-initials{background:#fff;color:#0A0A0A;border-color:#E5E7EB}
+  html.light #logout-btn{border-color:#E5E7EB;color:#5F6670}
+  html.light #logout-btn:hover{border-color:#ff5c5c;color:#ff5c5c}
+  html.light #mobile-menu-btn{border-color:#E5E7EB;color:#5F6670}
+  html.light #mobile-menu-btn:hover{color:#0A0A0A;background-color:#F4F5F7}
 </style>
 </head>
 <body class="min-h-screen flex flex-col" style="padding-top:env(safe-area-inset-top,0px)">
@@ -67,11 +101,11 @@ tailwind.config = { darkMode: "class", theme: { extend: {
       </a>
       <span class="h-7 w-px bg-[#2A2A2A] hidden md:block"></span>
       <nav class="hidden xl:flex items-center gap-1.5 lg:gap-2.5" aria-label="Main Navigation">
-        <a href="mainDashboard.html" class="flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a>
-        <a href="catalogue.html" aria-current="page" class="nav-item-active flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium border whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px] text-[#C8FF00]">inventory_2</span><span>Catalogue</span></a>
-        <a href="billingPage.html" class="flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Billing</span></a>
-        <a href="mainDashboard.html#inventory" class="flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">inventory</span><span>Inventory</span></a>
-        <a href="mainDashboard.html#analytics-section" class="flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">bar_chart</span><span>Analytics</span></a>
+        <a href="mainDashboard.html" class="topbar-link flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a>
+        <a href="catalogue.html" aria-current="page" class="topbar-link nav-item-active flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium border whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px] text-[#C8FF00]">inventory_2</span><span>Catalogue</span></a>
+        <a href="billingPage.html" class="topbar-link flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Billing</span></a>
+        <a href="mainDashboard.html#inventory" class="topbar-link flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">inventory</span><span>Inventory</span></a>
+        <a href="mainDashboard.html#analytics-section" class="topbar-link flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">bar_chart</span><span>Analytics</span></a>
       </nav>
     </div>
     <div class="flex items-center gap-3.5 sm:gap-5 flex-shrink-0">
@@ -93,11 +127,11 @@ tailwind.config = { darkMode: "class", theme: { extend: {
     </div>
   </div>
   <nav id="mobile-nav-drawer" class="hidden xl:hidden border-t border-[#2A2A2A] bg-[#0A0A0A] px-4 py-3 space-y-1" aria-label="Mobile Navigation">
-    <a href="mainDashboard.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] transition-all"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a>
-    <a href="catalogue.html" aria-current="page" class="nav-item-active flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium border transition-all"><span class="material-symbols-outlined text-[18px] text-[#C8FF00]">inventory_2</span><span>Catalogue</span></a>
-    <a href="billingPage.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] transition-all"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Billing</span></a>
-    <a href="mainDashboard.html#inventory" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] transition-all"><span class="material-symbols-outlined text-[18px]">inventory</span><span>Inventory</span></a>
-    <a href="mainDashboard.html#analytics-section" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] transition-all"><span class="material-symbols-outlined text-[18px]">bar_chart</span><span>Analytics</span></a>
+    <a href="mainDashboard.html" class="topbar-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a>
+    <a href="catalogue.html" aria-current="page" class="topbar-link nav-item-active flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium border transition-all"><span class="material-symbols-outlined text-[18px] text-[#C8FF00]">inventory_2</span><span>Catalogue</span></a>
+    <a href="billingPage.html" class="topbar-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Billing</span></a>
+    <a href="mainDashboard.html#inventory" class="topbar-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all"><span class="material-symbols-outlined text-[18px]">inventory</span><span>Inventory</span></a>
+    <a href="mainDashboard.html#analytics-section" class="topbar-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all"><span class="material-symbols-outlined text-[18px]">bar_chart</span><span>Analytics</span></a>
   </nav>
 </header>
 
