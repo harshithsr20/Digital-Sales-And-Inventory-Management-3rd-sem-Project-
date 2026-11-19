@@ -192,6 +192,58 @@
     html.light .dashboard-topbar .text-primary-container { color: #587300; }
     html.light #profile-initials { background: #fff; color: #0A0A0A; border-color: #E3E5E8; }
     html.light #mobile-nav-drawer { background: #fff; border-color: #E3E5E8; }
+
+    @media print {
+      @page { margin: 8mm; }
+
+      html,
+      body {
+        width: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+        background: #fff !important;
+        color: #000 !important;
+      }
+
+      body * { visibility: hidden !important; }
+      .sticky { position: static !important; }
+
+      #receipt-print-area,
+      #receipt-print-area * {
+        visibility: visible !important;
+      }
+
+      #receipt-print-area {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        box-sizing: border-box !important;
+        width: 80mm !important;
+        max-width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: #fff !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+      }
+
+      #receipt-print-area * {
+        color: #000 !important;
+        background-color: transparent !important;
+        border-color: #888 !important;
+        box-shadow: none !important;
+      }
+
+      #receipt-print-area #receipt-items-container {
+        max-height: none !important;
+        overflow: visible !important;
+      }
+
+      #receipt-print-area button { display: none !important; }
+    }
   </style>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script id="tailwind-config">
@@ -589,6 +641,7 @@
           <div class="lg:col-span-4 sticky top-20 flex flex-col gap-space-sm">
             <!-- Physical Ticket Wrapper -->
             <div
+              id="receipt-print-area"
               class="relative bg-surface-elevated rounded-t-[6px] border-t border-l border-r border-border p-space-md flex flex-col gap-space-sm shadow-xl">
               <!-- Terminal Header Stamp -->
               <div class="flex flex-col items-center text-center border-b border-dashed border-border pb-space-sm">
