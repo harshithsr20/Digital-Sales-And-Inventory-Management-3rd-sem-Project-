@@ -48,23 +48,60 @@ tailwind.config = { darkMode: "class", theme: { extend: {
   html.light .field{border-bottom-color:#E3E5E8}
   html.light .row{border-bottom-color:#E3E5E8}
   html.light .brand{color:#587300}
+  .nav-item-active{background-color:#181818;color:#F5F5F5!important;border-color:#2A2A2A;box-shadow:inset 0 -2px 0 #C8FF00}
+  html.light .nav-item-active{background-color:#fff;color:#0A0A0A!important;border-color:#E5E7EB;box-shadow:inset 0 -2px 0 #0F172A}
+  html.light .dashboard-topbar{background:rgba(255,255,255,.9);border-color:#E5E7EB}
+  html.light #mobile-nav-drawer{background:#fff;border-color:#E5E7EB}
+  html.light #mobile-nav-drawer a:not(.nav-item-active){color:#5F6670}
+  html.light #profile-initials{background:#fff;border-color:#E5E7EB}
 </style>
 </head>
 <body class="min-h-screen flex flex-col" style="padding-top:env(safe-area-inset-top,0px)">
 
-<header class="w-full py-5 px-4 sm:px-8 lg:px-12 flex items-center justify-between">
-  <a href="mainDashboard.html" class="brand flex items-center gap-2.5 font-display font-bold text-[#C8FF00] text-lg tracking-tight">
-    DukaanHub
-  </a>
-  <nav class="flex items-center gap-6 text-sm text-[#8A8A8A]">
-    <a href="mainDashboard.html" class="hover:text-[#F5F5F5] transition-colors">Dashboard</a>
-    <a href="catalogue.html" class="text-[#F5F5F5]">Catalogue</a>
-    <a href="billingPage.html" class="hover:text-[#F5F5F5] transition-colors">Billing</a>
-    <button id="themeToggle" type="button" class="hover:text-[#F5F5F5] transition-colors flex" aria-label="Toggle theme"><span class="material-symbols-outlined text-[20px]">contrast</span></button>
+<header class="dashboard-topbar fixed top-0 left-0 right-0 z-50 bg-[rgba(10,10,10,0.9)] backdrop-blur-md border-b border-[#2A2A2A] transition-colors">
+  <div class="w-full h-20 px-4 sm:px-6 lg:px-10 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-5 lg:gap-8 min-w-0">
+      <a href="mainDashboard.html" class="flex items-center gap-3.5 flex-shrink-0 group">
+        <span class="w-10 h-10 rounded-xl bg-[#C8FF00] flex items-center justify-center text-[#0A0A0A] font-bold text-base font-mono">DH</span>
+        <span class="text-base sm:text-lg font-bold tracking-tight text-[#F5F5F5]">DukaanHub</span>
+      </a>
+      <span class="h-7 w-px bg-[#2A2A2A] hidden md:block"></span>
+      <nav class="hidden xl:flex items-center gap-1.5 lg:gap-2.5" aria-label="Main Navigation">
+        <a href="mainDashboard.html" class="flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a>
+        <a href="catalogue.html" aria-current="page" class="nav-item-active flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium border whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px] text-[#C8FF00]">inventory_2</span><span>Catalogue</span></a>
+        <a href="billingPage.html" class="flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Billing</span></a>
+        <a href="mainDashboard.html#inventory" class="flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">inventory</span><span>Inventory</span></a>
+        <a href="mainDashboard.html#analytics-section" class="flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px]">bar_chart</span><span>Analytics</span></a>
+      </nav>
+    </div>
+    <div class="flex items-center gap-3.5 sm:gap-5 flex-shrink-0">
+      <button aria-checked="false" aria-label="Switch to light mode" class="fx-theme" role="switch" type="button"><span class="fx-knob"><svg class="fx-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg><svg class="fx-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg></span></button>
+      <span class="h-7 w-px bg-[#2A2A2A] hidden sm:block"></span>
+      <div class="flex items-center gap-3">
+        <span id="profile-initials" class="w-10 h-10 rounded-full bg-[#181818] border border-[#2A2A2A] flex items-center justify-center text-xs font-semibold text-[#F5F5F5] shadow-sm">--</span>
+        <div class="hidden xl:block text-left">
+          <div id="profile-name" class="text-sm font-semibold text-[#F5F5F5] leading-none">Guest User</div>
+          <div id="profile-role" class="text-xs text-[#8A8A8A] leading-none mt-1">Store Owner</div>
+        </div>
+        <button id="logout-btn" type="button" title="Log out / Register another business" class="hidden sm:flex text-xs px-2.5 py-1.5 rounded-lg border border-[#2A2A2A] text-[#8A8A8A] hover:text-[#ff5c5c] hover:border-[#ff5c5c] transition-colors cursor-pointer items-center gap-1 ml-1">
+          <span class="material-symbols-outlined text-[16px]">logout</span><span>Logout</span>
+        </button>
+      </div>
+      <button id="mobile-menu-btn" type="button" class="xl:hidden p-2 rounded-lg border border-[#2A2A2A] text-[#8A8A8A] hover:text-[#F5F5F5]" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="mobile-nav-drawer">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-nav-drawer" class="hidden xl:hidden border-t border-[#2A2A2A] bg-[#0A0A0A] px-4 py-3 space-y-1" aria-label="Mobile Navigation">
+    <a href="mainDashboard.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] transition-all"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a>
+    <a href="catalogue.html" aria-current="page" class="nav-item-active flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium border transition-all"><span class="material-symbols-outlined text-[18px] text-[#C8FF00]">inventory_2</span><span>Catalogue</span></a>
+    <a href="billingPage.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] transition-all"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Billing</span></a>
+    <a href="mainDashboard.html#inventory" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] transition-all"><span class="material-symbols-outlined text-[18px]">inventory</span><span>Inventory</span></a>
+    <a href="mainDashboard.html#analytics-section" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#141414] transition-all"><span class="material-symbols-outlined text-[18px]">bar_chart</span><span>Analytics</span></a>
   </nav>
 </header>
 
-<main class="w-full flex-1">
+<main class="w-full flex-1 pt-20">
 
   <!-- Add product: fills the whole window -->
   <section id="add" class="px-4 sm:px-8 lg:px-12 py-10 flex flex-col justify-center" style="min-height:calc(100svh - 5rem)">
@@ -122,7 +159,7 @@ tailwind.config = { darkMode: "class", theme: { extend: {
   </section>
 
   <!-- Product list: scroll down to see it -->
-  <section id="products" class="px-4 sm:px-8 lg:px-12 pt-20 pb-24" style="min-height:100svh;scroll-margin-top:1rem">
+  <section id="products" class="px-4 sm:px-8 lg:px-12 pt-20 pb-24" style="min-height:100svh;scroll-margin-top:5rem">
     <div class="flex flex-wrap items-end justify-between gap-6">
       <h2 class="text-3xl sm:text-4xl font-semibold">Your products <span id="count" class="font-mono text-base text-[#8A8A8A] font-normal ml-1">0</span></h2>
       <div class="w-full sm:w-80">
@@ -259,10 +296,60 @@ $("search").addEventListener("input", () => render());
 
 (function () {
   const root = document.documentElement;
-  try { if (localStorage.getItem("dukaanhub-theme") === "light") { root.classList.add("light"); root.classList.remove("dark"); } } catch {}
-  $("themeToggle").addEventListener("click", () => {
-    const light = root.classList.toggle("light"); root.classList.toggle("dark", !light);
-    try { localStorage.setItem("dukaanhub-theme", light ? "light" : "dark"); } catch {}
+  const themeButtons = document.querySelectorAll(".fx-theme");
+  function applyTheme(light, persist) {
+    root.classList.toggle("light", light);
+    root.classList.toggle("dark", !light);
+    themeButtons.forEach((button) => {
+      button.setAttribute("aria-checked", String(light));
+      button.setAttribute("aria-label", light ? "Switch to dark mode" : "Switch to light mode");
+    });
+    if (persist) {
+      try { localStorage.setItem("dukaanhub-theme", light ? "light" : "dark"); } catch {}
+    }
+  }
+  let savedTheme = null;
+  try { savedTheme = localStorage.getItem("dukaanhub-theme"); } catch {}
+  applyTheme(savedTheme === "light", false);
+  themeButtons.forEach((button) => {
+    button.addEventListener("click", () => applyTheme(!root.classList.contains("light"), true));
+  });
+
+  const drawer = $("mobile-nav-drawer"), menuButton = $("mobile-menu-btn");
+  function setMenuOpen(open) {
+    drawer.classList.toggle("hidden", !open);
+    menuButton.setAttribute("aria-expanded", String(open));
+  }
+  menuButton.addEventListener("click", () => setMenuOpen(drawer.classList.contains("hidden")));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setMenuOpen(false);
+  });
+  drawer.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setMenuOpen(false));
+  });
+
+  try {
+    const user = JSON.parse(localStorage.getItem("dukaanhub-user") || "null");
+    const business = JSON.parse(localStorage.getItem("dukaanhub-business") || "null");
+    const displayName = user && (user.ownerName || user.name) || business && business.name;
+    if (displayName) {
+      $("profile-name").textContent = displayName;
+      const parts = displayName.trim().split(/\s+/);
+      $("profile-initials").textContent = ((parts[0] && parts[0][0]) || "") + (parts.length > 1 ? parts[parts.length - 1][0] : "");
+    }
+    if (business && (business.name || business.businessName)) {
+      $("profile-role").textContent = business.name || business.businessName;
+    }
+  } catch (error) {
+    console.warn("Could not load the saved profile.", error);
+  }
+  $("logout-btn").addEventListener("click", () => {
+    localStorage.removeItem("dukaanhub-token");
+    localStorage.removeItem("dukaanhub-business");
+    localStorage.removeItem("dukaanhub-user");
+    const logoutApi = (location.port === "5000" || !location.port) ? "/api/auth/logout" : "http://localhost:5000/api/auth/logout";
+    fetch(logoutApi, { method: "POST", credentials: "include" }).catch(() => {});
+    location.href = "login.html";
   });
 })();
 

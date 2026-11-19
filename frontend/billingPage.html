@@ -148,6 +148,50 @@
       border-color: #555;
       background: #262626;
     }
+
+    .fx-theme {
+      all: unset;
+      box-sizing: border-box;
+      position: relative;
+      flex: none;
+      width: 52px;
+      height: 28px;
+      border-radius: 999px;
+      cursor: pointer;
+      background: #141414;
+      border: 1px solid #2A2A2A;
+    }
+
+    .fx-theme:focus-visible { outline: 2px solid #C8FF00; outline-offset: 2px; }
+    .fx-theme .fx-knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #C8FF00;
+      color: #0A0A0A;
+      display: grid;
+      place-items: center;
+      translate: 24px 0;
+      transition: translate .35s cubic-bezier(.34, 1.56, .64, 1);
+    }
+    .fx-theme svg { grid-area: 1/1; width: 12px; height: 12px; transition: opacity .25s ease, rotate .35s ease; }
+    .fx-theme .fx-sun { opacity: 0; rotate: -90deg; }
+    .fx-theme .fx-moon { opacity: 1; rotate: 0deg; }
+    html.light .fx-theme .fx-knob { translate: 0 0; background: #0F172A; color: #fff; }
+    html.light .fx-theme .fx-sun { opacity: 1; rotate: 0deg; }
+    html.light .fx-theme .fx-moon { opacity: 0; rotate: 90deg; }
+
+    .topbar-active { background: #181818; color: #F5F5F5 !important; border-color: #2A2A2A; box-shadow: inset 0 -2px 0 #C8FF00; }
+    html.light .dashboard-topbar { background: rgba(255,255,255,.9); border-color: #E3E5E8; }
+    html.light .dashboard-topbar .text-ink { color: #0A0A0A; }
+    html.light .dashboard-topbar .topbar-link:not(.topbar-active) { color: #5F6670; }
+    html.light .dashboard-topbar .topbar-active { background: #fff; color: #0A0A0A !important; border-color: #E3E5E8; box-shadow: inset 0 -2px 0 #0F172A; }
+    html.light .dashboard-topbar .text-primary-container { color: #587300; }
+    html.light #profile-initials { background: #fff; color: #0A0A0A; border-color: #E3E5E8; }
+    html.light #mobile-nav-drawer { background: #fff; border-color: #E3E5E8; }
   </style>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script id="tailwind-config">
@@ -245,56 +289,47 @@
   <div id="fx-progress"
     class="fixed top-0 left-0 w-full h-[2px] z-[60] bg-primary-container origin-left scale-x-0 pointer-events-none transition-transform duration-200">
   </div>
-  <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-[rgba(10,10,10,0.9)] backdrop-blur-xl border-b border-border">
-    <div class="h-16 w-full px-gutter-desktop flex items-center justify-between gap-space-lg">
-      <div class="flex items-center gap-space-xl">
-        <div class="flex items-center gap-space-xs cursor-pointer select-none">
-          <span class="font-head text-[20px] text-ink font-semibold tracking-tight">DukaanHub</span>
-          <div class="flex items-center gap-3 sm:gap-4">
-            <a href="mainDashboard.html"
-              class="flex items-center gap-space-xs cursor-pointer select-none no-underline group"
-              title="DukaanHub Dashboard">
-              <span
-                class="font-head text-[20px] text-ink font-semibold tracking-tight group-hover:text-primary-container transition-colors">DukaanHub</span>
-              <span class="h-2 w-2 rounded-full bg-primary-container inline-block shadow-[0_0_8px_#c8ff00]"></span>
-            </a>
-            <div class="h-4 w-[1px] bg-border hidden sm:block"></div>
-            <a href="mainDashboard.html" id="btn-topbar-dashboard"
-              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-[6px] text-[13px] font-medium text-ink bg-surface border border-border hover:border-border-hover hover:text-primary-container hover:bg-surface-elevated transition-all group"
-              title="Navigate to Dashboard">
-              <span
-                class="material-symbols-outlined text-[18px] text-ink-muted group-hover:text-primary-container transition-colors">dashboard</span>
-              <span>Dashboard</span>
-            </a>
-          </div>
-          <div class="h-4 w-[1px] bg-border hidden lg:block"></div>
-
-        </div>
-        <div class="flex items-center gap-space-md">
-          <div
-            class="hidden sm:flex items-center gap-space-xs px-3 py-1.5 rounded-[6px] bg-surface border border-border">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
-            </span>
-            <span class="font-mono text-[12px] text-ink">Online</span>
-          </div>
-          <div
-            class="hidden md:flex items-center gap-space-xs px-3 py-1 rounded-[6px] bg-surface border border-border cursor-pointer hover:border-border-hover transition-colors">
-            <span class="material-symbols-outlined text-[16px] text-ink-muted">storefront</span>
-            <div class="flex flex-col text-left">
-              <span class="font-body text-[13px] text-ink leading-tight font-medium">Sunrise Store</span>
-              <span class="font-mono text-ink-muted text-[10px] leading-tight">GSTIN 29ABCDE1234F1Z5</span>
-            </div>
-            <span class="material-symbols-outlined text-[16px] text-ink-muted">unfold_more</span>
-          </div>
-          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
-
-          </div>
-        </div>
+  <header class="dashboard-topbar fixed top-0 left-0 right-0 z-50 bg-[rgba(10,10,10,0.9)] backdrop-blur-md border-b border-border transition-colors">
+    <div class="h-20 w-full px-4 sm:px-6 lg:px-10 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-5 lg:gap-8 min-w-0">
+        <a href="mainDashboard.html" class="flex items-center gap-3.5 flex-shrink-0 group">
+          <span class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-base font-mono">DH</span>
+          <span class="text-base sm:text-lg font-semibold tracking-tight text-ink">DukaanHub</span>
+        </a>
+        <span class="h-7 w-px bg-border hidden md:block"></span>
+        <nav class="hidden xl:flex items-center gap-1.5 lg:gap-2.5" aria-label="Main Navigation">
+          <a href="mainDashboard.html" class="topbar-link inline-flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-ink-muted hover:text-ink hover:bg-surface transition-all border border-transparent whitespace-nowrap"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a>
+          <a href="catalogue.html" class="topbar-link inline-flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-ink-muted hover:text-ink hover:bg-surface transition-all border border-transparent whitespace-nowrap"><span class="material-symbols-outlined text-[18px]">inventory_2</span><span>Catalogue</span></a>
+          <a href="billingPage.html" aria-current="page" class="topbar-link topbar-active inline-flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium border whitespace-nowrap transition-all"><span class="material-symbols-outlined text-[18px] text-primary-container">receipt_long</span><span>Billing</span></a>
+          <a href="mainDashboard.html#inventory" class="topbar-link inline-flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-ink-muted hover:text-ink hover:bg-surface transition-all border border-transparent whitespace-nowrap"><span class="material-symbols-outlined text-[18px]">inventory</span><span>Inventory</span></a>
+          <a href="mainDashboard.html#analytics-section" class="topbar-link inline-flex items-center gap-2 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-ink-muted hover:text-ink hover:bg-surface transition-all border border-transparent whitespace-nowrap"><span class="material-symbols-outlined text-[18px]">bar_chart</span><span>Analytics</span></a>
+        </nav>
       </div>
+      <div class="flex items-center gap-3.5 sm:gap-5 flex-shrink-0">
+        <button aria-checked="false" aria-label="Switch to light mode" class="fx-theme" role="switch" type="button"><span class="fx-knob"><svg class="fx-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg><svg class="fx-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg></span></button>
+        <span class="h-7 w-px bg-border hidden sm:block"></span>
+        <div class="flex items-center gap-3">
+          <span id="profile-initials" class="w-10 h-10 rounded-full bg-surface-elevated border border-border flex items-center justify-center text-xs font-semibold text-ink shadow-sm">--</span>
+          <div class="hidden xl:block text-left">
+            <div id="profile-name" class="text-sm font-semibold text-ink leading-none">Guest User</div>
+            <div id="profile-role" class="text-xs text-ink-muted leading-none mt-1">Store Owner</div>
+          </div>
+          <button id="logout-btn" type="button" title="Log out / Register another business" class="hidden sm:flex text-xs px-2.5 py-1.5 rounded-lg border border-border text-ink-muted hover:text-danger hover:border-danger transition-colors cursor-pointer items-center gap-1 ml-1"><span class="material-symbols-outlined text-[16px]">logout</span><span>Logout</span></button>
+        </div>
+        <button id="mobile-menu-btn" type="button" class="xl:hidden p-2 rounded-lg border border-border text-ink-muted hover:text-ink" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="mobile-nav-drawer">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-nav-drawer" class="hidden xl:hidden border-t border-border bg-canvas px-4 py-3 space-y-1" aria-label="Mobile Navigation">
+      <a href="mainDashboard.html" class="topbar-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-ink-muted hover:text-ink hover:bg-surface transition-all"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a>
+      <a href="catalogue.html" class="topbar-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-ink-muted hover:text-ink hover:bg-surface transition-all"><span class="material-symbols-outlined text-[18px]">inventory_2</span><span>Catalogue</span></a>
+      <a href="billingPage.html" aria-current="page" class="topbar-link topbar-active flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all"><span class="material-symbols-outlined text-[18px] text-primary-container">receipt_long</span><span>Billing</span></a>
+      <a href="mainDashboard.html#inventory" class="topbar-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-ink-muted hover:text-ink hover:bg-surface transition-all"><span class="material-symbols-outlined text-[18px]">inventory</span><span>Inventory</span></a>
+      <a href="mainDashboard.html#analytics-section" class="topbar-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-ink-muted hover:text-ink hover:bg-surface transition-all"><span class="material-symbols-outlined text-[18px]">bar_chart</span><span>Analytics</span></a>
+    </nav>
   </header>
-  <main class="w-full pt-16 bg-canvas">
+  <main class="w-full pt-20 bg-canvas">
     <div class="flex flex-col w-full">
       <!-- POS Console Inner Container -->
       <div class="w-full px-gutter md:px-margin-desktop py-space-md flex flex-col gap-space-md">
@@ -342,7 +377,7 @@
                     <input
                       class="w-full bg-surface-elevated border border-border focus:border-primary-container focus:outline-none text-ink font-body text-[14px] pl-9 pr-20 py-2 rounded-[6px] transition-colors"
                       id="customer-search" placeholder="Type customer name or +91..." type="text"
-                      value="Ananya Rao · +91 98450 12345">
+                    value="">
                     <button class="btn-standard !min-h-[28px] !h-7 !px-2.5 !text-[11px] font-mono absolute right-1.5"
                       type="button">VERIFY</button>
                   </div>
@@ -371,22 +406,8 @@
                     <select
                       class="w-full appearance-none bg-surface-elevated border border-border focus:border-primary-container focus:outline-none text-ink font-body text-[14px] px-3 py-2 rounded-[6px] transition-colors pr-8 min-h-[42px]"
                       id="pos-item-select">
-                      <option data-name="Basmati rice 5 kg" data-price="520" data-stock="40" data-tax="5" value="P101">
-                        P101 · Basmati rice 5 kg — ₹520.00 (5% GST)</option>
-                      <option data-name="Toor dal 1 kg" data-price="165" data-stock="28" data-tax="5" value="P102">P102
-                        · Toor dal 1 kg — ₹165.00 (5% GST)</option>
-                      <option data-name="Sunflower oil 1 L" data-price="140" data-stock="18" data-tax="5" value="P103">
-                        P103 · Sunflower oil 1 L — ₹140.00 (5% GST)</option>
-                      <option data-name="Assam tea leaves 500 g" data-price="240" data-stock="2" data-tax="5"
-                        value="P104">P104 · Assam tea leaves 500 g — ₹240.00 (5% GST) [LOW STOCK]</option>
-                      <option data-name="Bath soap 4-pack" data-price="180" data-stock="24" data-tax="18" value="P105">
-                        P105 · Bath soap 4-pack — ₹180.00 (18% GST)</option>
-                      <option data-name="Classmate notebook A4" data-price="75" data-stock="60" data-tax="12"
-                        value="P106">P106 · Classmate notebook A4 — ₹75.00 (12% GST)</option>
-                      <option data-name="LED bulb 9 W cool day" data-price="110" data-stock="15" data-tax="18"
-                        value="P107">P107 · LED bulb 9 W cool day — ₹110.00 (18% GST)</option>
-                      <option data-name="Steel water bottle 1 L" data-price="399" data-stock="7" data-tax="18"
-                        value="P108">P108 · Steel water bottle 1 L — ₹399.00 (18% GST)</option>
+                      <option value="" disabled selected>Select a product...</option>
+                      <!-- Options will be populated dynamically from catalog -->
                     </select>
                     <span
                       class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-ink-muted pointer-events-none text-[18px]">expand_more</span>
@@ -417,13 +438,13 @@
                 class="flex items-center justify-between bg-surface-elevated/70 px-3 py-2 rounded-[6px] border border-border text-[12px] font-body">
                 <div class="flex items-center gap-2">
                   <span class="text-ink-muted">Selected:</span>
-                  <span class="font-medium text-ink" id="sku-preview-name">Basmati rice 5 kg</span>
-                  <span class="font-mono text-ink" id="sku-preview-price">₹520.00</span>
-                  <span class="text-ink-muted font-mono" id="sku-preview-gst">5% GST</span>
+                  <span class="font-medium text-ink" id="sku-preview-name">—</span>
+                  <span class="font-mono text-ink" id="sku-preview-price">₹0.00</span>
+                  <span class="text-ink-muted font-mono" id="sku-preview-gst">0% GST</span>
                 </div>
                 <div class="flex items-center gap-1 font-mono">
                   <span class="text-ink-muted text-[11px]">Stock:</span>
-                  <span class="text-success font-mono font-medium" id="sku-preview-stock">40 units</span>
+                  <span class="text-ink-muted font-mono font-medium" id="sku-preview-stock">— units</span>
                 </div>
               </div>
             </section>
@@ -456,10 +477,10 @@
                       <label class="font-body text-ink-muted text-[11px]">Value</label>
                       <input
                         class="w-full bg-surface border border-border text-ink font-mono text-[13px] px-2 py-1.5 rounded-[6px] focus:border-primary-container focus:outline-none"
-                        id="discount-val" max="100" min="0" type="number" value="5">
+                      id="discount-val" max="100" min="0" type="number" value="0">
                     </div>
                   </div>
-                  <p class="font-body text-[12px] text-ink-muted mt-1">Applying 5% wholesale trade margin reduction.</p>
+                  <p class="font-body text-[12px] text-ink-muted mt-1">Discount will be applied on the bill total.</p>
                 </div>
                 <!-- Payment Mode Selector -->
                 <div class="md:col-span-7 flex flex-col gap-space-xs">
@@ -508,11 +529,11 @@
                   <span>Cash Tendered:</span>
                   <input
                     class="w-24 bg-surface border border-border text-ink font-mono text-[12px] px-2 py-0.5 rounded-[4px] focus:outline-none focus:border-primary-container"
-                    type="number" value="2000">
+                  type="number" value="0">
                 </div>
                 <div class="flex items-center gap-space-xs">
                   <span>Change Due:</span>
-                  <span class="font-mono text-success text-[12px] font-medium">₹296.00</span>
+                  <span class="font-mono text-success text-[12px] font-medium">₹0.00</span>
                 </div>
               </div>
             </section>
@@ -523,8 +544,8 @@
                   <span class="material-symbols-outlined text-ink-muted text-[18px]">table_view</span>
                   <span class="font-head text-[16px] font-semibold text-ink">Catalog Master &amp; Live Stock
                     Balance</span>
-                  <span class="px-2 py-0.5 rounded-[4px] bg-surface-container text-ink-muted font-mono text-[11px]">8
-                    active SKUs</span>
+                    <span class="px-2 py-0.5 rounded-[4px] bg-surface-container text-ink-muted font-mono text-[11px]">0
+                      active SKUs</span>
                 </div>
                 <div class="flex items-center gap-space-sm">
                   <button class="btn-link-action" id="btn-reset-demo-stock" type="button">
@@ -553,132 +574,10 @@
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-border text-ink text-[13px] font-body" id="inventory-tbody">
-                    <tr class="hover:bg-surface-elevated/80 transition-colors">
-                      <td class="py-2.5 px-space-md font-mono text-secondary">P101</td>
-                      <td class="py-2.5 px-space-md font-medium text-ink">Basmati rice 5 kg</td>
-                      <td class="py-2.5 px-space-md text-ink-muted">Grains &amp; Staples</td>
-                      <td class="py-2.5 px-space-md text-right font-mono">520.00</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink-muted">5%</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink" id="stock-p101">38</td>
-                      <td class="py-2.5 px-space-md text-center">
-                        <span
-                          class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[11px] font-mono bg-success/10 text-success border border-success/20">In
-                          Stock</span>
-                      </td>
-                      <td class="py-2.5 px-space-md text-right">
-                        <button class="quick-chip-btn btn-link-action" data-sku="P101" type="button">Add</button>
-                      </td>
-                    </tr>
-                    <tr class="hover:bg-surface-elevated/80 transition-colors">
-                      <td class="py-2.5 px-space-md font-mono text-secondary">P102</td>
-                      <td class="py-2.5 px-space-md font-medium text-ink">Toor dal 1 kg</td>
-                      <td class="py-2.5 px-space-md text-ink-muted">Pulses &amp; Grains</td>
-                      <td class="py-2.5 px-space-md text-right font-mono">165.00</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink-muted">5%</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink" id="stock-p102">28</td>
-                      <td class="py-2.5 px-space-md text-center">
-                        <span
-                          class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[11px] font-mono bg-success/10 text-success border border-success/20">In
-                          Stock</span>
-                      </td>
-                      <td class="py-2.5 px-space-md text-right">
-                        <button class="quick-chip-btn btn-link-action" data-sku="P102" type="button">Add</button>
-                      </td>
-                    </tr>
-                    <tr class="hover:bg-surface-elevated/80 transition-colors">
-                      <td class="py-2.5 px-space-md font-mono text-secondary">P103</td>
-                      <td class="py-2.5 px-space-md font-medium text-ink">Sunflower oil 1 L</td>
-                      <td class="py-2.5 px-space-md text-ink-muted">Cooking Oil</td>
-                      <td class="py-2.5 px-space-md text-right font-mono">140.00</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink-muted">5%</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink" id="stock-p103">15</td>
-                      <td class="py-2.5 px-space-md text-center">
-                        <span
-                          class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[11px] font-mono bg-success/10 text-success border border-success/20">In
-                          Stock</span>
-                      </td>
-                      <td class="py-2.5 px-space-md text-right">
-                        <button class="quick-chip-btn btn-link-action" data-sku="P103" type="button">Add</button>
-                      </td>
-                    </tr>
-                    <tr class="hover:bg-surface-elevated/80 transition-colors">
-                      <td class="py-2.5 px-space-md font-mono text-secondary">P104</td>
-                      <td class="py-2.5 px-space-md font-medium text-ink">Assam tea leaves 500 g</td>
-                      <td class="py-2.5 px-space-md text-ink-muted">Beverages</td>
-                      <td class="py-2.5 px-space-md text-right font-mono">240.00</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink-muted">5%</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-danger" id="stock-p104">2</td>
-                      <td class="py-2.5 px-space-md text-center">
-                        <span
-                          class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[11px] font-mono bg-danger/10 text-danger border border-danger/20">Low:
-                          2 units</span>
-                      </td>
-                      <td class="py-2.5 px-space-md text-right">
-                        <button class="quick-chip-btn btn-link-action" data-sku="P104" type="button">Add</button>
-                      </td>
-                    </tr>
-                    <tr class="hover:bg-surface-elevated/80 transition-colors">
-                      <td class="py-2.5 px-space-md font-mono text-secondary">P105</td>
-                      <td class="py-2.5 px-space-md font-medium text-ink">Bath soap 4-pack</td>
-                      <td class="py-2.5 px-space-md text-ink-muted">Personal Care</td>
-                      <td class="py-2.5 px-space-md text-right font-mono">180.00</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink-muted">18%</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink" id="stock-p105">24</td>
-                      <td class="py-2.5 px-space-md text-center">
-                        <span
-                          class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[11px] font-mono bg-success/10 text-success border border-success/20">In
-                          Stock</span>
-                      </td>
-                      <td class="py-2.5 px-space-md text-right">
-                        <button class="quick-chip-btn btn-link-action" data-sku="P105" type="button">Add</button>
-                      </td>
-                    </tr>
-                    <tr class="hover:bg-surface-elevated/80 transition-colors">
-                      <td class="py-2.5 px-space-md font-mono text-secondary">P106</td>
-                      <td class="py-2.5 px-space-md font-medium text-ink">Classmate notebook A4</td>
-                      <td class="py-2.5 px-space-md text-ink-muted">Stationery</td>
-                      <td class="py-2.5 px-space-md text-right font-mono">75.00</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink-muted">12%</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink" id="stock-p106">60</td>
-                      <td class="py-2.5 px-space-md text-center">
-                        <span
-                          class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[11px] font-mono bg-success/10 text-success border border-success/20">In
-                          Stock</span>
-                      </td>
-                      <td class="py-2.5 px-space-md text-right">
-                        <button class="quick-chip-btn btn-link-action" data-sku="P106" type="button">Add</button>
-                      </td>
-                    </tr>
-                    <tr class="hover:bg-surface-elevated/80 transition-colors">
-                      <td class="py-2.5 px-space-md font-mono text-secondary">P107</td>
-                      <td class="py-2.5 px-space-md font-medium text-ink">LED bulb 9 W cool day</td>
-                      <td class="py-2.5 px-space-md text-ink-muted">Electricals</td>
-                      <td class="py-2.5 px-space-md text-right font-mono">110.00</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink-muted">18%</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink" id="stock-p107">13</td>
-                      <td class="py-2.5 px-space-md text-center">
-                        <span
-                          class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[11px] font-mono bg-success/10 text-success border border-success/20">In
-                          Stock</span>
-                      </td>
-                      <td class="py-2.5 px-space-md text-right">
-                        <button class="quick-chip-btn btn-link-action" data-sku="P107" type="button">Add</button>
-                      </td>
-                    </tr>
-                    <tr class="hover:bg-surface-elevated/80 transition-colors">
-                      <td class="py-2.5 px-space-md font-mono text-secondary">P108</td>
-                      <td class="py-2.5 px-space-md font-medium text-ink">Steel water bottle 1 L</td>
-                      <td class="py-2.5 px-space-md text-ink-muted">Household</td>
-                      <td class="py-2.5 px-space-md text-right font-mono">399.00</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink-muted">18%</td>
-                      <td class="py-2.5 px-space-md text-right font-mono text-ink" id="stock-p108">7</td>
-                      <td class="py-2.5 px-space-md text-center">
-                        <span
-                          class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[11px] font-mono bg-success/10 text-success border border-success/20">In
-                          Stock</span>
-                      </td>
-                      <td class="py-2.5 px-space-md text-right">
-                        <button class="quick-chip-btn btn-link-action" data-sku="P108" type="button">Add</button>
+                        <!-- Inventory rows will be populated dynamically from catalog data -->
+                    <tr>
+                      <td colspan="8" class="py-8 px-space-md text-center text-ink-muted font-body text-[13px]">
+                        No catalog data loaded. Connect to backend to fetch inventory.
                       </td>
                     </tr>
                   </tbody>
@@ -694,13 +593,13 @@
               <!-- Terminal Header Stamp -->
               <div class="flex flex-col items-center text-center border-b border-dashed border-border pb-space-sm">
                 <div class="flex items-center gap-1">
-                  <span class="font-head text-[17px] font-semibold tracking-wider text-ink uppercase">SUNRISE GENERAL
-                    STORE</span>
+                  <span class="font-head text-[17px] font-semibold tracking-wider text-ink uppercase">STORE
+                    NAME</span>
                 </div>
-                <span class="font-body text-ink-muted text-[11px]">BENGALURU, KARNATAKA · 560001</span>
+                <span class="font-body text-ink-muted text-[11px]">CITY, STATE · PINCODE</span>
                 <div class="flex items-center gap-space-xs font-mono text-[10px] text-ink-muted mt-1">
                   <span>GSTIN:</span>
-                  <span class="text-ink">29ABCDE1234F1Z5</span>
+                  <span class="text-ink">XXXXXXXXXXXX</span>
                 </div>
                 <span class="font-mono text-secondary text-[10px] tracking-widest mt-0.5">TAX INVOICE · RETAIL
                   MEMO</span>
@@ -709,10 +608,10 @@
               <div class="grid grid-cols-2 text-ink-muted font-body text-[11px] border-b border-border/60 pb-space-xs">
                 <div>
                   <span>Bill No:</span>
-                  <span class="font-mono text-ink" id="ticket-invoice-no">INV-2025-0428</span>
+                  <span class="font-mono text-ink" id="ticket-invoice-no">INV-XXXX-XXXX</span>
                 </div>
                 <div class="text-right">
-                  <span class="font-mono text-ink" id="ticket-time">28-APR-2025 15:42</span>
+                  <span class="font-mono text-ink" id="ticket-time">DD-MMM-YYYY HH:MM</span>
                 </div>
 
 
@@ -720,8 +619,8 @@
               <!-- Customer Recipient Meta -->
               <div
                 class="bg-surface/70 px-2 py-1 rounded-[4px] border border-border/50 text-[11px] font-body flex items-center justify-between text-ink-muted">
-                <span class="text-ink">Ananya Rao</span>
-                <span class="font-mono">+91 98450 12345</span>
+                <span class="text-ink">Customer Name</span>
+                <span class="font-mono">+91 XXXXX XXXXX</span>
               </div>
               <!-- Interactive Line Items List -->
               <div class="flex flex-col gap-space-xs py-space-xs min-h-[140px] max-h-[300px] overflow-y-auto pr-1"
@@ -818,7 +717,7 @@
                   <rect fill="currentColor" height="32" width="6" x="264" y="0"></rect>
                   <rect fill="currentColor" height="32" width="4" x="274" y="0"></rect>
                 </svg>
-                <span class="font-mono text-[10px] text-ink-muted tracking-widest mt-1">* 2 9 A B C 0 4 2 8 *</span>
+                <span class="font-mono text-[10px] text-ink-muted tracking-widest mt-1">* X X X X X X X X X *</span>
               </div>
               <!-- Zig-Zag / Perforated Thermal Receipt Tear Edge -->
               <div class="absolute -bottom-3 left-0 right-0 h-3 overflow-hidden pointer-events-none">
@@ -861,24 +760,11 @@
     </div>
     <script>
       (() => {
-        // Master Catalog State
-        const catalog = {
-          P101: { sku: 'P101', name: 'Basmati rice 5 kg', mrp: 520, gst: 5, stock: 40 },
-          P102: { sku: 'P102', name: 'Toor dal 1 kg', mrp: 165, gst: 5, stock: 28 },
-          P103: { sku: 'P103', name: 'Sunflower oil 1 L', mrp: 140, gst: 5, stock: 18 },
-          P104: { sku: 'P104', name: 'Assam tea leaves 500 g', mrp: 240, gst: 5, stock: 2 },
-          P105: { sku: 'P105', name: 'Bath soap 4-pack', mrp: 180, gst: 18, stock: 24 },
-          P106: { sku: 'P106', name: 'Classmate notebook A4', mrp: 75, gst: 12, stock: 60 },
-          P107: { sku: 'P107', name: 'LED bulb 9 W cool day', mrp: 110, gst: 18, stock: 15 },
-          P108: { sku: 'P108', name: 'Steel water bottle 1 L', mrp: 399, gst: 18, stock: 7 },
-        };
+        // Master Catalog State — to be populated from backend
+        const catalog = {};
 
-        // Prepopulated items matching prototype
-        let currentCart = [
-          { sku: 'P101', qty: 2 },
-          { sku: 'P103', qty: 3 },
-          { sku: 'P107', qty: 2 }
-        ];
+        // Cart starts empty — items added via UI
+        let currentCart = [];
 
         let selectedPaymentMode = 'Cash';
 
@@ -1129,22 +1015,22 @@
           <div class="flex items-center gap-space-sm font-body">
             <span class="material-symbols-outlined text-[#C8FF00] text-[16px]">payments</span>
             <span>Cash Tendered:</span>
-            <input type="number" value="2000" class="w-24 bg-surface border border-border text-ink font-mono text-[12px] px-2 py-0.5 rounded-[4px] focus:outline-none focus:border-primary-container">
+            <input type="number" value="0" class="w-24 bg-surface border border-border text-ink font-mono text-[12px] px-2 py-0.5 rounded-[4px] focus:outline-none focus:border-primary-container">
           </div>
           <div class="flex items-center gap-space-xs font-body">
             <span class="text-ink-muted">Change Due:</span>
-            <span class="font-mono text-success text-[12px] font-medium">₹296.00</span>
+            <span class="font-mono text-success text-[12px] font-medium">₹0.00</span>
           </div>
         `;
             } else {
               tenderStrip.innerHTML = `
           <div class="flex items-center gap-space-sm font-body">
             <span class="material-symbols-outlined text-[#C8FF00] text-[16px]">qr_code_scanner</span>
-            <span>Dynamic QR generated for Terminal #04 screen display.</span>
+            <span>Dynamic QR generated for terminal screen display.</span>
           </div>
           <div class="flex items-center gap-space-xs font-body">
             <span class="text-ink-muted">VPA:</span>
-            <span class="font-mono text-ink">sunrisestore@icici</span>
+            <span class="font-mono text-ink">—</span>
           </div>
         `;
             }
@@ -1173,11 +1059,11 @@
         });
 
         document.getElementById('btn-void-bill').addEventListener('click', () => {
-          if (confirm('Void entire draft bill for Terminal #04?')) {
-            currentCart = [];
-            renderReceipt();
-          }
-        });
+            if (confirm('Void entire draft bill?')) {
+              currentCart = [];
+              renderReceipt();
+            }
+          });
 
         document.getElementById('btn-hold-bill').addEventListener('click', () => {
           alert('Bill held. Saved to active session park list.');
@@ -1195,7 +1081,7 @@
 
         // Reset Demo Stock Utility
         document.getElementById('btn-reset-demo-stock').addEventListener('click', () => {
-          alert('Catalog inventory synchronized with Central DukaanHub Master.');
+          alert('Catalog inventory synchronized with backend.');
         });
 
         // Keyboard shortcut listener
@@ -1228,6 +1114,69 @@
     </script>
   </main>
 
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const themeButton = document.querySelector(".fx-theme");
+      let savedTheme = null;
+      try { savedTheme = localStorage.getItem("dukaanhub-theme"); } catch {}
+      const applyTheme = (light, persist) => {
+        root.classList.toggle("light", light);
+        root.classList.toggle("dark", !light);
+        themeButton.setAttribute("aria-checked", String(light));
+        themeButton.setAttribute("aria-label", light ? "Switch to dark mode" : "Switch to light mode");
+        if (persist) {
+          try { localStorage.setItem("dukaanhub-theme", light ? "light" : "dark"); } catch {}
+        }
+      };
+      applyTheme(savedTheme === "light", false);
+      themeButton.addEventListener("click", () => applyTheme(!root.classList.contains("light"), true));
+
+      const drawer = document.getElementById("mobile-nav-drawer");
+      const menuButton = document.getElementById("mobile-menu-btn");
+      const setMenuOpen = (open) => {
+        drawer.classList.toggle("hidden", !open);
+        menuButton.setAttribute("aria-expanded", String(open));
+      };
+      menuButton.addEventListener("click", () => setMenuOpen(drawer.classList.contains("hidden")));
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setMenuOpen(false);
+      });
+      drawer.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => setMenuOpen(false));
+      });
+
+      try {
+        const user = JSON.parse(localStorage.getItem("dukaanhub-user") || "null");
+        const business = JSON.parse(localStorage.getItem("dukaanhub-business") || "null");
+        const displayName = (user && (user.ownerName || user.name)) || (business && business.name);
+        if (displayName) {
+          document.getElementById("profile-name").textContent = displayName;
+          const parts = displayName.trim().split(/\s+/);
+          document.getElementById("profile-initials").textContent =
+            ((parts[0] && parts[0][0]) || "") + (parts.length > 1 ? parts[parts.length - 1][0] : "");
+        }
+        if (business && (business.name || business.businessName)) {
+          document.getElementById("profile-role").textContent = business.name || business.businessName;
+        }
+      } catch (error) {
+        console.warn("Could not load the saved profile.", error);
+      }
+
+      document.getElementById("logout-btn").addEventListener("click", () => {
+        try {
+          localStorage.removeItem("dukaanhub-token");
+          localStorage.removeItem("dukaanhub-business");
+          localStorage.removeItem("dukaanhub-user");
+        } catch (error) {
+          console.error("Could not clear the saved session.", error);
+        }
+        const logoutApi = (location.port === "5000" || !location.port) ? "/api/auth/logout" : "http://localhost:5000/api/auth/logout";
+        fetch(logoutApi, { method: "POST", credentials: "include" }).catch(() => {});
+        location.href = "login.html";
+      });
+    })();
+  </script>
 
 </body>
 
