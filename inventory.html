@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inventory · DukaanHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{--bg:#0A0A0A;--surface:#141414;--surface-elevated:#181818;--line:#2A2A2A;--line-subtle:#1F1F1F;--line-hover:#383838;--ink:#F5F5F5;--muted:#8A8A8A;--accent:#C8FF00;--accent-hover:#D4FF33;--accent-ink:#0A0A0A;--header-bg:rgba(10,10,10,.9);--success:#52C41A;--danger:#FF4D4F;--warn:#FFB020}
+  html.light{--bg:#FFFFFF;--surface:#F8F9FA;--surface-elevated:#FFFFFF;--line:#E5E7EB;--line-subtle:#EEF0F2;--line-hover:#D1D5DB;--ink:#0F172A;--muted:#64748B;--accent:#0F172A;--accent-hover:#1E293B;--accent-ink:#FFFFFF;--header-bg:rgba(255,255,255,.9)}
+  html.light .top-nav-link:hover{color:#0A0A0A!important;background-color:#F4F5F7!important}
+  body{background:var(--bg);color:var(--ink);font-family:'Geist','Plus Jakarta Sans',system-ui,sans-serif;letter-spacing:-.01em}
+  h1,h2,h3,.font-display{font-family:'Space Grotesk','Geist',sans-serif}
+  h1{letter-spacing:-.035em}h2{letter-spacing:-.03em}h3{letter-spacing:-.025em}
+  .mono{font-family:'Geist Mono','JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+  .font-mono-code{font-family:'Geist Mono',monospace}
+  /* nav */
+  .nav-item-active{background:var(--surface-elevated);color:var(--ink)!important;border-color:var(--line)!important;box-shadow:inset 0 -2px 0 0 var(--accent)}
+  html.dark .nav-item-active .nav-icon{color:#C8FF00}
+  .fx-theme{width:52px;height:28px;border-radius:9999px;background:var(--surface);border:1px solid var(--line);position:relative;cursor:pointer;flex:none}
+  .fx-knob{width:20px;height:20px;border-radius:9999px;background:#C8FF00;color:#0A0A0A;position:absolute;top:3px;left:3px;transition:transform .35s;display:flex;align-items:center;justify-content:center}
+  html.light .fx-theme .fx-knob{transform:translateX(24px);background:#0F172A;color:#fff}
+  .fx-knob svg{width:12px;height:12px;position:absolute;transition:transform .35s,opacity .35s}
+  .fx-moon{opacity:1}.fx-sun{opacity:0;transform:rotate(-90deg)}
+  html.light .fx-moon{opacity:0;transform:rotate(90deg)}html.light .fx-sun{opacity:1;transform:rotate(0)}
+  /* cards */
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:.75rem;position:relative;overflow:hidden;transition:border-color .15s}
+  .card:hover{border-color:var(--line-hover)}
+  .interactive-card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .2s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(200,255,0,.07),transparent 70%)}
+  html.light .interactive-card::before{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(15,23,42,.05),transparent 70%)}
+  .interactive-card:hover::before{opacity:1}
+  /* controls */
+  .btn-primary{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:var(--accent-ink);font-weight:600;font-size:.75rem;padding:.5rem .875rem;border-radius:.125rem;letter-spacing:-.01em;transition:all .15s}
+  .btn-primary:hover{background:var(--accent-hover);transform:scale(1.02);box-shadow:0 0 20px rgba(200,255,0,.25)}
+  html.light .btn-primary:hover{box-shadow:0 4px 14px rgba(15,23,42,.25)}
+  .btn-ghost{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--line);color:var(--muted);font-size:.75rem;padding:.45rem .75rem;border-radius:.5rem;transition:all .15s}
+  .btn-ghost:hover{border-color:var(--line-hover);color:var(--ink)}
+  .field{width:100%;background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:.5rem;padding:.5rem .75rem;font-size:.875rem;outline:none;transition:border-color .15s}
+  .field:focus{border-color:var(--accent)}
+  select.field option{background:var(--surface);color:var(--ink)}
+  .lbl{display:block;font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.3rem}
+  .badge{display:inline-flex;align-items:center;gap:.35rem;padding:.125rem .5rem;border-radius:.25rem;font-family:'Geist Mono',monospace;font-size:11px}
+  .b-ok{color:var(--success);background:rgba(82,196,26,.12)}
+  .b-low{color:var(--warn);background:rgba(255,176,32,.12)}
+  .b-out{color:var(--danger);background:rgba(255,77,79,.12)}
+  .b-meta{color:var(--muted);background:var(--surface-elevated);border:1px solid var(--line)}
+  .dot{width:6px;height:6px;border-radius:9999px;background:currentColor}
+  .pulse{animation:pulse 1.6s infinite}@keyframes pulse{50%{opacity:.35}}
+  th{font-weight:500;font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  tbody tr{transition:background .15s}tbody tr:hover{background:var(--surface-elevated)}
+  .divide-line>*+*{border-top:1px solid var(--line)}
+  .stockbar{height:3px;background:var(--line);border-radius:9999px;overflow:hidden}
+  .stockbar>i{display:block;height:100%;border-radius:9999px}
+  dialog{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:.75rem;padding:0;max-width:640px;width:calc(100% - 2rem)}
+  dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(3px)}
+  .toast{position:fixed;bottom:1.25rem;right:1.25rem;z-index:80;background:var(--surface-elevated);border:1px solid var(--line);border-radius:.5rem;padding:.6rem .9rem;font-size:.8rem;transform:translateY(20px);opacity:0;transition:all .25s;pointer-events:none}
+  .toast.show{transform:none;opacity:1}
+  .flash{animation:flash 1.2s}@keyframes flash{0%{background:rgba(200,255,0,.18)}100%{background:transparent}}
+</style>
+</head>
+<body class="min-h-screen">
+
+<div id="fx-progress" class="fixed top-0 left-0 w-full h-[2px] z-[60] bg-[var(--accent,#C8FF00)] origin-left scale-x-0 pointer-events-none transition-transform duration-200"></div>
+
+<!-- UNIVERSAL TOPBAR -->
+<header class="dashboard-topbar fixed top-0 left-0 right-0 z-50 bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--line)] transition-colors">
+  <div class="w-full h-20 px-4 sm:px-6 lg:px-10 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-5 lg:gap-8 min-w-0">
+      <a href="mainDashboard.html" class="flex items-center gap-3.5 flex-shrink-0 group">
+        <span class="w-10 h-10 rounded-xl bg-[#C8FF00] flex items-center justify-center text-[#0A0A0A] font-bold text-base font-mono shadow-sm transition-transform group-hover:scale-105">DH</span>
+        <span class="text-base sm:text-lg font-bold tracking-tight text-[var(--ink)] font-display block leading-tight">DukaanHub</span>
+      </a>
+      <div class="h-7 w-px bg-[var(--line)] hidden md:block"></div>
+      <nav id="top-nav" class="hidden md:flex items-center gap-1.5 lg:gap-2.5" aria-label="Main Navigation">
+        <a href="mainDashboard.html" data-nav="dashboard" class="top-nav-link flex items-center gap-2.5 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent whitespace-nowrap">
+          <svg class="nav-icon w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg><span>Dashboard</span></a>
+        <a href="catalogue.html" data-nav="catalogue" class="top-nav-link flex items-center gap-2.5 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent whitespace-nowrap">
+          <svg class="nav-icon w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg><span>Catalogue</span></a>
+        <a href="billingPage.html" data-nav="billing" title="Billing & POS" class="top-nav-link flex items-center gap-2.5 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent whitespace-nowrap">
+          <svg class="nav-icon w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg><span>Billing</span></a>
+        <a href="inventory.html" data-nav="inventory" class="top-nav-link nav-item-active flex items-center gap-2.5 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent whitespace-nowrap">
+          <svg class="nav-icon w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg><span>Inventory</span></a>
+        <a href="mainDashboard.html#analytics-section" data-nav="analytics" class="top-nav-link flex items-center gap-2.5 px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-xl text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-all border border-transparent whitespace-nowrap">
+          <svg class="nav-icon w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg><span>Analytics</span></a>
+      </nav>
+    </div>
+    <div class="flex items-center gap-3.5 sm:gap-5 flex-shrink-0">
+      <button aria-checked="false" aria-label="Switch to light mode" class="fx-theme" role="switch" type="button">
+        <span class="fx-knob">
+          <svg class="fx-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+          <svg class="fx-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
+        </span>
+      </button>
+      <div class="h-7 w-px bg-[var(--line)] hidden sm:block"></div>
+      <div class="flex items-center gap-3">
+        <div id="profile-initials" class="w-10 h-10 rounded-full bg-[var(--surface-elevated)] border border-[var(--line)] flex items-center justify-center text-xs font-semibold text-[var(--ink)] shadow-sm font-mono">--</div>
+        <div class="hidden xl:block text-left">
+          <div id="profile-name" class="text-sm font-semibold text-[var(--ink)] leading-none">Guest User</div>
+          <div id="profile-role" class="text-xs text-[var(--muted)] font-mono-code leading-none mt-1">Store Owner</div>
+        </div>
+        <button id="logout-btn" type="button" title="Log out / Register another business" class="text-xs px-2.5 py-1.5 rounded-lg border border-[var(--line)] text-[var(--muted)] hover:text-[#ff5c5c] hover:border-[#ff5c5c] transition-colors cursor-pointer flex items-center gap-1 ml-1">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg><span>Logout</span>
+        </button>
+      </div>
+      <button id="mobile-menu-btn" type="button" class="md:hidden p-2 rounded-lg border border-[var(--line)] text-[var(--muted)] hover:text-[var(--ink)]" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="mobile-nav-drawer">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-[var(--line)] bg-[var(--bg)] px-4 py-3 space-y-1">
+    <a href="mainDashboard.html" class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)]">Dashboard</a>
+    <a href="catalogue.html" class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)]">Catalogue</a>
+    <a href="billingPage.html" class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)]">Billing</a>
+    <a href="inventory.html" class="top-nav-link nav-item-active flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium">Inventory</a>
+    <a href="mainDashboard.html#analytics-section" class="top-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--surface)]">Analytics</a>
+  </div>
+</header>
+
+<main class="pt-24 px-4 sm:px-6 lg:px-10 pb-16 max-w-[1500px] mx-auto">
+
+  <!-- Page header -->
+  <div class="flex flex-wrap items-end justify-between gap-4 mb-6">
+    <div>
+      <div class="flex items-center gap-2 mb-2">
+        <span class="badge b-ok"><span class="dot pulse"></span>LIVE MONITOR</span>
+        <span id="last-check" class="badge b-meta">checked --:--:--</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold">Inventory</h1>
+      <p class="text-sm text-[var(--muted)] mt-1">Receive supplier stock, watch levels, and auto-deduct what's billed.</p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <button class="btn-ghost" id="btn-add-sku">+ New SKU</button>
+      <button class="btn-primary" id="btn-receive">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m7-7H5"/></svg>
+        Receive Stock
+      </button>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <section class="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6" id="kpis"></section>
+
+  <!-- Low stock alerts -->
+  <section id="alerts" class="mb-6"></section>
+
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+    <!-- Stock table -->
+    <section class="xl:col-span-2 card interactive-card">
+      <div class="p-4 sm:p-5 flex flex-wrap items-center gap-3 border-b border-[var(--line)]">
+        <h2 class="text-lg font-semibold mr-auto">Stock Levels</h2>
+        <input id="search" class="field !w-48" placeholder="Search name or SKU">
+        <div class="flex gap-1" id="filters">
+          <button class="btn-ghost" data-f="all">All</button>
+          <button class="btn-ghost" data-f="low">Low</button>
+          <button class="btn-ghost" data-f="out">Out</button>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead><tr class="border-b border-[var(--line)] text-left">
+            <th class="px-5 py-3">Product</th><th class="px-3 py-3 text-right">In stock</th><th class="px-3 py-3 text-right">Reorder at</th>
+            <th class="px-3 py-3 text-right">Unit cost</th><th class="px-3 py-3">Status</th><th class="px-5 py-3"></th>
+          </tr></thead>
+          <tbody id="stock-body" class="divide-y divide-[var(--line)]"></tbody>
+        </table>
+      </div>
+      <div id="empty" class="hidden p-10 text-center text-sm text-[var(--muted)]">No products match.</div>
+    </section>
+
+    <!-- Ledger -->
+    <section class="card interactive-card flex flex-col">
+      <div class="p-4 sm:p-5 border-b border-[var(--line)] flex items-center justify-between">
+        <h2 class="text-lg font-semibold">Stock Ledger</h2>
+        <button class="btn-ghost" id="btn-sim" title="Demo: simulate a bill arriving from the Billing page">Simulate bill</button>
+      </div>
+      <ul id="ledger" class="divide-line overflow-y-auto max-h-[560px] flex-1"></ul>
+    </section>
+  </div>
+</main>
+
+<!-- Receive stock dialog -->
+<dialog id="dlg-receive">
+  <form method="dialog" id="form-receive" class="p-5 sm:p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-xl font-semibold">Receive stock from supplier</h3>
+      <button type="button" class="btn-ghost" data-close>✕</button>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+      <div><label class="lbl">Supplier</label><input class="field" id="r-supplier" required placeholder="e.g. Sharma Traders"></div>
+      <div><label class="lbl">Invoice / challan no.</label><input class="field mono" id="r-ref" required placeholder="INV-0000"></div>
+      <div><label class="lbl">Received on</label><input class="field mono" id="r-date" type="date" required></div>
+    </div>
+    <label class="lbl">Items received</label>
+    <div id="r-lines" class="space-y-2 mb-2"></div>
+    <button type="button" class="btn-ghost mb-4" id="r-addline">+ Add line</button>
+    <div class="flex items-center justify-between border-t border-[var(--line)] pt-4">
+      <div class="text-sm text-[var(--muted)]">Total value <span id="r-total" class="mono text-[var(--ink)] font-semibold ml-1">₹0</span></div>
+      <div class="flex gap-2"><button type="button" class="btn-ghost" data-close>Cancel</button><button class="btn-primary" type="submit">Record receipt</button></div>
+    </div>
+  </form>
+</dialog>
+
+<!-- New SKU dialog -->
+<dialog id="dlg-sku">
+  <form method="dialog" id="form-sku" class="p-5 sm:p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-xl font-semibold">New product</h3>
+      <button type="button" class="btn-ghost" data-close>✕</button>
+    </div>
+    <div class="grid grid-cols-2 gap-3 mb-4">
+      <div class="col-span-2"><label class="lbl">Name</label><input class="field" id="s-name" required></div>
+      <div><label class="lbl">SKU</label><input class="field mono" id="s-sku" required placeholder="POS-0000"></div>
+      <div><label class="lbl">Unit</label><input class="field" id="s-unit" value="pcs"></div>
+      <div><label class="lbl">Opening stock</label><input class="field mono" id="s-stock" type="number" min="0" value="0"></div>
+      <div><label class="lbl">Reorder level</label><input class="field mono" id="s-reorder" type="number" min="0" value="10"></div>
+      <div><label class="lbl">Unit cost (₹)</label><input class="field mono" id="s-cost" type="number" min="0" step="0.01" value="0"></div>
+      <div><label class="lbl">Default supplier</label><input class="field" id="s-supplier"></div>
+    </div>
+    <div class="flex justify-end gap-2"><button type="button" class="btn-ghost" data-close>Cancel</button><button class="btn-primary" type="submit">Add product</button></div>
+  </form>
+</dialog>
+
+<!-- Adjust dialog -->
+<dialog id="dlg-adj">
+  <form method="dialog" id="form-adj" class="p-5 sm:p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-xl font-semibold" id="adj-title">Adjust stock</h3>
+      <button type="button" class="btn-ghost" data-close>✕</button>
+    </div>
+    <div class="grid grid-cols-2 gap-3 mb-4">
+      <div><label class="lbl">Counted quantity</label><input class="field mono" id="a-qty" type="number" min="0" required></div>
+      <div><label class="lbl">Reorder level</label><input class="field mono" id="a-reorder" type="number" min="0" required></div>
+      <div class="col-span-2"><label class="lbl">Reason</label><input class="field" id="a-note" placeholder="Stock count, damage, expiry…"></div>
+    </div>
+    <div class="flex justify-end gap-2"><button type="button" class="btn-ghost" data-close>Cancel</button><button class="btn-primary" type="submit">Save</button></div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* ============ Theme / nav / session (design.md §4.3.4) ============ */
+(function(){
+  const root=document.documentElement, sw=document.querySelector('.fx-theme');
+  const apply=m=>{root.classList.toggle('light',m==='light');root.classList.toggle('dark',m!=='light');sw.setAttribute('aria-checked',m==='light');sw.setAttribute('aria-label',m==='light'?'Switch to dark mode':'Switch to light mode')};
+  let saved='dark';try{saved=localStorage.getItem('dukaanhub-theme')||'dark'}catch(e){}
+  apply(saved);
+  sw.addEventListener('click',()=>{const m=root.classList.contains('light')?'dark':'light';apply(m);try{localStorage.setItem('dukaanhub-theme',m)}catch(e){}});
+
+  const btn=document.getElementById('mobile-menu-btn'),dr=document.getElementById('mobile-nav-drawer');
+  btn.addEventListener('click',()=>{const h=dr.classList.toggle('hidden');btn.setAttribute('aria-expanded',!h)});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){dr.classList.add('hidden');btn.setAttribute('aria-expanded','false')}});
+
+  let user='',biz='';try{user=localStorage.getItem('dukaanhub-user')||'';biz=localStorage.getItem('dukaanhub-business')||''}catch(e){}
+  if(user){document.getElementById('profile-name').textContent=user;
+    document.getElementById('profile-initials').textContent=user.trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase()}
+  if(biz)document.getElementById('profile-role').textContent=biz;
+
+  document.getElementById('logout-btn').addEventListener('click',async()=>{
+    try{['dukaanhub-token','dukaanhub-business','dukaanhub-user'].forEach(k=>localStorage.removeItem(k))}catch(e){}
+    try{await fetch('/api/auth/logout',{method:'POST'})}catch(e){}
+    location.href='login.html';
+  });
+  document.querySelectorAll('.top-nav-link').forEach(a=>a.addEventListener('click',e=>{
+    const h=a.getAttribute('href')||'';if(h.includes('#')&&h.startsWith(location.pathname.split('/').pop()))return;
+    document.getElementById('fx-progress').style.transform='scaleX(1)';
+  }));
+  document.querySelectorAll('.interactive-card').forEach(c=>c.addEventListener('mousemove',e=>{
+    const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')}));
+})();
+
+/* ============ Inventory data layer ============
+   Storage keys (change here if your backend differs):
+   dukaanhub-inventory : { products, movements, applied }
+   dukaanhub-bills     : [ { id, ts, items:[{sku, qty}] } ]   <- written by billingPage.html
+*/
+const INV_KEY='dukaanhub-inventory', BILLS_KEY='dukaanhub-bills';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const inr=n=>'₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
+const uid=()=>Math.random().toString(36).slice(2,9);
+
+const SEED={products:[
+  {sku:'POS-3301',name:'Aashirvaad Atta 10kg',unit:'bags',stock:64,reorder:20,cost:412,supplier:'Sharma Traders'},
+  {sku:'POS-3302',name:'Tata Salt 1kg',unit:'pkts',stock:140,reorder:50,cost:22,supplier:'Sharma Traders'},
+  {sku:'POS-3303',name:'Fortune Sunflower Oil 1L',unit:'pouches',stock:18,reorder:30,cost:118,supplier:'Gupta Wholesale'},
+  {sku:'POS-3304',name:'Maggi Noodles 12-pack',unit:'cartons',stock:9,reorder:15,cost:144,supplier:'Gupta Wholesale'},
+  {sku:'POS-3305',name:'Toor Dal 1kg',unit:'pkts',stock:0,reorder:25,cost:138,supplier:'Kisan Agro'},
+  {sku:'POS-3306',name:'Surf Excel 1kg',unit:'pkts',stock:52,reorder:20,cost:118,supplier:'Hindustan Dist.'},
+  {sku:'POS-3307',name:'Parle-G 800g',unit:'pkts',stock:85,reorder:40,cost:68,supplier:'Hindustan Dist.'},
+  {sku:'POS-3308',name:'Amul Butter 500g',unit:'pcs',stock:23,reorder:24,cost:265,supplier:'Amul Depot'}
+],movements:[],applied:[]};
+
+let S=load();
+function load(){try{const r=JSON.parse(localStorage.getItem(INV_KEY));if(r&&r.products)return r}catch(e){}
+  const s=JSON.parse(JSON.stringify(SEED));s.movements=s.products.map(p=>({id:uid(),ts:Date.now(),type:'ADJ',sku:p.sku,qty:p.stock,ref:'Opening balance',note:''}));return s}
+function save(){try{localStorage.setItem(INV_KEY,JSON.stringify(S))}catch(e){}}
+const find=sku=>S.products.find(p=>p.sku===sku);
+const status=p=>p.stock<=0?'out':p.stock<=p.reorder?'low':'ok';
+
+function addMove(type,sku,qty,ref,note=''){S.movements.unshift({id:uid(),ts:Date.now(),type,sku,qty,ref,note});S.movements=S.movements.slice(0,300)}
+
+/* ---- Bills → stock deduction ---- */
+function applyBill(bill){
+  if(!bill||!bill.id||S.applied.includes(bill.id))return false;
+  (bill.items||[]).forEach(it=>{
+    const p=find(it.sku);if(!p)return;
+    const q=Math.max(0,Number(it.qty)||0);
+    const taken=Math.min(q,p.stock);       // never below zero
+    p.stock-=taken;
+    addMove('OUT',p.sku,-taken,'Bill '+bill.id,taken<q?`Short by ${q-taken} — oversold`:'');
+  });
+  S.applied.push(bill.id);S.applied=S.applied.slice(-1000);
+  return true;
+}
+function syncBills(){
+  let bills=[];try{bills=JSON.parse(localStorage.getItem(BILLS_KEY))||[]}catch(e){}
+  let n=0;bills.sort((a,b)=>(a.ts||0)-(b.ts||0)).forEach(b=>{if(applyBill(b))n++});
+  if(n){save();toast(`${n} new bill${n>1?'s':''} deducted from stock`)}
+  return n;
+}
+/* Public hook so billingPage.html can call it directly: DukaanInventory.applyBill({id, items:[{sku, qty}]}) */
+window.DukaanInventory={applyBill:b=>{if(applyBill(b)){save();render()}}};
+
+/* ============ Render ============ */
+let filter='all',q='',prevLow=new Set(JSON.parse(sessionStorage.getItem('inv-low')||'[]'));
+function render(){
+  const P=S.products;
+  const low=P.filter(p=>status(p)==='low'),out=P.filter(p=>status(p)==='out');
+  const units=P.reduce((a,p)=>a+p.stock,0),val=P.reduce((a,p)=>a+p.stock*p.cost,0);
+  $('#kpis').innerHTML=[
+    ['Products',P.length,''],['Units in stock',units.toLocaleString('en-IN'),''],
+    ['Stock value',inr(val),''],['Low stock',low.length,low.length?'text-[var(--warn)]':''],['Out of stock',out.length,out.length?'text-[var(--danger)]':'']
+  ].map(k=>`<div class="card interactive-card p-4"><div class="lbl">${k[0]}</div><div class="mono text-2xl font-semibold ${k[2]}">${k[1]}</div></div>`).join('');
+
+  // alerts
+  const al=[...out,...low];
+  $('#alerts').innerHTML=al.length?`<div class="card" style="border-color:${out.length?'var(--danger)':'var(--warn)'}">
+    <div class="px-4 sm:px-5 py-3 flex items-center gap-2 border-b border-[var(--line)]">
+      <span class="badge ${out.length?'b-out':'b-low'}"><span class="dot pulse"></span>${al.length} ALERT${al.length>1?'S':''}</span>
+      <span class="text-sm font-medium">Restock needed</span></div>
+    <div class="p-3 flex flex-wrap gap-2">${al.map(p=>`<button data-recv="${esc(p.sku)}" class="badge ${status(p)==='out'?'b-out':'b-low'} !py-1.5 !px-2.5 cursor-pointer hover:brightness-125">${esc(p.name)} · ${p.stock}/${p.reorder} ${esc(p.unit)} → reorder</button>`).join('')}</div></div>`:
+    `<div class="card px-4 py-3 flex items-center gap-2"><span class="badge b-ok"><span class="dot"></span>ALL CLEAR</span><span class="text-sm text-[var(--muted)]">Every product is above its reorder level.</span></div>`;
+
+  // toast on newly-low items
+  const nowLow=new Set(al.map(p=>p.sku));
+  const fresh=[...nowLow].filter(s=>!prevLow.has(s));
+  if(fresh.length&&prevLow.size+fresh.length>0&&window.__ready)toast('⚠ Low stock: '+fresh.map(s=>find(s).name).join(', '));
+  prevLow=nowLow;try{sessionStorage.setItem('inv-low',JSON.stringify([...nowLow]))}catch(e){}
+
+  // table
+  const rows=P.filter(p=>(filter==='all'||status(p)===filter)&&(!q||(p.name+p.sku).toLowerCase().includes(q)));
+  $('#empty').classList.toggle('hidden',rows.length>0);
+  $('#stock-body').innerHTML=rows.map(p=>{
+    const st=status(p),pct=Math.min(100,p.reorder?p.stock/(p.reorder*2)*100:100);
+    const col=st==='out'?'var(--danger)':st==='low'?'var(--warn)':'var(--success)';
+    return `<tr data-row="${esc(p.sku)}">
+      <td class="px-5 py-3"><div class="font-medium">${esc(p.name)}</div><div class="mono text-[11px] text-[var(--muted)]">SKU: ${esc(p.sku)} · ${esc(p.supplier||'—')}</div></td>
+      <td class="px-3 py-3 text-right"><div class="mono font-semibold">${p.stock} <span class="text-[var(--muted)] font-normal text-xs">${esc(p.unit)}</span></div><div class="stockbar mt-1.5 ml-auto w-20"><i style="width:${pct}%;background:${col}"></i></div></td>
+      <td class="px-3 py-3 text-right mono text-[var(--muted)]">${p.reorder}</td>
+      <td class="px-3 py-3 text-right mono">${inr(p.cost)}</td>
+      <td class="px-3 py-3"><span class="badge ${st==='ok'?'b-ok':st==='low'?'b-low':'b-out'}">${st==='ok'?'IN STOCK':st==='low'?'LOW':'OUT'}</span></td>
+      <td class="px-5 py-3 text-right whitespace-nowrap"><button class="btn-ghost" data-recv="${esc(p.sku)}">+ Receive</button> <button class="btn-ghost" data-adj="${esc(p.sku)}">Adjust</button></td></tr>`}).join('');
+  document.querySelectorAll('#filters button').forEach(b=>b.style.cssText=b.dataset.f===filter?'color:var(--ink);border-color:var(--line-hover);background:var(--surface-elevated)':'');
+
+  // ledger
+  $('#ledger').innerHTML=S.movements.slice(0,60).map(m=>{
+    const p=find(m.sku),t=new Date(m.ts);
+    const cls=m.type==='IN'?'b-ok':m.type==='OUT'?'b-low':'b-meta';
+    return `<li class="px-5 py-3 flex items-start gap-3"><span class="badge ${cls} mt-0.5 w-12 justify-center">${m.type}</span>
+      <div class="min-w-0 flex-1"><div class="text-sm truncate">${esc(p?p.name:m.sku)}</div><div class="mono text-[11px] text-[var(--muted)] truncate">${esc(m.ref)}${m.note?' · '+esc(m.note):''}</div></div>
+      <div class="text-right"><div class="mono text-sm font-semibold ${m.qty>0?'text-[var(--success)]':m.qty<0?'text-[var(--danger)]':''}">${m.qty>0?'+':''}${m.qty}</div>
+      <div class="mono text-[10px] text-[var(--muted)]">${t.toLocaleDateString('en-IN',{day:'2-digit',month:'short'})} ${t.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</div></div></li>`}).join('')||'<li class="p-6 text-sm text-[var(--muted)]">No movements yet.</li>';
+
+  $('#last-check').textContent='checked '+new Date().toLocaleTimeString('en-GB');
+}
+
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),3500)}
+
+/* ============ Interactions ============ */
+$('#search').addEventListener('input',e=>{q=e.target.value.toLowerCase().trim();render()});
+$('#filters').addEventListener('click',e=>{const b=e.target.closest('button');if(b){filter=b.dataset.f;render()}});
+document.addEventListener('click',e=>{
+  const c=e.target.closest('[data-close]');if(c)c.closest('dialog').close();
+  const r=e.target.closest('[data-recv]');if(r)openReceive(r.dataset.recv);
+  const a=e.target.closest('[data-adj]');if(a)openAdj(a.dataset.adj);
+});
+
+/* Receive stock */
+function skuOptions(sel){return S.products.map(p=>`<option value="${esc(p.sku)}" ${p.sku===sel?'selected':''}>${esc(p.name)} (${esc(p.sku)})</option>`).join('')}
+function addLine(sel){
+  const d=document.createElement('div');d.className='grid grid-cols-12 gap-2 items-center';
+  const p=find(sel)||S.products[0];
+  d.innerHTML=`<select class="field col-span-6">${skuOptions(p.sku)}</select>
+    <input class="field mono col-span-2" type="number" min="1" placeholder="Qty" required>
+    <input class="field mono col-span-3" type="number" min="0" step="0.01" placeholder="Cost ₹" value="${p.cost}">
+    <button type="button" class="btn-ghost col-span-1 justify-center" title="Remove">✕</button>`;
+  d.querySelector('select').addEventListener('change',e=>{d.children[2].value=find(e.target.value).cost;total()});
+  d.querySelector('button').addEventListener('click',()=>{if($('#r-lines').children.length>1){d.remove();total()}});
+  d.querySelectorAll('input').forEach(i=>i.addEventListener('input',total));
+  $('#r-lines').appendChild(d);total();
+}
+function total(){let t=0;[...$('#r-lines').children].forEach(d=>t+=(+d.children[1].value||0)*(+d.children[2].value||0));$('#r-total').textContent=inr(t)}
+function openReceive(sku){
+  $('#r-lines').innerHTML='';$('#r-date').value=new Date().toISOString().slice(0,10);
+  const p=find(sku);$('#r-supplier').value=p?.supplier||'';$('#r-ref').value='';
+  addLine(sku);$('#dlg-receive').showModal();
+}
+$('#btn-receive').addEventListener('click',()=>openReceive());
+$('#r-addline').addEventListener('click',()=>addLine());
+$('#form-receive').addEventListener('submit',e=>{
+  const sup=$('#r-supplier').value.trim(),ref=$('#r-ref').value.trim(),date=$('#r-date').value;
+  let n=0;
+  [...$('#r-lines').children].forEach(d=>{
+    const sku=d.children[0].value,qty=Math.floor(+d.children[1].value),cost=+d.children[2].value;
+    const p=find(sku);if(!p||!(qty>0))return;
+    p.stock+=qty;if(cost>0)p.cost=cost;if(sup)p.supplier=sup;
+    addMove('IN',sku,qty,`${ref} · ${sup}`,'Received '+date);n++;
+  });
+  if(n){save();render();toast(`Recorded ${n} line${n>1?'s':''} from ${sup}`)}
+});
+
+/* New SKU */
+$('#btn-add-sku').addEventListener('click',()=>{$('#form-sku').reset();$('#s-unit').value='pcs';$('#dlg-sku').showModal()});
+$('#form-sku').addEventListener('submit',e=>{
+  const sku=$('#s-sku').value.trim().toUpperCase();
+  if(find(sku)){e.preventDefault();toast('SKU already exists');return}
+  const p={sku,name:$('#s-name').value.trim(),unit:$('#s-unit').value.trim()||'pcs',stock:Math.max(0,+$('#s-stock').value||0),reorder:Math.max(0,+$('#s-reorder').value||0),cost:+$('#s-cost').value||0,supplier:$('#s-supplier').value.trim()};
+  S.products.push(p);if(p.stock)addMove('ADJ',sku,p.stock,'Opening balance');
+  save();render();toast('Added '+p.name);
+});
+
+/* Adjust */
+let adjSku=null;
+function openAdj(sku){adjSku=sku;const p=find(sku);$('#adj-title').textContent='Adjust · '+p.name;$('#a-qty').value=p.stock;$('#a-reorder').value=p.reorder;$('#a-note').value='';$('#dlg-adj').showModal()}
+$('#form-adj').addEventListener('submit',()=>{
+  const p=find(adjSku),nq=Math.max(0,Math.floor(+$('#a-qty').value)),diff=nq-p.stock;
+  p.reorder=Math.max(0,Math.floor(+$('#a-reorder').value));
+  if(diff){p.stock=nq;addMove('ADJ',p.sku,diff,'Manual adjustment',$('#a-note').value.trim())}
+  save();render();
+});
+
+/* Demo bill (remove once Billing writes to dukaanhub-bills) */
+$('#btn-sim').addEventListener('click',()=>{
+  const ps=S.products.filter(p=>p.stock>0);if(!ps.length)return toast('Nothing in stock to bill');
+  const pick=[...ps].sort(()=>Math.random()-.5).slice(0,2).map(p=>({sku:p.sku,qty:1+Math.floor(Math.random()*Math.min(8,p.stock))}));
+  const bill={id:'INV-'+(8000+Math.floor(Math.random()*999)),ts:Date.now(),items:pick};
+  let bills=[];try{bills=JSON.parse(localStorage.getItem(BILLS_KEY))||[]}catch(e){}
+  bills.push(bill);try{localStorage.setItem(BILLS_KEY,JSON.stringify(bills))}catch(e){}
+  syncBills();render();
+});
+
+/* ============ Constant checks ============
+   - on load, on tab focus, every 5s, and instantly when Billing (another tab) writes bills */
+function tick(){syncBills();render()}
+window.addEventListener('storage',e=>{if(e.key===BILLS_KEY){S=load();tick()}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){S=load();tick()}});
+setInterval(()=>{S=load();tick()},5000);
+
+syncBills();save();render();window.__ready=true;
+</script>
+</body>
+</html>
