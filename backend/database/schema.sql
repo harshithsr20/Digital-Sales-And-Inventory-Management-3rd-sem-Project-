@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS products (
   price_wholesale  NUMERIC(12,2) NOT NULL CHECK (price_wholesale >= 0),
   price_mrp        NUMERIC(12,2) NOT NULL CHECK (price_mrp >= 0),
   discount_percent NUMERIC(5,2)  NOT NULL DEFAULT 0 CHECK (discount_percent BETWEEN 0 AND 100),
+  unit             TEXT   NOT NULL DEFAULT 'pcs',
+  reorder_level    INTEGER NOT NULL DEFAULT 10 CHECK (reorder_level >= 0),
 
   -- Dynamic fields: left NULL for now, filled later by billing/analytics
   total_sales      NUMERIC(14,2),
@@ -21,6 +23,27 @@ CREATE TABLE IF NOT EXISTS products (
 
   UNIQUE (business_id, inventory_id)
 );
+
+-- Add inventory fields when upgrading an existing catalogue table.
+ALTER TABLE products ADD COLUMN IF NOT EXISTS unit TEXT NOT NULL DEFAULT 'pcs';
+ALTER TABLE products ADD COLUMN IF NOT EXISTS reorder_level INTEGER NOT NULL DEFAULT 10 CHECK (reorder_level >= 0);
+
+-- Durable inventory history. Quantity is a signed stock delta for adjustments.
+CREATE TABLE IF NOT EXISTS stock_movements (
+  id               BIGSERIAL PRIMARY KEY,
+  business_id      INTEGER NOT NULL,
+  inventory_id     TEXT NOT NULL,
+  movement_type    TEXT NOT NULL CHECK (movement_type IN ('IN', 'OUT', 'ADJ')),
+  quantity         INTEGER NOT NULL,
+  reference        TEXT,
+  note             TEXT,
+  occurred_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+  FOREIGN KEY (business_id, inventory_id)
+    REFERENCES products (business_id, inventory_id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS stock_movements_business_date
+  ON stock_movements (business_id, occurred_at DESC, id DESC);
 
 -- Trigger function to automatically generate per-shop inventory IDs formatted as BBBB-IIIII
 -- (e.g. 0001-00001: where 0001 is 4-digit business number, 00001 is 5-digit inventory sequence)

@@ -89,7 +89,11 @@ DukaanHub uses **Neon Serverless PostgreSQL**.
    - `price_mrp`: Numeric (>= 0).
    - `discount_percent`: Numeric (0 to 100).
    - `total_sales`, `sales_per_month`, `max_sales_month`: Analytics fields (nullable initially).
+   - `unit`, `reorder_level`: Inventory display unit and low-stock threshold.
    - Unique constraint on `(business_id, lower(product_name), lower(vendor_name))`.
+4. **`stock_movements`** (`backend/database/schema.sql`):
+   - Durable, business-scoped receipt and adjustment history for the inventory page.
+   - Quantity is the signed stock change; movement types are `IN`, `OUT`, or `ADJ`.
 
 ---
 
@@ -126,7 +130,7 @@ npx prisma generate
 cd ..
 ```
 
-*(Note: The database tables on Neon are already provisioned. If starting with an empty database, run `npx prisma migrate deploy` followed by running `backend/database/schema.sql` in the Neon SQL Editor).*
+*(Note: The database tables on Neon are already provisioned. Run the current `backend/database/schema.sql` in the Neon SQL Editor to add the inventory columns and movement table to an existing database. If starting with an empty database, run `npx prisma migrate deploy` followed by `backend/database/schema.sql`.)*
 
 ### Step 4: Run the Backend Server
 From the root directory:
@@ -182,6 +186,8 @@ Base URL: `http://localhost:5000`
 | `GET` | `/api/me` | Fetches active user profile and linked wholesale business record. | Yes (`Bearer <token>`) |
 | `GET` | `/api/products` | Returns all catalogue products belonging to the logged-in business. | Yes (`Bearer <token>`) |
 | `POST` | `/api/products` | Adds a new product row with auto-generated per-shop `0001-00001` ID. | Yes (`Bearer <token>`) |
+| `GET` | `/api/products/movements` | Returns the business's latest stock receipts and adjustments. | Yes (`Bearer <token>`) |
+| `POST` | `/api/products/:inventoryId/movements` | Records a stock receipt (`IN`) or a counted-stock adjustment (`ADJ`). | Yes (`Bearer <token>`) |
 
 ---
 
@@ -190,3 +196,4 @@ Base URL: `http://localhost:5000`
 1. Open `frontend/index.html` via VS Code Live Server (`http://127.0.0.1:5500/frontend/index.html`) or directly through Express (`http://localhost:5000/index.html`).
 2. Click **Log In** to test sign in on `login.html`, or **Get Started** to register on `registrationPage.html`.
 3. Once logged in, navigate to `mainDashboard.html` and click **Catalogue** to add products and confirm real-time synchronization with Neon PostgreSQL.
+4. Open `inventory.html` to view the same products, receive stock, and record a stock-count adjustment. Inventory changes persist in PostgreSQL and appear in the stock ledger.
