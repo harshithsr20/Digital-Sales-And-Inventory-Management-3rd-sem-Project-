@@ -5,6 +5,12 @@
   "main": "server.js",
   "scripts": {
     "start": "npm --prefix backend start",
-    "dev": "npm --prefix backend run dev"
+    "dev": "npm --prefix backend run dev",
+    "studio": "npm --prefix backend run studio",
+    "prisma:studio": "npm --prefix backend run studio",
+    "prisma:generate": "npm --prefix backend exec prisma generate"
+  },
+  "prisma": {
+    "schema": "backend/prisma/schema.prisma"
   }
 }
